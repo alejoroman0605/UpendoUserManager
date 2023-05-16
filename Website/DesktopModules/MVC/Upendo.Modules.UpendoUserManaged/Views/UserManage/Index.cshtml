@@ -1,0 +1,128 @@
+@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<IEnumerable<Upendo.Modules.UpendoUserManaged.Models.DnnModel.Users>>
+
+@using System.Text.RegularExpressions
+@using DotNetNuke.Web.Mvc.Helpers
+@using DotNetNuke.Web.Client.ClientResourceManagement
+
+@{
+    var moduleId = Dnn.ModuleContext.ModuleId;
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/css/bootstrap.min.css");
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/css/jquery.dataTables.min.css");
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/css/mbs-qdtf.css");
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/css/hint.css");
+    ClientResourceManager.RegisterScript(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/js/bootstrap.min.js", 20);
+    ClientResourceManager.RegisterScript(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/js/jquery.dataTables.js");
+    ClientResourceManager.RegisterScript(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/js/mbs-qdtf.js");
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/module.css");
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/js/bootstrap-confirmation.js");
+}
+
+
+<div id="Items-@Dnn.ModuleContext.ModuleId" style="margin: 2%!important;">
+    <div class="col-md-12">
+        <div class="col-md-4">
+            <img alt="logo" src="DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Images/Upendo-logo-trans.png" />
+        </div>
+        <div class="col-md-8">
+            <h1 id="title">Upendo User Manage</h1>
+            <h6 id="subtitle">Module for user management in DNN</h6>
+        </div>
+    </div>
+
+    @if (Model == null)
+    {
+        <p>@Dnn.LocalizeString("NoItems")</p>
+    }
+    else
+    {
+
+        <hr />
+        <div style="padding-bottom:10px!important;">
+            <a class="btn btn-success btn-sm" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create User
+            </a>
+        </div>
+        <table class="table dynamic table-striped table-bordered table-hover" id="table">
+            <thead>
+                <tr style="background-color:#6d5a2c; color:#FFFFFF">
+                    <th class="hidden">Id</th>
+                    <th>USERNAME</th>
+                    <th>NAME</th>
+                    <th>EMAIL</th>
+                    <th>SUPERUSER</th>
+                    <th>STATE</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="hidden">
+                            @item.UserId
+                        </td>
+                        <td>
+                            @item.Username
+                        </td>
+                        <td>
+                            @item.DisplayName
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        <td class="text-center">
+                            @if (@item.IsSuperUser == true)
+                            {
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:yellowgreen"></span>
+                            }
+                            else
+                            {
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red"></span>
+
+                            }
+
+                        </td>
+                        <td>
+                        </td>
+                        <td class="text-right">
+                            <a data-hint="Details" class="btn btn-info btn-sm edit hint--top hint--info" href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = item.UserId})">
+                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            </a>
+                            <a data-hint="Edit" class="btn btn-warning btn-sm edit hint--top hint--warning" href="@Url.Action("Edit", "UserManage", new {ctl = "Edit", itemId = item.UserId})">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </a>
+                            <a data-hint="Reset Password" class="btn btn-default btn-sm edit hint--top hint--" href="@Url.Action("ChangePassword", "UserManage", new {ctl = "Edit", itemId = item.UserId})">
+                                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                            </a>
+                            <a data-hint="UnLockUser" class="btn btn-default btn-sm edit hint--top hint--" href="@Url.Action("UnLockUser", "UserManage", new { itemId = item.UserId})">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </a>
+                            <a data-hint="Delete" class="btn btn-danger btn-sm delete hint--top hint--error" data-placement="top" data-singleton="true" href="@Url.Action("Delete", "UserManage", new {itemId = item.UserId})">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </a>
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#dataTables-pages').DataTable();
+
+
+    });
+</script>

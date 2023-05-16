@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Upendo.Modules.UpendoUserManaged</name>
+    </assembly>
+    <members>
+        <member name="M:Upendo.Modules.UpendoUserManaged.Controllers.SettingsController.Settings">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Upendo.Modules.UpendoUserManaged.Controllers.SettingsController.Settings(Upendo.Modules.UpendoUserManaged.Models.Settings)">
+            <summary>
+            
+            </summary>
+            <param name="settings"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

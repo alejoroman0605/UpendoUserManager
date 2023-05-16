@@ -1,0 +1,88 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using Upendo.Modules.UpendoUserManaged.Models.DnnModel;
+using static Telerik.Web.UI.OrgChartStyles;
+using DotNetNuke.Common;
+using Upendo.Modules.UpendoUserManaged.Data;
+using DotNetNuke.UI.UserControls;
+using System.Data.Entity;
+using System.Text;
+using System.Web.Security;
+using DotNetNuke.Entities.Users;
+using Hotcakes.Commerce.Marketing.PromotionQualifications;
+using DotNetNuke.Security.Membership;
+
+
+namespace Upendo.Modules.UpendoUserManaged.Utility
+{
+    public class UsuarioRepository
+    {
+        public static Users ObtenerUsuario(int id)
+        {
+            ModuleDbContext _context = new ModuleDbContext();
+            var user = _context.Users.SingleOrDefault(s => s.UserId == id);
+
+            return user;
+        }
+
+        public static void CreateUser(Users user,int portalId)
+        {
+            var userInfo = new UserInfo();
+            userInfo.FirstName = user.FirstName;
+            userInfo.LastName = user.LastName;
+            userInfo.Email = user.Email;
+            userInfo.Username = user.Username;
+            userInfo.PortalID= portalId;
+            userInfo.Membership.Password = "Admin123*";
+            userInfo.Membership.Approved = true;
+            UserController.CreateUser(ref userInfo);
+        }
+
+        public static void EditUser(Users user, int editedFor)
+        {
+            ModuleDbContext _context = new ModuleDbContext();
+            var userFind = _context.Set<Users>().Find(user.UserId);
+            userFind.Username = user.Username;
+            userFind.FirstName = user.FirstName;
+            userFind.LastName = user.LastName;
+            userFind.DisplayName = user.FirstName + " " + user.LastName;
+            userFind.LastModifiedOnDate = DateTime.UtcNow;
+            userFind.LastModifiedByUserId = editedFor;
+            _context.Entry(userFind).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public static void DeleteUser(int itemId)
+        {
+
+            ModuleDbContext _context = new ModuleDbContext();
+            var userFind = _context.Set<Users>().Find(itemId);
+            UserInfo user = UserController.GetUserByName(0, userFind.Username);
+            if (user != null)
+            {
+                UserController.DeleteUser(ref user, true, true);
+                // Delete from aspnet_Users table
+                DotNetNuke.Security.Membership.MembershipProvider membershipProvider = DotNetNuke.Security.Membership.MembershipProvider.Instance();
+                membershipProvider.DeleteUser(user);
+            }
+            userFind.IsDeleted = true;
+            _context.Entry(userFind).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public static void ChangePassword(int itemId, string newPassword)
+        {
+
+            ModuleDbContext _context = new ModuleDbContext();
+            var userFind = _context.Set<Users>().Find(itemId);
+            UserInfo user = UserController.GetUserByName(0, userFind.Username);
+            if (user != null)
+            {
+                DotNetNuke.Security.Membership.MembershipProvider membershipProvider = DotNetNuke.Security.Membership.MembershipProvider.Instance();
+                membershipProvider.ChangePassword(user, user.Membership.Password, newPassword);
+            }
+        }
+    }
+}

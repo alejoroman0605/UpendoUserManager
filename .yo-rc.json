@@ -1,0 +1,12 @@
+{
+  "generator-upendodnn": {
+    "promptValues": {
+      "yourName": "Upendo",
+      "company": "Upendo",
+      "companyUrl": "https://upendoventures.com/",
+      "emailAddy": "support@upendoventures.com",
+      "companyName": "UpendoVentures",
+      "objectPrefix": "uvm"
+    }
+  }
+}
