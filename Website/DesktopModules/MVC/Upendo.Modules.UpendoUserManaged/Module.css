@@ -62,3 +62,109 @@
     border: 2px solid #ba9545;
     width: 94%;
 }
+
+.formItem {
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+    .formItem input {
+        width: 95%;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        padding: 6px;
+        box-shadow: 0 1px 6px 0 rgba(0,0,0,0.2), 0 2px 8px 0 rgba(0,0,0,0.19);
+        margin-top: 3px;
+    }
+
+.buttomForm button {
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border-radius: 8px;
+}
+
+.buttomForm #primary {
+    background-color: #008CBA;
+}
+
+.buttomForm #cancelEdit {
+    background-color: grey;
+}
+
+.checkbox {
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+/* Grid System */
+.row::after {
+    content: "";
+    display: table;
+}
+
+#ml5 {
+    margin-left: 5px;
+}
+
+[class*="col-"] {
+    float: left;
+}
+
+.col-1 {
+    width: 8.33%;
+}
+
+.col-2 {
+    width: 16.66%;
+}
+
+.col-3 {
+    width: 25%;
+}
+
+.col-4 {
+    width: 33.33%;
+}
+
+.col-5 {
+    width: 41.66%;
+}
+
+.col-6 {
+    width: 50%;
+}
+
+.col-7 {
+    width: 58.33%;
+}
+
+.col-8 {
+    width: 66.66%;
+}
+
+.col-9 {
+    width: 75%;
+}
+
+.col-10 {
+    width: 83.33%;
+}
+
+.col-11 {
+    width: 91.66%;
+}
+
+.col-12 {
+    width: 100%;
+}
+/* Grid System */
