@@ -24,7 +24,7 @@
 var colums = $('.dynamic thead th').length;
 $(document).ready(function () {
     var dynamicTable = $(".dynamic").DataTable({
-        "lengthMenu": [ [20, 25, 30, 50, 100, -1], [20, 25, 30, 50, 100, "All"] ],
+        "lengthMenu": [ [10,20, 25, 30, 50, 100, -1], [10,20, 25, 30, 50, 100, "All"] ],
         //"language": {
         //    "paginate": {
         //        "first": "Primera",
