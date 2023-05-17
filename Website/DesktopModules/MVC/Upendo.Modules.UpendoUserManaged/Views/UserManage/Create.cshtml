@@ -1,62 +1,93 @@
-@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<Upendo.Modules.UpendoUserManaged.Models.DnnModel.Users>
+@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<Upendo.Modules.UpendoUserManaged.ViewModels.UserViewModel>
 
 @using System.Collections.Generic
 @using DotNetNuke.Web.Mvc.Helpers
 
-<div id="Item-@Dnn.ModuleContext.ModuleId">
-    <div class="dnnForm dnnEditBasicSettings" id="dnnEditBasicSettings">
-        <div class="dnnFormExpandContent dnnRight "><a href="#">@Dnn.LocalizeString("ExpandAll")</a></div>
-
-        <h2 id="dnnSitePanel-BasicSettings" class="dnnFormSectionHead dnnClear">
-            <a href="#" class="dnnSectionExpanded">@Dnn.LocalizeString("BasicSettings")</a>
-        </h2>
-        <h2>Create</h2>
-        <fieldset>
-            <div class="dnnFormItem">
-                <div><label>Username</label></div>
-                @Html.TextBoxFor(m => m.Username)
-            </div>
-            <div class="dnnFormItem">
+<div class="">
+    <h3>Create New User</h3>
+    <fieldset>
+        <div class="row" id="ml5">
+            <div class="formItem col-6">
                 <div><label>First Name</label></div>
                 @Html.TextBoxFor(m => m.FirstName)
             </div>
-            <div class="dnnFormItem">
+            <div class="formItem col-6">
                 <div><label>Last Name</label></div>
                 @Html.TextBoxFor(m => m.LastName)
             </div>
-            <div class="dnnFormItem">
-                <div><label>FirstName</label></div>
-                @Html.TextBoxFor(m => m.FirstName)
+            <div class="formItem col-6">
+                <div><label>Username</label></div>
+                @Html.TextBoxFor(m => m.Username)
             </div>
-            <div class="dnnFormItem">
-                <div><label>FirstName</label></div>
-                @Html.TextBoxFor(m => m.FirstName)
+            <div class="formItem col-6">
+                <div><label>Email</label></div>
+                @Html.TextBoxFor(m => m.Email)
             </div>
-            @Html.HiddenFor(m => m.UserId)
-        </fieldset>
-    </div>
-    <button type="submit" class="dnnPrimaryAction">Save</button>
-    <a id="cancelEdit" href="#" class="dnnSecondaryAction">@Dnn.LocalizeString("Cancel")</a>
+            <div class="formItem col-6">
+                <div><label>Password</label></div>
+                @Html.TextBoxFor(m => m.Password, new
+                {
+                    @class = "form-control",
+                    placeholder = "Password",
+                    @type =
+                "password"
+                })
+            </div>
+            <div class="formItem col-6">
+                <div><label>Confirm Password</label></div>
+                <input type="password" id="confirmPassword" />
+            </div>
+            <div class="checkbox col-6">
+                @Html.CheckBoxFor(m => m.IsSuperUser)
+                <label>IsSuperUser</label>
+            </div>
+            <div class="checkbox col-6">
+                @Html.CheckBoxFor(m => m.Approved)
+                <label>Approved</label>
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.UserId)
+    </fieldset>
+</div>
+<div class="buttomForm">
+    <button type="submit" id="primary">Save</button>
+    <button id="cancelEdit" href="#">@Dnn.LocalizeString("Cancel")</button>
 </div>
 
 <script type="text/javascript">
-    /*globals jQuery, window, Sys */
-    (function($, Sys) {
-        function dnnEditBasicSettings() {
-            $('#dnnEditBasicSettings').dnnPanels();
-            $('#dnnEditBasicSettings .dnnFormExpandContent a').dnnExpandAll({
-				expandText: '@Dnn.LocalizeString("ExpandAll")',
-				collapseText: '@Dnn.LocalizeString("CollapseAll")',
-				targetArea: '#dnnEditBasicSettings'
-			});
+    $(document).ready(function () {
+    @* $('.dnnFormPopup').hide();
+            $('.ui-dialog-titlebar').hide();
+            $(".ui-dialog-titlebar").dialog({
+            title: "Dialog Title"
+            }); *@
+            $(".ui-dialog-titlebar").dialog('ui-dialog-titlebar', 'title', 'New Title');
+    });
+    $("#submit").on("click", function (e) {
+        var password = $("#Password").val();
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        if (password == confirmPassword) {
+            e.preventDefault();
+            alert("value can't be null");
         }
+    })
+        /*globals jQuery, window, Sys */
+        (function ($, Sys) {
+            function dnnEditBasicSettings() {
+                $('#dnnEditBasicSettings').dnnPanels();
+                $('#dnnEditBasicSettings .dnnFormExpandContent a').dnnExpandAll({
+                    expandText: '@Dnn.LocalizeString("ExpandAll")',
+                    collapseText: '@Dnn.LocalizeString("CollapseAll")',
+                    targetArea: '#dnnEditBasicSettings'
+                });
+            }
 
-        $(function() {
-            $('#cancelEdit').click(function() { dnnModal.closePopUp(false); });
-            dnnEditBasicSettings();
-            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function() {
+            $(function () {
+                $('#cancelEdit').click(function () { dnnModal.closePopUp(false); });
                 dnnEditBasicSettings();
+                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+                    dnnEditBasicSettings();
+                });
             });
-        });
-    }(jQuery, window.Sys));
+        }(jQuery, window.Sys));
 </script>
