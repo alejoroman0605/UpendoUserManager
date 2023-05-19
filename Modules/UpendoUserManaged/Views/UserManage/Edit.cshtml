@@ -1,4 +1,4 @@
-@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<Upendo.Modules.UpendoUserManaged.Models.DnnModel.Users>
+@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<Upendo.Modules.UpendoUserManaged.ViewModels.UserViewModel>
 
 @using System.Collections.Generic
 @using DotNetNuke.Web.Mvc.Helpers
@@ -11,25 +11,44 @@
             <a href="#" class="dnnSectionExpanded">@Dnn.LocalizeString("BasicSettings")</a>
         </h2>
         <fieldset>
-            <div class="dnnFormItem">
-                <div><label>Username</label></div>
-                @Html.TextBoxFor(m => m.Username)
-            </div>
-            <div class="dnnFormItem">
-                <div><label>First Name</label></div>
-                @Html.TextBoxFor(m => m.FirstName)
-            </div>
-            <div class="dnnFormItem">
-                <div><label>Last Name</label></div>
-                @Html.TextBoxFor(m => m.LastName)
-            </div>
-            <div class="dnnFormItem">
-                <div><label>FirstName</label></div>
-                @Html.TextBoxFor(m => m.FirstName)
-            </div>
-            <div class="dnnFormItem">
-                <div><label>FirstName</label></div>
-                @Html.TextBoxFor(m => m.FirstName)
+            <div class="row" id="ml5">
+                <div class="formItem col-6">
+                    <div><label>First Name</label></div>
+                    @Html.TextBoxFor(m => m.FirstName)
+                </div>
+                <div class="formItem col-6">
+                    <div><label>Last Name</label></div>
+                    @Html.TextBoxFor(m => m.LastName)
+                </div>
+                <div class="formItem col-6">
+                    <div><label>Username</label></div>
+                    @Html.TextBoxFor(m => m.Username)
+                </div>
+                <div class="formItem col-6">
+                    <div><label>Email</label></div>
+                    @Html.TextBoxFor(m => m.Email, new
+                    {
+                    @class = "form-control",
+                    @type = "email"
+                    })
+                </div>
+                <div class="formItem col-6">
+                    <div><label>Password</label></div>
+                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @id = "password", @type = "password" })
+                </div>
+                <div class="formItem col-6">
+                    <div><label>Confirm Password</label></div>
+                    <input type="password" name="confirm_password" id="confirm_password" onkeyup='validatePassword();' />
+                    <span id='message'></span>
+                </div>
+                <div class="col-6">
+                    @Html.CheckBoxFor(m => m.IsSuperUser, new { @id = "checkbox" })
+                    <label class="checkbox">IsSuperUser</label>
+                </div>
+                <div class="col-6">
+                    @Html.CheckBoxFor(m => m.Approved, new { @id = "checkbox" })
+                    <label class="checkbox">Approved</label>
+                </div>
             </div>
             @Html.HiddenFor(m => m.UserId)
         </fieldset>
