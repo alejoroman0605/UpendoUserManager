@@ -3,8 +3,8 @@
 @using System.Collections.Generic
 @using DotNetNuke.Web.Mvc.Helpers
 
-<div class="">
-    <h3>Create New User</h3>
+<div id="app" data-app>
+    <h3>{{title}}</h3>
     <fieldset>
         <div class="row" id="ml5">
             <div class="formItem col-6">
@@ -24,7 +24,7 @@
                 @Html.TextBoxFor(m => m.Email, new
                 {
                 @class = "form-control",
-                    @type = "email"
+                @type = "email"
                 })
             </div>
             <div class="formItem col-6">
@@ -52,8 +52,13 @@
     <button type="submit" id="primary">Save</button>
     <button id="cancelEdit" href="#">@Dnn.LocalizeString("Cancel")</button>
 </div>
-
-<script type="text/javascript">
+<script type="application/javascript">
+    let app = new Vue({
+        el: '#app',
+        data: {
+            title: "Create New User"
+        }
+    })
     function validatePassword() {
         var password = document.getElementById('password').value;
         var confirm_password = document.getElementById('confirm_password').value;
