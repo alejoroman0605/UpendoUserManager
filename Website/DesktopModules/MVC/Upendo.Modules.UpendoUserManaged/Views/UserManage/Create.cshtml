@@ -3,8 +3,8 @@
 @using System.Collections.Generic
 @using DotNetNuke.Web.Mvc.Helpers
 
-<div class="">
-    <h3>Create New User</h3>
+<div id="app" data-app>
+    <h3>{{title}}</h3>
     <fieldset>
         <div class="row" id="ml5">
             <div class="formItem col-6">
@@ -21,29 +21,28 @@
             </div>
             <div class="formItem col-6">
                 <div><label>Email</label></div>
-                @Html.TextBoxFor(m => m.Email)
-            </div>
-            <div class="formItem col-6">
-                <div><label>Password</label></div>
-                @Html.TextBoxFor(m => m.Password, new
+                @Html.TextBoxFor(m => m.Email, new
                 {
-                    @class = "form-control",
-                    placeholder = "Password",
-                    @type =
-                "password"
+                @class = "form-control",
+                @type = "email"
                 })
             </div>
             <div class="formItem col-6">
+                <div><label>Password</label></div>
+                @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @id = "password", @type = "password" })
+            </div>
+            <div class="formItem col-6">
                 <div><label>Confirm Password</label></div>
-                <input type="password" id="confirmPassword" />
+                <input type="password" name="confirm_password" id="confirm_password" onkeyup='validatePassword();' />
+                <span id='message'></span>
             </div>
-            <div class="checkbox col-6">
-                @Html.CheckBoxFor(m => m.IsSuperUser)
-                <label>IsSuperUser</label>
+            <div class="col-6">
+                @Html.CheckBoxFor(m => m.IsSuperUser, new { @id = "checkbox" })
+                <label class="checkbox">IsSuperUser</label>
             </div>
-            <div class="checkbox col-6">
-                @Html.CheckBoxFor(m => m.Approved)
-                <label>Approved</label>
+            <div class="col-6">
+                @Html.CheckBoxFor(m => m.Approved, new { @id = "checkbox" })
+                <label class="checkbox">Approved</label>
             </div>
         </div>
         @Html.HiddenFor(m => m.UserId)
@@ -53,41 +52,43 @@
     <button type="submit" id="primary">Save</button>
     <button id="cancelEdit" href="#">@Dnn.LocalizeString("Cancel")</button>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-    @* $('.dnnFormPopup').hide();
-            $('.ui-dialog-titlebar').hide();
-            $(".ui-dialog-titlebar").dialog({
-            title: "Dialog Title"
-            }); *@
-            $(".ui-dialog-titlebar").dialog('ui-dialog-titlebar', 'title', 'New Title');
-    });
-    $("#submit").on("click", function (e) {
-        var password = $("#Password").val();
-        var confirmPassword = document.getElementById("confirmPassword").value;
-        if (password == confirmPassword) {
-            e.preventDefault();
-            alert("value can't be null");
+<script type="application/javascript">
+    let app = new Vue({
+        el: '#app',
+        data: {
+            title: "Create New User"
         }
     })
-        /*globals jQuery, window, Sys */
-        (function ($, Sys) {
-            function dnnEditBasicSettings() {
-                $('#dnnEditBasicSettings').dnnPanels();
-                $('#dnnEditBasicSettings .dnnFormExpandContent a').dnnExpandAll({
-                    expandText: '@Dnn.LocalizeString("ExpandAll")',
-                    collapseText: '@Dnn.LocalizeString("CollapseAll")',
-                    targetArea: '#dnnEditBasicSettings'
-                });
-            }
+    function validatePassword() {
+        var password = document.getElementById('password').value;
+        var confirm_password = document.getElementById('confirm_password').value;
+        var message = document.getElementById('message');
 
-            $(function () {
-                $('#cancelEdit').click(function () { dnnModal.closePopUp(false); });
-                dnnEditBasicSettings();
-                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
-                    dnnEditBasicSettings();
-                });
+        if (password == confirm_password) {
+            message.style.color = 'green';
+            message.innerHTML = '';
+        } else {
+            message.style.color = 'red';
+            message.innerHTML = 'Not Matching';
+        }
+    }
+    /*globals jQuery, window, Sys */
+    (function ($, Sys) {
+        function dnnEditBasicSettings() {
+            $('#dnnEditBasicSettings').dnnPanels();
+            $('#dnnEditBasicSettings .dnnFormExpandContent a').dnnExpandAll({
+                expandText: '@Dnn.LocalizeString("ExpandAll")',
+                collapseText: '@Dnn.LocalizeString("CollapseAll")',
+                targetArea: '#dnnEditBasicSettings'
             });
-        }(jQuery, window.Sys));
+        }
+
+        $(function () {
+            $('#cancelEdit').click(function () { dnnModal.closePopUp(false); });
+            dnnEditBasicSettings();
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+                dnnEditBasicSettings();
+            });
+        });
+    }(jQuery, window.Sys));
 </script>
