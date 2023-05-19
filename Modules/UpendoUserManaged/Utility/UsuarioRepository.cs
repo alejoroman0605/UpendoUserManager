@@ -23,7 +23,6 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
         {
             ModuleDbContext _context = new ModuleDbContext();
             var user = _context.Users.SingleOrDefault(s => s.UserId == id);
-
             return user;
         }
 
@@ -38,6 +37,13 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             userInfo.IsSuperUser = user.IsSuperUser;
             userInfo.Membership.Password = user.Password;
             userInfo.Membership.Approved = user.Approved;
+
+            ModuleDbContext _context = new ModuleDbContext();
+            var roles = _context.Roles.Where(r => r.AutoAssignment==true).ToList();
+            foreach (var item in roles)
+            {
+                userInfo.Roles.Append(item.RoleName);
+            }
             UserController.CreateUser(ref userInfo);
         }
 
