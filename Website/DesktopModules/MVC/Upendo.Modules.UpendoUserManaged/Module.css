@@ -104,8 +104,16 @@
 .checkbox {
     font-size: 16px;
     margin-top: 20px;
-    margin-bottom: 20px;
 }
+
+#checkbox {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+}
+
 /* Grid System */
 .row::after {
     content: "";
