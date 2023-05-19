@@ -13,7 +13,7 @@ using System.Web.Security;
 using DotNetNuke.Entities.Users;
 using Hotcakes.Commerce.Marketing.PromotionQualifications;
 using DotNetNuke.Security.Membership;
-
+using Upendo.Modules.UpendoUserManaged.ViewModels;
 
 namespace Upendo.Modules.UpendoUserManaged.Utility
 {
@@ -27,7 +27,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             return user;
         }
 
-        public static void CreateUser(Users user,int portalId)
+        public static void CreateUser(UserViewModel user,int portalId)
         {
             var userInfo = new UserInfo();
             userInfo.FirstName = user.FirstName;
@@ -35,8 +35,9 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             userInfo.Email = user.Email;
             userInfo.Username = user.Username;
             userInfo.PortalID= portalId;
-            userInfo.Membership.Password = "Admin123*";
-            userInfo.Membership.Approved = true;
+            userInfo.IsSuperUser = user.IsSuperUser;
+            userInfo.Membership.Password = user.Password;
+            userInfo.Membership.Approved = user.Approved;
             UserController.CreateUser(ref userInfo);
         }
 

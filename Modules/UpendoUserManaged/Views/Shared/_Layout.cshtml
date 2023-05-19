@@ -1,3 +1,25 @@
+@using DotNetNuke.Web.Client.ClientResourceManagement
+@{
+    var moduleId = Dnn.ModuleContext.ModuleId;
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/css/bootstrap.min.css");
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/css/jquery.dataTables.min.css");
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/css/mbs-qdtf.css");
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/css/hint.css");
+    ClientResourceManager.RegisterScript(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/js/bootstrap.min.js", 20);
+    ClientResourceManager.RegisterScript(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/js/jquery.dataTables.js");
+    ClientResourceManager.RegisterScript(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/js/mbs-qdtf.js");
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/js/bootstrap-confirmation.js");
+    ClientResourceManager.RegisterScript(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/js/vue.js");
+}
 <div id="mvcContainer-@Dnn.ActiveModule.ModuleID">
     @RenderBody()
 </div>

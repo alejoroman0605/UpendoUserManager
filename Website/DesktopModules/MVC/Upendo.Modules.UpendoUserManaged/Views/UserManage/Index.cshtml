@@ -2,30 +2,6 @@
 
 @using System.Text.RegularExpressions
 @using DotNetNuke.Web.Mvc.Helpers
-@using DotNetNuke.Web.Client.ClientResourceManagement
-
-@{
-    var moduleId = Dnn.ModuleContext.ModuleId;
-    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
-    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/css/bootstrap.min.css");
-    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
-    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/css/jquery.dataTables.min.css");
-    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
-    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/css/mbs-qdtf.css");
-    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
-    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/css/hint.css");
-    ClientResourceManager.RegisterScript(Dnn.DnnPage,
-    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/js/bootstrap.min.js", 20);
-    ClientResourceManager.RegisterScript(Dnn.DnnPage,
-    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/js/jquery.dataTables.js");
-    ClientResourceManager.RegisterScript(Dnn.DnnPage,
-    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/js/mbs-qdtf.js");
-    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
-    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/module.css");
-    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
-    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/js/bootstrap-confirmation.js");
-}
-
 
 <div id="Items-@Dnn.ModuleContext.ModuleId" style="margin: 2%!important;">
     <div class="col-md-12">
@@ -47,7 +23,7 @@
 
         <hr />
         <div style="padding-bottom:10px!important;">
-            <a class="btn btn-success btn-sm" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
+            <a type="button" class="btn btn-primary" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create User
             </a>
         </div>

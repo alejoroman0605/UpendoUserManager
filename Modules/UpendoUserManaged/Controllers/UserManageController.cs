@@ -14,6 +14,7 @@ using Upendo.Modules.UpendoUserManaged.Models.DnnModel;
 using Upendo.Modules.UpendoUserManaged.Utility;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Security.Membership;
+using Upendo.Modules.UpendoUserManaged.ViewModels;
 
 namespace Upendo.Modules.UpendoUserManaged.Controllers
 {
@@ -27,7 +28,6 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
             return RedirectToDefaultRoute();
         }
 
-        [ModuleAction(ControlKey = "Create", TitleKey = "AddItem")]
         public ActionResult Create()
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
@@ -35,7 +35,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Users item)
+        public ActionResult Create(UserViewModel item)
         {
             //var portalId = PortalController.Instance.GetCurrentPortalSettings().PortalId;
             var portalId = ModuleContext.PortalId;
