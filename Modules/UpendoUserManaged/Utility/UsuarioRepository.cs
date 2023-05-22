@@ -19,10 +19,27 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
 {
     public class UsuarioRepository
     {
+<<<<<<< Updated upstream
         public static Users ObtenerUsuario(int id)
         {
             ModuleDbContext _context = new ModuleDbContext();
             var user = _context.Users.SingleOrDefault(s => s.UserId == id);
+=======
+        public static UserViewModel GetUser(int id)
+        {
+            ModuleDbContext _context = new ModuleDbContext();
+            var userDnn = _context.Users.FirstOrDefault(x=>x.UserId == id);
+            var user = new UserViewModel {
+                UserId= userDnn.UserId,
+                FirstName = userDnn.FirstName,
+                LastName = userDnn.LastName,
+                Email = userDnn.Email,
+                Username = userDnn.Username,
+                IsSuperUser = userDnn.IsSuperUser,
+                Approved = Membership.GetUser(userDnn).IsApproved,
+                UserRoles = userDnn.UserRoles,
+            };
+>>>>>>> Stashed changes
             return user;
         }
 
