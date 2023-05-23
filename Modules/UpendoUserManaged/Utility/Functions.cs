@@ -11,7 +11,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
 {
     public class Functions
     {
-        public static IEnumerable<Users> ObtenerUsuarios()
+        public static IEnumerable<Users> GetUsers()
         {
             ModuleDbContext _context = new ModuleDbContext();
             var users = _context.Users.Where(s=>s.IsDeleted==false).ToList();
