@@ -19,7 +19,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             return users;
         }
 
-        public static IEnumerable<Roles> ObtenerRolesDelUsuario(int id)
+        public static IEnumerable<Roles> GetUserRoles(int id)
         {
             ModuleDbContext _context = new ModuleDbContext();
             var roles = _context.UserRoles.Where(s=>s.UserId == id).ToList();
