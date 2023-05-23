@@ -30,5 +30,10 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             }
             return rolesInUser;
         }
+        public static IEnumerable<Roles> GetRoles(int id)
+        {
+            ModuleDbContext _context = new ModuleDbContext();
+            return _context.Roles.ToList();
+        }
     }
 }
