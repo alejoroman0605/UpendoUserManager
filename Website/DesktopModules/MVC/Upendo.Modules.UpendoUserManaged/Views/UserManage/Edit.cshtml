@@ -45,6 +45,14 @@
                             }
                         </select>
                     </div>
+                    <div class="col-6">
+                        <select id="roles" name="roles" multiple>
+                            @foreach (var item in ViewBag.Roles)
+                            {
+                                <option>@item.Role.RoleName</option>
+                            }
+                        </select>
+                    </div>
                     @* <div class="col-6">
                         <v-select v-model="e6" :items="roles" :menu-props="{ maxHeight: '400' }" label="Select" multiple
                         hint="Roles" persistent-hint></v-select>
@@ -90,9 +98,6 @@
             roles: [],
         },
         mounted: function () {
-            let list = '@Html.Raw(Json.Encode(Model.UserRoles))';
-            this.roles = JSON.parse(list);
-            console.log('this.roles', this.roles)
         }
         methods: {
         }
