@@ -90,9 +90,6 @@
             roles: [],
         },
         mounted: function () {
-            let list = '@Html.Raw(Json.Encode(Model.UserRoles))';
-            this.roles = JSON.parse(list);
-            console.log('this.roles', this.roles)
         }
         methods: {
         }
