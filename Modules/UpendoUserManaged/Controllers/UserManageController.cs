@@ -46,7 +46,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         public ActionResult Edit(int itemId)
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
-            var item = UsuarioRepository.ObtenerUsuario(itemId);
+            var item = UsuarioRepository.GetUser(itemId);
             return View(item);
         }  
       
@@ -60,7 +60,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         public ActionResult Details(int itemId)
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
-            var item = UsuarioRepository.ObtenerUsuario(itemId);
+            var item = UsuarioRepository.GetUser(itemId);
             return View(item);
         }
 
@@ -70,11 +70,16 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
             var items = Functions.ObtenerUsuarios();
             return View(items);
         }
+        public ActionResult GetUsers()
+        {
+            var items = Functions.ObtenerUsuarios();
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult ChangePassword(int itemId)
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
-            var item = UsuarioRepository.ObtenerUsuario(itemId);
+            var item = UsuarioRepository.GetUser(itemId);
             return View(item);
         }
 
