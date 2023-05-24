@@ -226,6 +226,7 @@
     <Content Include="Resources\lib\jquery-validation\LICENSE.md" />
     <Content Include="Resources\lib\jquery\.bower.json" />
     <Content Include="Resources\lib\jquery\dist\jquery.min.map" />
+    <Content Include="Resources\css\profile.css" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
