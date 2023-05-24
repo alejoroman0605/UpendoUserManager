@@ -6,12 +6,13 @@ using Upendo.Modules.UpendoUserManaged.Models.DnnModel;
 using static Telerik.Web.UI.OrgChartStyles;
 using DotNetNuke.Common;
 using Upendo.Modules.UpendoUserManaged.Data;
+using Upendo.Modules.UpendoUserManaged.ViewModels;
 
 namespace Upendo.Modules.UpendoUserManaged.Utility
 {
     public class Functions
     {
-        public static IEnumerable<Users> ObtenerUsuarios()
+        public static IEnumerable<Users> GetUsers()
         {
             ModuleDbContext _context = new ModuleDbContext();
             var users = _context.Users.Where(s=>s.IsDeleted==false).ToList();
@@ -19,7 +20,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             return users;
         }
 
-        public static IEnumerable<Roles> ObtenerRolesDelUsuario(int id)
+        public static IEnumerable<Roles> GetUserRoles(int id)
         {
             ModuleDbContext _context = new ModuleDbContext();
             var roles = _context.UserRoles.Where(s=>s.UserId == id).ToList();
@@ -29,6 +30,23 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 rolesInUser.Add(item.Role);
             }
             return rolesInUser;
+        }
+        public static List<RolesViewModel> GetRoles()
+        {
+            ModuleDbContext _context = new ModuleDbContext();
+            List<RolesViewModel> roles = new List<RolesViewModel>(); 
+            var rolesDnn= _context.Roles.ToList();
+            foreach (var item in rolesDnn)
+            {
+                var rolViewModel = new RolesViewModel
+                {
+                    PortalId = item.PortalId,
+                    RoleName = item.RoleName,
+                    RoleId = item.RoleId
+                };
+                roles.Add(rolViewModel);
+            }
+            return roles;
         }
     }
 }

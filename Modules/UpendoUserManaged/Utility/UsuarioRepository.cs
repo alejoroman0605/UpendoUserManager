@@ -19,21 +19,39 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
 {
     public class UsuarioRepository
     {
+<<<<<<< HEAD
+        public static UserViewModel GetUser(int id)
+        {
+            ModuleDbContext _context = new ModuleDbContext();
+            var userDnn = _context.Users.SingleOrDefault(x => x.UserId == id);
+            var user = new UserViewModel
+            {
+                UserId = userDnn.UserId,
+                FirstName = userDnn.FirstName,
+                LastName = userDnn.LastName,
+                Email = userDnn.Email,
+                Username = userDnn.Username,
+                IsSuperUser = userDnn.IsSuperUser,
+                //Approved = Membership.GetUser(userDnn.Username).IsApproved,
+                UserRoles = userDnn.UserRoles,
+            };
+=======
         public static Users GetUser(int id)
         {
             ModuleDbContext _context = new ModuleDbContext();
             var user = _context.Users.SingleOrDefault(s => s.UserId == id);
+>>>>>>> 3b5d30ff85ad9605b7b22cc977d918df9d5e7f03
             return user;
         }
 
-        public static void CreateUser(UserViewModel user,int portalId)
+        public static void CreateUser(UserViewModel user, int portalId)
         {
             var userInfo = new UserInfo();
             userInfo.FirstName = user.FirstName;
             userInfo.LastName = user.LastName;
             userInfo.Email = user.Email;
             userInfo.Username = user.Username;
-            userInfo.PortalID= portalId;
+            userInfo.PortalID = portalId;
             userInfo.IsSuperUser = user.IsSuperUser;
             userInfo.Membership.Password = user.Password;
             userInfo.Membership.Approved = user.Approved;
