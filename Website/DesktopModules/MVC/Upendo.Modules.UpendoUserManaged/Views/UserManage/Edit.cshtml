@@ -39,8 +39,9 @@
                     </div>
                     <div class="formItem col-6" id="mt20">
                         <div><label>Roles</label></div>
-                        @Html.DropDownList("UserRoles", new SelectList(ViewBag.Roles, "RoleId", "RoleName"), new
-                        {@class = "dropDownList"})
+                        @*@Html.DropDownList("UserRoles", new SelectList(ViewBag.Roles, "RoleId", "RoleName"), new
+                        { @class = "dropDownList" })*@
+                        @Html.DropDownList("UserRoles", new SelectList(ViewBag.Roles, "RoleId", "RoleName"))
                     </div>
                     <div class="col-6" id="mt20">
                         <h2>User Roles</h2>
