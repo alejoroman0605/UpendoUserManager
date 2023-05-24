@@ -1,60 +1,115 @@
-@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<Upendo.Modules.UpendoUserManaged.Models.DnnModel.Users>
+@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<Upendo.Modules.UpendoUserManaged.ViewModels.UserViewModel>
 
 @using System.Collections.Generic
 @using DotNetNuke.Web.Mvc.Helpers
 
-<div id="Item-@Dnn.ModuleContext.ModuleId">
-    <div class="dnnForm dnnEditBasicSettings" id="dnnEditBasicSettings">
-        <div class="dnnFormExpandContent dnnRight "><a href="#">@Dnn.LocalizeString("ExpandAll")</a></div>
-
-        <h2 id="dnnSitePanel-BasicSettings" class="dnnFormSectionHead dnnClear">
-            <a href="#" class="dnnSectionExpanded">@Dnn.LocalizeString("BasicSettings")</a>
-        </h2>
-        <h2>Details</h2>
+<div class="row accountSettings">
+    <div class="col-12 center">
+        <img src="DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Images/Upendo-logo-trans.png" alt="User"
+             width="100" height="100">
+    </div>
+    <div class="col-6">
+        <h4 id="title">ACCOUNT SETTINGS</h4>
         <fieldset>
-            <div class="dnnFormItem">
-                <div><label>Username</label></div>
+            <div class="formItem">
+                <div><label>User Name</label></div>
                 @Html.TextBoxFor(m => m.Username)
             </div>
-            <div class="dnnFormItem">
-                <div><label>First Name</label></div>
-                @Html.TextBoxFor(m => m.FirstName)
+            <div class="formItem">
+                <div><label>Display Name</label></div>
+                @Html.TextBoxFor(m => m.DisplayName)
             </div>
-            <div class="dnnFormItem">
-                <div><label>Last Name</label></div>
-                @Html.TextBoxFor(m => m.LastName)
-            </div>
-            <div class="dnnFormItem">
-                <div><label>FirstName</label></div>
-                @Html.TextBoxFor(m => m.FirstName)
-            </div>
-            <div class="dnnFormItem">
-                <div><label>FirstName</label></div>
-                @Html.TextBoxFor(m => m.FirstName)
+            <div class="formItem">
+                <div><label>Email Address</label></div>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @type = "email" })
             </div>
             @Html.HiddenFor(m => m.UserId)
         </fieldset>
+        <div class="col-12 mt20">
+            <a data-hint="ChangePassword" class="btn btn-info btn-sm edit hint--top hint--info"
+               href="@Url.Action("ChangePassword", "UserManage", new {ctl = "Edit", itemId = @Model.UserId})">
+                <span>Change Password</span>
+            </a>
+        </div>
+        <div class="col-12 mt5">
+            <a data-hint="Details" class="btn btn-info btn-sm edit hint--top hint--info"
+               href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = @Model.UserId})">
+                <span>Force Password Change</span>
+            </a>
+        </div>
+        <div class="col-12 mt5">
+            <a data-hint="Details" class="btn btn-info btn-sm edit hint--top hint--info"
+               href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = @Model.UserId})">
+                <span>Send Password Reset Link</span>
+            </a>
+        </div>
     </div>
-    <button type="submit" class="dnnPrimaryAction">Save</button>
-    <a id="cancelEdit" href="#" class="dnnSecondaryAction">@Dnn.LocalizeString("Cancel")</a>
+    @* <div class="col-2">
+        <div class="vl"></div>
+        </div> *@
+    <div class="col-6">
+        <div class="row accountSettings">
+            <div class="col-12">
+                <h4 id="title">ACCOUNT DATA</h4>
+            </div>
+            <div class="col-6 mt35">
+                <p>User ID:</p>
+            </div>
+            <div class="col-6 mt35">
+                <p>@Model.UserId</p>
+            </div>
+            <div class="col-6">
+                <p>Created Date:</p>
+            </div>
+            <div class="col-6">
+                <p>@Model.CreatedOnDate</p>
+            </div>
+            <div class="col-6">
+                <p>Deleted:</p>
+            </div>
+            <div class="col-6">
+                <p>@Model.IsDeleted</p>
+            </div>
+            <div class="col-6">
+                <p>Last Activity Date:</p>
+            </div>
+            <div class="col-6">
+                <p>@Model.LastModifiedOnDate</p>
+            </div>
+            <div class="col-6">
+                <p>Update Password:</p>
+            </div>
+            <div class="col-6">
+                <p>@Model.UpdatePassword</p>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="buttomForm mt20">
+    <div class="center">
+        <button type="submit" id="primary">Save</button>
+        <button id="cancelEdit" href="#">@Dnn.LocalizeString("Cancel")</button>
+    </div>
+</div>
+<script>
 
+</script>
 <script type="text/javascript">
     /*globals jQuery, window, Sys */
-    (function($, Sys) {
+    (function ($, Sys) {
         function dnnEditBasicSettings() {
             $('#dnnEditBasicSettings').dnnPanels();
             $('#dnnEditBasicSettings .dnnFormExpandContent a').dnnExpandAll({
-				expandText: '@Dnn.LocalizeString("ExpandAll")',
-				collapseText: '@Dnn.LocalizeString("CollapseAll")',
-				targetArea: '#dnnEditBasicSettings'
-			});
+                expandText: '@Dnn.LocalizeString("ExpandAll")',
+                collapseText: '@Dnn.LocalizeString("CollapseAll")',
+                targetArea: '#dnnEditBasicSettings'
+            });
         }
 
-        $(function() {
-            $('#cancelEdit').click(function() { dnnModal.closePopUp(false); });
+        $(function () {
+            $('#cancelEdit').click(function () { dnnModal.closePopUp(false); });
             dnnEditBasicSettings();
-            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function() {
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
                 dnnEditBasicSettings();
             });
         });

@@ -26,6 +26,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             var user = new UserViewModel
             {
                 UserId = userDnn.UserId,
+                DisplayName = userDnn.DisplayName,
                 FirstName = userDnn.FirstName,
                 LastName = userDnn.LastName,
                 Email = userDnn.Email,
@@ -33,6 +34,11 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 IsSuperUser = userDnn.IsSuperUser,
                 //Approved = Membership.GetUser(userDnn.Username).IsApproved,
                 UserRoles = userDnn.UserRoles,
+                CreatedOnDate = userDnn.CreatedOnDate,
+                IsDeleted = userDnn.IsDeleted,
+                LastModifiedOnDate = userDnn.LastModifiedOnDate,
+                UpdatePassword = userDnn.UpdatePassword,
+ 
             };
             return user;
         }
@@ -95,10 +101,12 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             ModuleDbContext _context = new ModuleDbContext();
             var userFind = _context.Set<Users>().Find(itemId);
             UserInfo user = UserController.GetUserByName(0, userFind.Username);
+            UserController.ResetPassword( user, newPassword);
             if (user != null)
             {
-                DotNetNuke.Security.Membership.MembershipProvider membershipProvider = DotNetNuke.Security.Membership.MembershipProvider.Instance();
-                membershipProvider.ChangePassword(user, user.Membership.Password, newPassword);
+                UserController.ResetPassword(user, newPassword);
+                //DotNetNuke.Security.Membership.MembershipProvider membershipProvider = DotNetNuke.Security.Membership.MembershipProvider.Instance();
+                //membershipProvider.ChangePassword(user, user.Membership.Password, newPassword);
             }
         }
     }

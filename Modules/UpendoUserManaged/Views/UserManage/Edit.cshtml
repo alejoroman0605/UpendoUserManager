@@ -37,22 +37,22 @@
                         @type = "email"
                         })
                     </div>
-                    @*<div class="formItem col-6" id="mt20">
+                    @*<div class="formItem col-6 mt20">
                         <div><label>Roles</label></div>
                         @Html.DropDownList("UserRoles", new SelectList(ViewBag.Roles, "RoleId", "RoleName"), new
                         { @class = "dropDownList" })
-                    </div>
-                    <div class="col-6" id="mt20">
+                        </div>
+                        <div class="col-6 mt20">
                         <h2>User Roles</h2>
                         <ul>
-                            @{
-                                foreach (var item in Model.UserRoles)
-                                {
-                                    <li> @item.Role.RoleName</li>
-                                }
-                            }
+                        @{
+                        foreach (var item in Model.UserRoles)
+                        {
+                        <li> @item.Role.RoleName</li>
+                        }
+                        }
                         </ul>
-                    </div>*@
+                        </div>*@
                     @* <div class="col-6">
                         <v-select v-model="e6" :items="roles" :menu-props="{ maxHeight: '400' }" label="Select" multiple
                         hint="Roles" persistent-hint></v-select>
@@ -80,8 +80,10 @@
                 @Html.HiddenFor(m => m.UserId)
             </fieldset>
         </div>
-        <button type="submit" class="dnnPrimaryAction">Save</button>
-        <a id="cancelEdit" href="#" class="dnnSecondaryAction">@Dnn.LocalizeString("Cancel")</a>
+        <div class="buttomForm">
+            <button type="submit" id="primary">Save</button>
+            <button id="cancelEdit" href="#">@Dnn.LocalizeString("Cancel")</button>
+        </div>
     </div>
 </div>
 
