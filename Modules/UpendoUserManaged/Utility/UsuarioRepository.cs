@@ -19,6 +19,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
 {
     public class UsuarioRepository
     {
+<<<<<<< HEAD
         public static UserViewModel GetUser(int id)
         {
             ModuleDbContext _context = new ModuleDbContext();
@@ -34,6 +35,12 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 //Approved = Membership.GetUser(userDnn.Username).IsApproved,
                 UserRoles = userDnn.UserRoles,
             };
+=======
+        public static Users GetUser(int id)
+        {
+            ModuleDbContext _context = new ModuleDbContext();
+            var user = _context.Users.SingleOrDefault(s => s.UserId == id);
+>>>>>>> 3b5d30ff85ad9605b7b22cc977d918df9d5e7f03
             return user;
         }
 
@@ -48,6 +55,13 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             userInfo.IsSuperUser = user.IsSuperUser;
             userInfo.Membership.Password = user.Password;
             userInfo.Membership.Approved = user.Approved;
+
+            ModuleDbContext _context = new ModuleDbContext();
+            var roles = _context.Roles.Where(r => r.AutoAssignment==true).ToList();
+            foreach (var item in roles)
+            {
+                userInfo.Roles.Append(item.RoleName);
+            }
             UserController.CreateUser(ref userInfo);
         }
 
