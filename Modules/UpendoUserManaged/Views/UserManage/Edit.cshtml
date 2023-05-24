@@ -37,10 +37,10 @@
                         @type = "email"
                         })
                     </div>
-                    <div class="formItem col-6" id="mt20">
+                    @*<div class="formItem col-6" id="mt20">
                         <div><label>Roles</label></div>
                         @Html.DropDownList("UserRoles", new SelectList(ViewBag.Roles, "RoleId", "RoleName"), new
-                        {@class = "dropDownList"})
+                        { @class = "dropDownList" })
                     </div>
                     <div class="col-6" id="mt20">
                         <h2>User Roles</h2>
@@ -52,7 +52,7 @@
                                 }
                             }
                         </ul>
-                    </div>
+                    </div>*@
                     @* <div class="col-6">
                         <v-select v-model="e6" :items="roles" :menu-props="{ maxHeight: '400' }" label="Select" multiple
                         hint="Roles" persistent-hint></v-select>
