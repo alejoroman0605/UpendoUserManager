@@ -34,6 +34,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 //Approved = Membership.GetUser(userDnn.Username).IsApproved,
                 UserRoles = userDnn.UserRoles,
             };
+            return user;
         }
         public static void CreateUser(UserViewModel user, int portalId)
         {
