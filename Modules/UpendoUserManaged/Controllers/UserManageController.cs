@@ -47,8 +47,8 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
             var item = UsuarioRepository.GetUser(itemId);
-            ViewBag.Roles = Functions.GetRoles();
-            //ViewBag.Roles = new SelectList(Functions.GetRoles(), "RoleId", "RoleName", item.UserId);
+            //ViewBag.Roles = Functions.GetRoles();
+            ViewBag.Roles = new SelectList(Functions.GetRoles(), "RoleId", "RoleName");
             return View(item);
         }  
       
@@ -74,7 +74,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         }
         public ActionResult GetUsers()
         {
-            var items = Functions.ObtenerUsuarios();
+            var items = Functions.GetUsers();
             return Json(items, JsonRequestBehavior.AllowGet);
         }
 
