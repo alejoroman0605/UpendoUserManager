@@ -37,10 +37,12 @@
                         @type = "email"
                         })
                     </div>
-                    <div class="col-6" id="mt5">
-                        @Html.DropDownList("roleID", new SelectList(ViewBag.Roles))
+                    <div class="formItem col-6" id="mt20">
+                        <div><label>Roles</label></div>
+                        @Html.DropDownList("UserRoles", new SelectList(ViewBag.Roles, "RoleId", "RoleName"), new
+                        {@class = "dropDownList"})
                     </div>
-                    <div class="col-6" id="mt5">
+                    <div class="col-6" id="mt20">
                         <h2>User Roles</h2>
                         <ul>
                             @{

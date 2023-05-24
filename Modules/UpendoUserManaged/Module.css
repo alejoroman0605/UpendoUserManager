@@ -124,6 +124,14 @@
     margin-left: 5px;
 }
 
+#mt5 {
+    margin-top: 5px;
+}
+
+#mt20 {
+    margin-top: 20px;
+}
+
 [class*="col-"] {
     float: left;
 }
@@ -176,3 +184,13 @@
     width: 100%;
 }
 /* Grid System */
+
+.dropDownList {
+    width: 95%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding: 6px;
+    box-shadow: 0 1px 6px 0 rgba(0,0,0,0.2), 0 2px 8px 0 rgba(0,0,0,0.19);
+    font-size: 16px;
+}

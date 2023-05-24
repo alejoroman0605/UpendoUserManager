@@ -37,32 +37,21 @@
                         @type = "email"
                         })
                     </div>
-                    <div class="col-6">
-                        <select id="roles" name="roles" multiple>
-                            @foreach (var item in Model.UserRoles)
-                            {
-                                <option>@item.Role.RoleName</option>
-                            }
-                        </select>
+                    <div class="formItem col-6" id="mt20">
+                        <div><label>Roles</label></div>
+                        @Html.DropDownList("roleID", new SelectList(ViewBag.Roles, "RoleId", "RoleName"), new
+                        {                            @class =                        "dropDownList"                        })
                     </div>
-                    <div class="col-6">
-                        <h2>List of Roles</h2>
+                    <div class="col-6" id="mt20">
+                        <h2>User Roles</h2>
                         <ul>
                             @{
-                                foreach (var item in ViewData["Roles"] as List<string>)
+                                foreach (var item in Model.UserRoles)
                                 {
-                                    <li> @item</li>
+                                    <li> @item.Role.RoleName</li>
                                 }
                             }
                         </ul>
-                    </div>
-                    <div class="col-6">
-                        <select id="roles" name="roles" multiple>
-                            @foreach (var item in ViewBag.Roles)
-                            {
-                                <option>@item.Role.RoleName</option>
-                            }
-                        </select>
                     </div>
                     @* <div class="col-6">
                         <v-select v-model="e6" :items="roles" :menu-props="{ maxHeight: '400' }" label="Select" multiple

@@ -6,6 +6,7 @@ using Upendo.Modules.UpendoUserManaged.Models.DnnModel;
 using static Telerik.Web.UI.OrgChartStyles;
 using DotNetNuke.Common;
 using Upendo.Modules.UpendoUserManaged.Data;
+using Upendo.Modules.UpendoUserManaged.ViewModels;
 
 namespace Upendo.Modules.UpendoUserManaged.Utility
 {
@@ -30,14 +31,20 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             }
             return rolesInUser;
         }
-        public static List<string> GetRoles()
+        public static List<RolesViewModel> GetRoles()
         {
             ModuleDbContext _context = new ModuleDbContext();
-            List<string> roles = new List<string>(); 
+            List<RolesViewModel> roles = new List<RolesViewModel>(); 
             var rolesDnn= _context.Roles.ToList();
             foreach (var item in rolesDnn)
             {
-                roles.Add(item.RoleName);
+                var rolViewModel = new RolesViewModel
+                {
+                    PortalId = item.PortalId,
+                    RoleName = item.RoleName,
+                    RoleId = item.RoleId
+                };
+                roles.Add(rolViewModel);
             }
             return roles;
         }
