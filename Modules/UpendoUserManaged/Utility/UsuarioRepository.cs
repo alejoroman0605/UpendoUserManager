@@ -104,9 +104,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             UserController.ResetPassword( user, newPassword);
             if (user != null)
             {
-                UserController.ResetPassword(user, newPassword);
-                //DotNetNuke.Security.Membership.MembershipProvider membershipProvider = DotNetNuke.Security.Membership.MembershipProvider.Instance();
-                //membershipProvider.ChangePassword(user, user.Membership.Password, newPassword);
+                UserController.ResetAndChangePassword(user, newPassword);
             }
         }
     }
