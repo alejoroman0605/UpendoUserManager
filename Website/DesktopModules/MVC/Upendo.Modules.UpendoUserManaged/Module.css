@@ -117,8 +117,6 @@
 .center {
     margin: auto;
     width: 60%;
-    margin-top: 10px;
-    margin-bottom: 10px;
     text-align: center;
 }
 
@@ -136,6 +134,10 @@
 
 .text-align-justify {
     text-align: justify;
+}
+
+.float-right {
+    float: right
 }
 
 #ml5 {
