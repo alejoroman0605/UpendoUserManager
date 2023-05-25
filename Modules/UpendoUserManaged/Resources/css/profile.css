@@ -1,9 +1,9 @@
-img {
-	border-radius: 50%;
-}
-
 .accountSettings {
 	margin-left: 10px;
+}
+
+.accountSettings img {
+	border-radius: 50%;
 }
 
 .accountData {
