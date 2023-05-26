@@ -42,7 +42,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
             UsuarioRepository.CreateUser(item, portalId);
             return RedirectToDefaultRoute();
         }
-
+       
         public ActionResult Edit(int itemId)
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
@@ -94,7 +94,11 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
             }
             return RedirectToDefaultRoute();
         }
-
-
+        public ActionResult DeleteUnauthorizedUsers()
+        {
+            var portalId = ModuleContext.PortalId;
+            UserController.DeleteUnauthorizedUsers(portalId);
+            return RedirectToDefaultRoute();
+        }
     }
 }
