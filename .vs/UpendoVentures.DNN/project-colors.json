@@ -15,7 +15,12 @@
       "ProjectGuid": "343d9eed-59dc-4922-afbf-8edad3345ff7",
       "DisplayName": "Upendo.Modules.UpendoUserManager",
       "ColorIndex": 1
+    },
+    "b51aa4af-ee33-49e1-b621-df1bcd22a28c": {
+      "ProjectGuid": "b51aa4af-ee33-49e1-b621-df1bcd22a28c",
+      "DisplayName": "Configuration Files",
+      "ColorIndex": 2
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 3
 }

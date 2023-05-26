@@ -42,7 +42,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
             UsuarioRepository.CreateUser(item, portalId);
             return RedirectToDefaultRoute();
         }
-
+       
         public ActionResult Edit(int itemId)
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
@@ -86,15 +86,19 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangePassword(int itemId, string newPassword, string confrimPassword)
+        public ActionResult ChangePassword(UserViewModel user)
         {
-            if (newPassword.Equals(confrimPassword))
+            if (user.Password.Equals(user.ConfirmPassword))
             {
-                UsuarioRepository.ChangePassword(itemId, newPassword);
+                UsuarioRepository.ChangePassword(user.UserId, user.Password);
             }
             return RedirectToDefaultRoute();
         }
-
-
+        public ActionResult DeleteUnauthorizedUsers()
+        {
+            var portalId = ModuleContext.PortalId;
+            UserController.DeleteUnauthorizedUsers(portalId);
+            return RedirectToDefaultRoute();
+        }
     }
 }

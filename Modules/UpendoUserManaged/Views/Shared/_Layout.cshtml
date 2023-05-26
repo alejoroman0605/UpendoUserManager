@@ -3,27 +3,27 @@
     var moduleId = Dnn.ModuleContext.ModuleId;
     ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
     "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/css/bootstrap.min.css");
+    ClientResourceManager.RegisterScript(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/js/jquery.min.js");
+    ClientResourceManager.RegisterScript(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/js/bootstrap.min.js");
     ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
-    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/css/jquery.dataTables.min.css");
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/js/bootstrap-confirmation.js");
+
     ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
     "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/css/dataTables.bootstrap.css");
     ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
-    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/css/profile.css");
-    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
-    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/css/mbs-qdtf.css");
-    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
-    "https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css");
-    ClientResourceManager.RegisterScript(Dnn.DnnPage,
-    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/js/bootstrap.min.js", 20);
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/css/jquery.dataTables.min.css");
     ClientResourceManager.RegisterScript(Dnn.DnnPage,
     "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/js/jquery.dataTables.js");
+
+    ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/css/mbs-qdtf.css");
     ClientResourceManager.RegisterScript(Dnn.DnnPage,
     "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/bootstrap/js/mbs-qdtf.js");
+
     ClientResourceManager.RegisterStyleSheet(Dnn.DnnPage,
-    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/js/bootstrap-confirmation.js");
-    ClientResourceManager.RegisterScript(Dnn.DnnPage,
-    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/js/vue.js");
-    ClientResourceManager.RegisterScript(Dnn.DnnPage, "https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js");
+    "~/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Resources/css/profile.css");
 }
 <div id="mvcContainer-@Dnn.ActiveModule.ModuleID">
     @RenderBody()

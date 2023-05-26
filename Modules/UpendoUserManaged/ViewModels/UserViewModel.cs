@@ -22,6 +22,7 @@ namespace Upendo.Modules.UpendoUserManaged.ViewModels
         public string Email { get; set; }
         public string DisplayName { get; set; }
         public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
         public bool UpdatePassword { get; set; }
         public string LastIpaddress { get; set; }
         public bool IsDeleted { get; set; }
