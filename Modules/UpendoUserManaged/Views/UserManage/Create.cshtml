@@ -43,6 +43,10 @@
             <div class="col-6">
                 @Html.CheckBoxFor(m => m.Approved, new { @id = "checkbox" })
                 <label class="checkbox">Approved</label>
+            </div> 
+            <div class="col-6">
+                @Html.CheckBoxFor(m => m.SendEmail, new { @id = "checkbox" })
+                <label class="checkbox">Send An Email To New User</label>
             </div>
         </div>
         @Html.HiddenFor(m => m.UserId)
