@@ -27,12 +27,12 @@
                 <span>Change Password</span>
             </a>
         </div>
-        <div class="col-12">
+        @* <div class="col-12">
             <a data-hint="Details"
-               href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = @Model.UserId})">
-                <span>Force Password Change</span>
+            href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = @Model.UserId})">
+            <span>Force Password Change</span>
             </a>
-        </div>
+            </div> *@
         <div class="col-12">
             <a data-hint="Details"
                href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = @Model.UserId})">
@@ -52,6 +52,15 @@
             <p>Deleted: @Model.IsDeleted</p>
             <p>Last Activity Date: @Model.LastModifiedOnDate</p>
             <p>Update Password: @Model.UpdatePassword</p>
+            <h4 id="subtitle">User Roles</h4>
+            <ul>
+                @{
+                    foreach (var item in Model.UserRoles)
+                    {
+                        <li> @item.Role.RoleName</li>
+                    }
+                }
+            </ul>
         </div>
     </div>
 </div>
@@ -75,8 +84,7 @@
                 collapseText: '@Dnn.LocalizeString("CollapseAll")',
                 targetArea: '#dnnEditBasicSettings'
             });
-        }
-
+        };
         $(function () {
             $('#cancelEdit').click(function () { dnnModal.closePopUp(false); });
             dnnEditBasicSettings();

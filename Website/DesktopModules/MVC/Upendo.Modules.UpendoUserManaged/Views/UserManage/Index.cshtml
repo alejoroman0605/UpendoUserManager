@@ -3,206 +3,113 @@
 @using System.Text.RegularExpressions
 @using DotNetNuke.Web.Mvc.Helpers
 
-<div id="app" data-app app-data="true" light>
-    <div id="Items-@Dnn.ModuleContext.ModuleId" style="margin: 2%!important;">
-        <div class="col-md-12">
-            <div class="col-md-4">
-                <img alt="logo" src="DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Images/Upendo-logo-trans.png" />
-            </div>
-            <div class="col-md-8">
-                <h1 id="title">Upendo User Manage</h1>
-                <h6 id="subtitle">Module for user management in DNN</h6>
+<div id="Items-@Dnn.ModuleContext.ModuleId" style="margin: 2%!important;">
+    <div class="col-md-12">
+        <div class="col-md-4">
+            <img alt="logo" src="DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Images/Upendo-logo-trans.png" />
+        </div>
+        <div class="col-md-8">
+            <h1 id="title">Upendo User Manage</h1>
+            <h6 id="subtitle">Module for user management in DNN</h6>
+        </div>
+    </div>
+
+    @if (Model == null)
+    {
+        <p>@Dnn.LocalizeString("NoItems")</p>
+    }
+    else
+    {
+        <hr />
+        <div class="pb10">
+            <a type="button" class="btn btn-primary" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create User
+            </a>
+            <div class="btn-group">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                    Action
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})">
+                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Delete Unauthorized Users
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
+        <table class="table dynamic table-striped table-bordered table-hover" id="table">
+            <thead>
+                <tr style="background-color:#6d5a2c; color:#FFFFFF">
+                    <th class="hidden">Id</th>
+                    <th>USERNAME</th>
+                    <th>NAME</th>
+                    <th>EMAIL</th>
+                    <th>SUPERUSER</th>
+                    <th>STATE</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="hidden">
+                            @item.UserId
+                        </td>
+                        <td>
+                            @item.Username
+                        </td>
+                        <td>
+                            @item.DisplayName
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        <td class="text-center">
+                            @if (@item.IsSuperUser == true)
+                            {
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:yellowgreen"></span>
+                            }
+                            else
+                            {
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red"></span>
 
-        @if (Model == null)
-        {
-            <p>@Dnn.LocalizeString("NoItems")</p>
-        }
-        else
-        {
+                            }
 
-            <hr />
-            <div style="padding-bottom:10px!important;">
-                <a type="button" class="btn btn-primary" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create User
-                </a>
-            </div>
-            <template>
-                <v-btn color="red lighten-2" @@click="addEdit()">
-                    Create User
-                </v-btn>
-                <v-btn color="red lighten-2" @@click="getUsers()">
-                    getUsers
-                </v-btn>
-            </template>
-            <template>
-                <v-dialog v-model="dialog" width="800" light>
-                    <v-card>
-                        <v-card-title class="text-h5 grey lighten-2">
-                            Privacy Policy
-                        </v-card-title>
-
-                        <v-card-text>
-                            <v-form v-model="valid">
-                                <v-container>
-                                    <v-row>
-                                        <v-col cols="12" md="4">
-                                            <v-text-field v-model="dataModel.FirstName"
-                                                          :rules="nameRules"
-                                                          label="First Name"
-                                                          required>
-                                            </v-text-field>
-                                        </v-col>
-
-                                        <v-col cols="12"
-                                               md="4">
-                                            <v-text-field v-model="dataModel.LastName"
-                                                          :rules="nameRules"
-                                                          label="Last Name"
-                                                          required></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12"
-                                               md="4">
-                                            <v-text-field v-model="dataModel.Username"
-                                                          :rules="nameRules"
-                                                          label="Username"
-                                                          required></v-text-field>
-                                        </v-col>
-
-                                        <v-col cols="12"
-                                               md="4">
-                                            <v-text-field v-model="dataModel.Email"
-                                                          :rules="emailRules"
-                                                          label="E-mail"
-                                                          required></v-text-field>
-                                        </v-col>
-
-                                        <v-col cols="12"
-                                               md="4">
-                                            <v-text-field v-model="dataModel.Password"
-                                                          label="Password"
-                                                          :type="show1 ? 'text' : 'password'"
-                                                          required></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" md="4">
-                                            <v-text-field v-model="confirmPassword"
-                                                          label="Confirm Password"
-                                                          :type="show1 ? 'text' : 'password'"
-                                                          required></v-text-field>
-                                        </v-col>
-                                        <v-col cols="12" md="6">
-                                            <input type="checkbox" v-model="dataModel.Approved" name="Approved" value="Approved" id="checkbox">
-                                            <span id="fsize16">Approved</span>
-                                        </v-col>
-                                        <v-col cols="12" md="6">
-                                            <input type="checkbox" v-model="dataModel.IsSuperUser" name="IsSuperUser" value="IsSuperUser" id="checkbox">
-                                            <span>IsSuperUser</span>
-                                        </v-col>
-                                    </v-row>
-                                </v-container>
-                            </v-form>
-                        </v-card-text>
-                        <v-divider></v-divider>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn color="primary" text @@click="save()">
-                                Save
-                            </v-btn>
-                            <v-btn color="primary" text @@click="dialog=false">
-                                Cancel
-                            </v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-dialog>
-            </template>
-            <table class="table dynamic table-striped table-bordered table-hover" id="table">
-                <thead>
-                    <tr style="background-color:#6d5a2c; color:#FFFFFF">
-                        <th class="hidden">Id</th>
-                        <th>USERNAME</th>
-                        <th>NAME</th>
-                        <th>EMAIL</th>
-                        <th>SUPERUSER</th>
-                        <th>STATE</th>
-                        <th>ACTIONS</th>
+                        </td>
+                        <td>
+                        </td>
+                        <td class="text-right">
+                            <a data-hint="Details" class="btn btn-info btn-sm edit hint--top hint--info" href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = item.UserId})">
+                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            </a>
+                            <a data-hint="Edit" class="btn btn-warning btn-sm edit hint--top hint--warning" href="@Url.Action("Edit", "UserManage", new {ctl = "Edit", itemId = item.UserId})">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </a>
+                            <a data-hint="Reset Password" class="btn btn-default btn-sm edit hint--top hint--" href="@Url.Action("ChangePassword", "UserManage", new {ctl = "Edit", itemId = item.UserId})">
+                                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                            </a>
+                            <a data-hint="Delete" class="btn btn-danger btn-sm delete hint--top hint--error" data-placement="top" data-singleton="true" href="@Url.Action("Delete", "UserManage", new {itemId = item.UserId})">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </a>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td class="hidden">
-                                @item.UserId
-                            </td>
-                            <td>
-                                @item.Username
-                            </td>
-                            <td>
-                                @item.DisplayName
-                            </td>
-                            <td>
-                                @item.Email
-                            </td>
-                            <td class="text-center">
-                                @if (@item.IsSuperUser == true)
-                                {
-                                    <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:yellowgreen"></span>
-                                }
-                                else
-                                {
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red"></span>
-
-                                }
-
-                            </td>
-                            <td>
-                            </td>
-                            <td class="text-right">
-                                <a data-hint="Details" class="btn btn-info btn-sm edit hint--top hint--info" href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = item.UserId})">
-                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                </a>
-                                <a data-hint="Edit" class="btn btn-warning btn-sm edit hint--top hint--warning" href="@Url.Action("Edit", "UserManage", new {ctl = "Edit", itemId = item.UserId})">
-                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                </a>
-                                <a data-hint="Reset Password" class="btn btn-default btn-sm edit hint--top hint--" href="@Url.Action("ChangePassword", "UserManage", new {ctl = "Edit", itemId = item.UserId})">
-                                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-                                </a>
-                                <a data-hint="UnLockUser" class="btn btn-default btn-sm edit hint--top hint--" href="@Url.Action("UnLockUser", "UserManage", new { itemId = item.UserId})">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </a>
-                                <a data-hint="Delete" class="btn btn-danger btn-sm delete hint--top hint--error" data-placement="top" data-singleton="true" href="@Url.Action("Delete", "UserManage", new {itemId = item.UserId})">
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                </a>
-                            </td>
-
-
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-    </div>
+                }
+            </tbody>
+        </table>
+    }
 </div>
 
-<script type="application/javascript">
-    let app = new Vue({
+<script>
+  $(document).ready(function () {
+        $('#dataTables-pages').DataTable();
+    });
+    @* let app = new Vue({
         el: '#app',
-        vuetify: new Vuetify(),
         data: {
-            dialog: false,
-            valid: false,
-            users:[],
-            dataModel:{},
-            nameRules: [
-                v => !!v || 'Name is required',
-            ],
-            confirmPassword: '',
-            emailRules: [
-                v => !!v || 'E-mail is required',
-                v => /.+@@.+/.test(v) || 'E-mail must be valid',
-            ],
-            show1: false,
+
         },
         methods:{
             addEdit(){
@@ -229,8 +136,5 @@
                 });
             }
         }
-    })
-    $(document).ready(function () {
-        $('#dataTables-pages').DataTable();
-    });
+    }) *@
 </script>

@@ -43,14 +43,20 @@
             <div class="col-6">
                 @Html.CheckBoxFor(m => m.Approved, new { @id = "checkbox" })
                 <label class="checkbox">Approved</label>
+            </div> 
+            <div class="col-6">
+                @Html.CheckBoxFor(m => m.SendEmail, new { @id = "checkbox" })
+                <label class="checkbox">Send An Email To New User</label>
             </div>
         </div>
         @Html.HiddenFor(m => m.UserId)
     </fieldset>
 </div>
-<div class="buttomForm">
-    <button type="submit" id="primary">Save</button>
-    <button id="cancelEdit" href="#">@Dnn.LocalizeString("Cancel")</button>
+<div class="buttomForm mt20">
+    <div class="center">
+        <button type="submit" id="primary">Save</button>
+        <button id="cancelEdit" href="#">@Dnn.LocalizeString("Cancel")</button>
+    </div>
 </div>
 <script type="application/javascript">
     let app = new Vue({
@@ -63,13 +69,12 @@
         var password = document.getElementById('password').value;
         var confirm_password = document.getElementById('confirm_password').value;
         var message = document.getElementById('message');
-
         if (password == confirm_password) {
             message.style.color = 'green';
             message.innerHTML = '';
         } else {
             message.style.color = 'red';
-            message.innerHTML = 'Not Matching';
+            message.innerHTML = 'Password and Confirmation Password must match.';
         }
     }
     /*globals jQuery, window, Sys */
@@ -81,8 +86,7 @@
                 collapseText: '@Dnn.LocalizeString("CollapseAll")',
                 targetArea: '#dnnEditBasicSettings'
             });
-        }
-
+        };
         $(function () {
             $('#cancelEdit').click(function () { dnnModal.closePopUp(false); });
             dnnEditBasicSettings();

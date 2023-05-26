@@ -7,11 +7,10 @@
     string aurl = DotNetNuke.Entities.Tabs.TabController.CurrentPage.FullUrl;
     var userRoles = Model.FirstName;
 }
-<div id="app" data-app app-data="true" light>
+<div id="app" data-app>
     <div id="Item-@Dnn.ModuleContext.ModuleId">
         <div class="dnnForm dnnEditBasicSettings" id="dnnEditBasicSettings">
             <div class="dnnFormExpandContent dnnRight "><a href="#">@Dnn.LocalizeString("ExpandAll")</a></div>
-
             <h2 id="dnnSitePanel-BasicSettings" class="dnnFormSectionHead dnnClear">
                 <a href="#" class="dnnSectionExpanded">@Dnn.LocalizeString("BasicSettings")</a>
             </h2>
@@ -37,37 +36,6 @@
                         @type = "email"
                         })
                     </div>
-                    @*<div class="formItem col-6 mt20">
-                        <div><label>Roles</label></div>
-                        @Html.DropDownList("UserRoles", new SelectList(ViewBag.Roles, "RoleId", "RoleName"), new
-                        { @class = "dropDownList" })
-                        </div>
-                        <div class="col-6 mt20">
-                        <h2>User Roles</h2>
-                        <ul>
-                        @{
-                        foreach (var item in Model.UserRoles)
-                        {
-                        <li> @item.Role.RoleName</li>
-                        }
-                        }
-                        </ul>
-                        </div>*@
-                    @* <div class="col-6">
-                        <v-select v-model="e6" :items="roles" :menu-props="{ maxHeight: '400' }" label="Select" multiple
-                        hint="Roles" persistent-hint></v-select>
-                        </div> *@
-                    @* <div class="formItem col-6">
-                        <div><label>Password</label></div>
-                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @id = "password", @type =
-                        "password" })
-                        </div>
-                        <div class="formItem col-6">
-                        <div><label>Confirm Password</label></div>
-                        <input type="password" name="confirm_password" id="confirm_password" onkeyup='validatePassword();'
-                        />
-                        <span id='message'></span>
-                        </div> *@
                     <div class="col-3">
                         @Html.CheckBoxFor(m => m.IsSuperUser, new { @id = "checkbox" })
                         <label class="checkbox">IsSuperUser</label>
@@ -80,9 +48,11 @@
                 @Html.HiddenFor(m => m.UserId)
             </fieldset>
         </div>
-        <div class="buttomForm">
-            <button type="submit" id="primary">Save</button>
-            <button id="cancelEdit" href="#">@Dnn.LocalizeString("Cancel")</button>
+        <div class="buttomForm mt20">
+            <div class="center">
+                <button type="submit" id="primary">Save</button>
+                <button id="cancelEdit" href="#">@Dnn.LocalizeString("Cancel")</button>
+            </div>
         </div>
     </div>
 </div>
@@ -93,7 +63,6 @@
 <script type="text/javascript">
     let app = new Vue({
         el: '#app',
-        vuetify: new Vuetify(),
         data: {
             tabName: '@aurl',
             e6: [],
@@ -103,24 +72,24 @@
         }
         methods: {
         }
-    })
-        /*globals jQuery, window, Sys */
-        (function ($, Sys) {
-            function dnnEditBasicSettings() {
-                $('#dnnEditBasicSettings').dnnPanels();
-                $('#dnnEditBasicSettings .dnnFormExpandContent a').dnnExpandAll({
-                    expandText: '@Dnn.LocalizeString("ExpandAll")',
-                    collapseText: '@Dnn.LocalizeString("CollapseAll")',
-                    targetArea: '#dnnEditBasicSettings'
-                });
-            }
-
-            $(function () {
-                $('#cancelEdit').click(function () { dnnModal.closePopUp(false); });
-                dnnEditBasicSettings();
-                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
-                    dnnEditBasicSettings();
-                });
+    }),
+    /*globals jQuery, window, Sys */
+    (function ($, Sys) {
+        function dnnEditBasicSettings() {
+            $('#dnnEditBasicSettings').dnnPanels();
+            $('#dnnEditBasicSettings .dnnFormExpandContent a').dnnExpandAll({
+                expandText: '@Dnn.LocalizeString("ExpandAll")',
+                collapseText: '@Dnn.LocalizeString("CollapseAll")',
+                targetArea: '#dnnEditBasicSettings'
             });
-        }(jQuery, window.Sys));
+        }
+
+        $(function () {
+            $('#cancelEdit').click(function () { dnnModal.closePopUp(false); });
+            dnnEditBasicSettings();
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+                dnnEditBasicSettings();
+            });
+        });
+    }(jQuery, window.Sys));
 </script>
