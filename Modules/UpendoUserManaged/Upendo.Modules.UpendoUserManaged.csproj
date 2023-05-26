@@ -157,6 +157,7 @@
     <Content Include="Resources\js\bootstrap-confirmation.min.js" />
     <Content Include="Resources\js\dataTables.bootstrap.js" />
     <Content Include="Resources\js\jquery.dataTables.js" />
+    <Content Include="Resources\js\jquery.min.js" />
     <Content Include="Resources\js\vue.js" />
     <Content Include="Resources\lib\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="Resources\lib\bootstrap\dist\css\bootstrap-theme.min.css" />
