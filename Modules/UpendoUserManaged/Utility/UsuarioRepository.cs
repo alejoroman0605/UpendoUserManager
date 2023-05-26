@@ -60,7 +60,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             {
                 userInfo.Roles.Append(item.RoleName);
             }
-            UserController.CreateUser(ref userInfo);
+            UserController.CreateUser(ref userInfo, user.SendEmail);
         }
 
         public static void EditUser(Users user, int editedFor)
