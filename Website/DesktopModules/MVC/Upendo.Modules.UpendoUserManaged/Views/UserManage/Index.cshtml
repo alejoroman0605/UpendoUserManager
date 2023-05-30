@@ -22,22 +22,68 @@
     {
         <hr />
         <div class="pb10">
-            <a type="button" class="btn btn-primary" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
+            <h1 class="left" id="title">List of @ViewBag.Filter Users</h1>
+            <a type="button" class="btn btn-primary right" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create User
             </a>
-            <div class="btn-group">
-                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                    Action
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})">
-                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Delete Unauthorized Users
+            <ul class='nav right'>
+                <li>
+                    <div class="btn-group dropup right">
+                        <a class="btn btn-info dropdown-toggle" style="color: white;" data-toggle="dropdown" href="#">
+                            Filters <span class="caret"></span>
                         </a>
-                    </li>
-                </ul>
-            </div>
+                        <ul class="dropdown-menu ">
+                            <li>
+                                <a href="@Url.Action("Index", "UserManage", new {filter = "Unauthorized"})">
+                                    Unauthorized
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "UserManage", new {filter = "Authorized"})">
+                                    Authorized
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "UserManage", new {filter = "Deleted"})">
+                                    Deleted
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "UserManage", new {filter = "SuperUsers"})">
+                                    SuperUsers
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "UserManage", new {filter = "All"})">
+                                    All
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <ul class='nav right'>
+                <li>
+                    <div class="btn-group dropup right">
+                        <a class="btn btn-danger dropdown-toggle" style="color: white;" data-toggle="dropdown" href="#">
+                            Options
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu ">
+                            <li>
+                                <a href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})">
+                                    Delete Unauthorized Users
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("RemoveDeletedUsers", "UserManage", new {})">
+                                    Remove Delete Users
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
         </div>
         <table class="table dynamic table-striped table-bordered table-hover" id="table">
             <thead>
@@ -82,13 +128,16 @@
                         <td>
                         </td>
                         <td class="text-right">
-                            <a data-hint="Details" class="btn btn-info btn-sm edit hint--top hint--info" href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = item.UserId})">
+                            <a class="btn btn-info btn-sm" href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = item.UserId})"
+                               data-toggle="tooltip" data-placement="top" title="Details">
                                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                             </a>
-                            <a data-hint="Edit" class="btn btn-warning btn-sm edit hint--top hint--warning" href="@Url.Action("Edit", "UserManage", new {ctl = "Edit", itemId = item.UserId})">
+                            <a data-hint="Edit" class="btn btn-warning btn-sm edit hint--top hint--warning" href="@Url.Action("Edit", "UserManage", new {ctl = "Edit", itemId = item.UserId})"
+                               data-toggle="tooltip" data-placement="top" title="Edit">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </a>
-                            <a data-hint="Reset Password" class="btn btn-default btn-sm edit hint--top hint--" href="@Url.Action("ChangePassword", "UserManage", new {ctl = "Edit", itemId = item.UserId})">
+                            <a data-hint="Reset Password" class="btn btn-default btn-sm edit hint--top hint--" href="@Url.Action("ChangePassword", "UserManage", new {ctl = "Edit", itemId = item.UserId})"
+                               data-toggle="tooltip" data-placement="top" title="Reset Password">
                                 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
                             </a>
                             <a data-hint="Delete" class="btn btn-danger btn-sm delete hint--top hint--error" data-placement="top" data-singleton="true" href="@Url.Action("Delete", "UserManage", new {itemId = item.UserId})">
@@ -103,38 +152,7 @@
 </div>
 
 <script>
-  $(document).ready(function () {
+    $(document).ready(function () {
         $('#dataTables-pages').DataTable();
     });
-    @* let app = new Vue({
-        el: '#app',
-        data: {
-
-        },
-        methods:{
-            addEdit(){
-                this.dialog = true;
-            },
-            getUsers(){
-                $.ajax({
-                    url: '/Users/GetUsers',
-                    type: "GET",
-                    success: function(response){
-                            console.log(response)
-                        }
-                }).done(function(){
-                    alert('DONE!!');
-                });
-            },
-            save(){
-                $.ajax({
-                    url: "/Users/Create",
-                    data: this.dataModel,
-                    type: "POST"
-                }).done(function(){
-                    alert('DONE!!');
-                });
-            }
-        }
-    }) *@
 </script>

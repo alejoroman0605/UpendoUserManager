@@ -6,7 +6,7 @@
 <div id="app" data-app>
     <h3>{{title}}</h3>
     <fieldset>
-        <div class="row" id="ml5">
+        <div class="row ml5">
             <div class="formItem col-6">
                 <div><label>First Name</label></div>
                 @Html.TextBoxFor(m => m.FirstName)
@@ -43,7 +43,7 @@
             <div class="col-6">
                 @Html.CheckBoxFor(m => m.Approved, new { @id = "checkbox" })
                 <label class="checkbox">Approved</label>
-            </div> 
+            </div>
             <div class="col-6">
                 @Html.CheckBoxFor(m => m.SendEmail, new { @id = "checkbox" })
                 <label class="checkbox">Send An Email To New User</label>
