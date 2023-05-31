@@ -30,6 +30,29 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                     items.Add(MakeUser(u));
                 }
                 return items;
+            }  
+            if (filter == "Unauthorized")
+            {
+                var items = new List<Users>();
+                var deletedUsers = UserController.GetUnAuthorizedUsers(portalId).ToArray();
+                foreach (UserInfo u in deletedUsers)
+                {
+                    items.Add(MakeUser(u));
+                }
+                return items;
+            }
+            if (filter == "SuperUsers")
+            {
+                var users = _context.Users.Where(u => u.IsSuperUser == true).ToList();
+                return users;
+                //var items = new List<Users>();
+                ////(bool includeDeleted, bool superUsersOnly, int portalId)
+                //var users = UserController.GetUsers(false, true, portalId).ToArray();
+                //foreach (UserInfo u in users)
+                //{
+                //    items.Add(MakeUser(u));
+                //}
+                //return items;
             }
             else
             {
