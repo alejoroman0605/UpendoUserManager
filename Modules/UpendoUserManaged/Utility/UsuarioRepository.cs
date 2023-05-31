@@ -38,7 +38,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 IsDeleted = userDnn.IsDeleted,
                 LastModifiedOnDate = userDnn.LastModifiedOnDate,
                 UpdatePassword = userDnn.UpdatePassword,
- 
+
             };
             return user;
         }
@@ -55,7 +55,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             userInfo.Membership.Approved = user.Approved;
 
             ModuleDbContext _context = new ModuleDbContext();
-            var roles = _context.Roles.Where(r => r.AutoAssignment==true).ToList();
+            var roles = _context.Roles.Where(r => r.AutoAssignment == true).ToList();
             foreach (var item in roles)
             {
                 userInfo.Roles.Append(item.RoleName);
@@ -63,18 +63,25 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             UserController.CreateUser(ref userInfo, user.SendEmail);
         }
 
-        public static void EditUser(Users user, int editedFor)
+        public static void EditUser(int portalId, UserViewModel user)
         {
-            ModuleDbContext _context = new ModuleDbContext();
-            var userFind = _context.Set<Users>().Find(user.UserId);
-            userFind.Username = user.Username;
-            userFind.FirstName = user.FirstName;
-            userFind.LastName = user.LastName;
-            userFind.DisplayName = user.FirstName + " " + user.LastName;
-            userFind.LastModifiedOnDate = DateTime.UtcNow;
-            userFind.LastModifiedByUserId = editedFor;
-            _context.Entry(userFind).State = EntityState.Modified;
-            _context.SaveChanges();
+            var userInfo = UserController.GetUserById(portalId, user.UserId);
+            if (userInfo != null)
+            {
+                userInfo.FirstName = user.FirstName;
+                userInfo.LastName = user.LastName;
+                userInfo.Email = user.Email;
+                userInfo.Username = user.Username;
+                userInfo.PortalID = portalId;
+                userInfo.IsSuperUser = user.IsSuperUser;
+                userInfo.IsDeleted = user.IsDeleted;
+                userInfo.Membership.Approved = user.Approved;
+                if (user.Password != null)
+                {
+                    userInfo.Membership.Password = user.Password;
+                }
+                UserController.UpdateUser(portalId, userInfo);
+            }
         }
 
         public static void DeleteUser(int itemId)
@@ -101,7 +108,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             ModuleDbContext _context = new ModuleDbContext();
             var userFind = _context.Set<Users>().Find(itemId);
             UserInfo user = UserController.GetUserByName(0, userFind.Username);
-            UserController.ResetPassword( user, newPassword);
+            UserController.ResetPassword(user, newPassword);
             if (user != null)
             {
                 UserController.ResetAndChangePassword(user, newPassword);
