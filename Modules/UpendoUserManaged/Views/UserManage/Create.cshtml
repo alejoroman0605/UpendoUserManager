@@ -3,80 +3,60 @@
 @using System.Collections.Generic
 @using DotNetNuke.Web.Mvc.Helpers
 
-<div id="app" data-app>
-    <h3>{{title}}</h3>
-    <fieldset>
-        <div class="row ml5">
-            <div class="formItem col-6">
-                <div><label>First Name</label></div>
-                @Html.TextBoxFor(m => m.FirstName)
-            </div>
-            <div class="formItem col-6">
-                <div><label>Last Name</label></div>
-                @Html.TextBoxFor(m => m.LastName)
-            </div>
-            <div class="formItem col-6">
-                <div><label>Username</label></div>
-                @Html.TextBoxFor(m => m.Username)
-            </div>
-            <div class="formItem col-6">
-                <div><label>Email</label></div>
-                @Html.TextBoxFor(m => m.Email, new
-                {
-                @class = "form-control",
-                @type = "email"
-                })
-            </div>
-            <div class="formItem col-6">
-                <div><label>Password</label></div>
-                @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @id = "password", @type = "password" })
-            </div>
-            <div class="formItem col-6">
-                <div><label>Confirm Password</label></div>
-                <input type="password" name="confirm_password" id="confirm_password" onkeyup='validatePassword();' />
-                <span id='message'></span>
-            </div>
-            <div class="col-6">
-                @Html.CheckBoxFor(m => m.IsSuperUser, new { @id = "checkbox" })
-                <label class="checkbox">IsSuperUser</label>
-            </div>
-            <div class="col-6">
-                @Html.CheckBoxFor(m => m.Approved, new { @id = "checkbox" })
-                <label class="checkbox">Approved</label>
-            </div>
-            <div class="col-6">
-                @Html.CheckBoxFor(m => m.SendEmail, new { @id = "checkbox" })
-                <label class="checkbox">Send An Email To New User</label>
-            </div>
+<h3>Create User</h3>
+<fieldset class="ml30">
+    <div class="row ml5">
+        <div class="formItem col-6">
+            <div><label>First Name</label></div>
+            @Html.TextBoxFor(m => m.FirstName)
         </div>
-        @Html.HiddenFor(m => m.UserId)
-    </fieldset>
-</div>
+        <div class="formItem col-6">
+            <div><label>Last Name</label></div>
+            @Html.TextBoxFor(m => m.LastName)
+        </div>
+        <div class="formItem col-6">
+            <div><label>Username</label></div>
+            @Html.TextBoxFor(m => m.Username)
+        </div>
+        <div class="formItem col-6">
+            <div><label>Email</label></div>
+            @Html.TextBoxFor(m => m.Email, new
+            {
+            @class = "form-control",
+            @type = "email"
+            })
+        </div>
+        <div class="formItem col-6">
+            <div><label>Password</label></div>
+            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @id = "password", @type = "password" })
+        </div>
+        <div class="formItem col-6">
+            <div><label>Confirm Password</label></div>
+            <input type="password" name="confirm_password" id="confirm_password" onkeyup='validatePassword();' />
+            <span id='message'></span>
+        </div>
+        <div class="col-4">
+            @Html.CheckBoxFor(m => m.IsSuperUser, new { @id = "checkbox" })
+            <label class="checkbox">IsSuperUser</label>
+        </div>
+        <div class="col-4">
+            @Html.CheckBoxFor(m => m.Approved, new { @id = "checkbox" })
+            <label class="checkbox">Approved</label>
+        </div>
+        <div class="col-4">
+            @Html.CheckBoxFor(m => m.SendEmail, new { @id = "checkbox" })
+            <label class="checkbox">Send An Email To New User</label>
+        </div>
+    </div>
+    @Html.HiddenFor(m => m.UserId)
+</fieldset>
 <div class="buttomForm mt20">
     <div class="center">
         <button type="submit" id="primary">Save</button>
         <button id="cancelEdit" href="#">@Dnn.LocalizeString("Cancel")</button>
     </div>
 </div>
-<script type="application/javascript">
-    let app = new Vue({
-        el: '#app',
-        data: {
-            title: "Create New User"
-        }
-    })
-    function validatePassword() {
-        var password = document.getElementById('password').value;
-        var confirm_password = document.getElementById('confirm_password').value;
-        var message = document.getElementById('message');
-        if (password == confirm_password) {
-            message.style.color = 'green';
-            message.innerHTML = '';
-        } else {
-            message.style.color = 'red';
-            message.innerHTML = 'Password and Confirmation Password must match.';
-        }
-    }
+<script type="text/javascript">
     /*globals jQuery, window, Sys */
     (function ($, Sys) {
         function dnnEditBasicSettings() {
@@ -86,7 +66,7 @@
                 collapseText: '@Dnn.LocalizeString("CollapseAll")',
                 targetArea: '#dnnEditBasicSettings'
             });
-        };
+        }
         $(function () {
             $('#cancelEdit').click(function () { dnnModal.closePopUp(false); });
             dnnEditBasicSettings();

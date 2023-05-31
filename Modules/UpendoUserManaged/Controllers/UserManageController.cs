@@ -48,10 +48,11 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Users item)
+        public ActionResult Edit(UserViewModel item)
         {
-            int editedFor = User.UserID;
-            UsuarioRepository.EditUser(item, editedFor);
+            //int editedFor = User.UserID;
+            var portalId = ModuleContext.PortalId;
+            UsuarioRepository.EditUser(portalId, item);
             return RedirectToDefaultRoute();
         }
         public ActionResult Details(int itemId)

@@ -2,11 +2,13 @@
 
 @using System.Text.RegularExpressions
 @using DotNetNuke.Web.Mvc.Helpers
-
+@{
+    string srcLogo = DotNetNuke.Entities.Tabs.TabController.CurrentPage.Title + "/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Images/Upendo-logo-trans.png";
+}
 <div id="Items-@Dnn.ModuleContext.ModuleId" style="margin: 2%!important;">
     <div class="col-md-12">
         <div class="col-md-4">
-            <img alt="logo" src="DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Images/Upendo-logo-trans.png" />
+            <img alt="logo" src=@srcLogo />
         </div>
         <div class="col-md-8">
             <h1 id="title">Upendo User Manage</h1>
@@ -22,69 +24,56 @@
     {
         <hr />
         <div class="pb10">
-            <h1 class="left" id="title">List of @ViewBag.Filter Users</h1>
-            <a type="button" class="btn btn-primary right" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create User
-            </a>
-            <ul class='nav right'>
-                <li>
-                    <div class="btn-group dropup right">
-                        <a class="btn btn-info dropdown-toggle" style="color: white;" data-toggle="dropdown" href="#">
-                            Filters <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu ">
-                            <li>
-                                <a href="@Url.Action("Index", "UserManage", new {filter = "Unauthorized"})">
-                                    Unauthorized
-                                </a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("Index", "UserManage", new {filter = "Authorized"})">
-                                    Authorized
-                                </a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("Index", "UserManage", new {filter = "Deleted"})">
-                                    Deleted
-                                </a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("Index", "UserManage", new {filter = "SuperUsers"})">
-                                    SuperUsers
-                                </a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("Index", "UserManage", new {filter = "All"})">
-                                    All
-                                </a>
-                            </li>
-                        </ul>
+            <div class="col-md-12">
+                <h1 class="left" id="title">List of @ViewBag.Filter Users</h1>
+                <div class="select-menu ">
+                    <div class="select-btn">
+                        <span class="sBtn-text">Filters</span>
+                        <i class="bx bx-chevron-down"></i>
                     </div>
-                </li>
-            </ul>
-            <ul class='nav right'>
-                <li>
-                    <div class="btn-group dropup right">
-                        <a class="btn btn-danger dropdown-toggle" style="color: white;" data-toggle="dropdown" href="#">
-                            Options
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu ">
-                            <li>
-                                <a href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})">
-                                    Delete Unauthorized Users
-                                </a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("RemoveDeletedUsers", "UserManage", new {})">
-                                    Remove Delete Users
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
+                    <ul class="options">
+                        <li class="option">
+                            <a href="@Url.Action("Index", "UserManage", new {filter = "All"})">
+                                <span class="option-text">All</span>
+                            </a>
+                        </li>
+                        <li class="option">
+                            <a href="@Url.Action("Index", "UserManage", new {filter = "Authorized"})">
+                                <span class="option-text">Authorized</span>
+                            </a>
+                        </li>
+                        <li class="option">
+                            <a href="@Url.Action("Index", "UserManage", new {filter = "Unauthorized"})">
+                                <span class="option-text">Unauthorized</span>
+                            </a>
+                        </li>
+                        <li class="option">
+                            <a href="@Url.Action("Index", "UserManage", new {filter = "Deleted"})">
+                                <span class="option-text">Deleted</span>
+                            </a>
+                        </li>
+                        <li class="option">
+                            <a href="@Url.Action("Index", "UserManage", new {filter = "SuperUsers"})">
+                                <span class="option-text">SuperUsers</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12">
+
+                <a type="button" class="btn btn-primary right" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create User
+                </a>
+                <a type="button" class="btn btn-primary right" href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Delete Unauthorized Users
+                </a>
+                <a type="button" class="btn btn-primary right" href="@Url.Action("RemoveDeletedUsers", "UserManage", new {})">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Remove Delete Users
+                </a>
+            </div>
         </div>
+
         <table class="table dynamic table-striped table-bordered table-hover" id="table">
             <thead>
                 <tr style="background-color:#6d5a2c; color:#FFFFFF">
@@ -92,9 +81,8 @@
                     <th>USERNAME</th>
                     <th>NAME</th>
                     <th>EMAIL</th>
-                    <th>SUPERUSER</th>
-                    <th>STATE</th>
-                    <th>ACTIONS</th>
+                    <th style="text-align:center">SUPERUSER</th>
+                    <th style="text-align:center">ACTIONS</th>
                 </tr>
             </thead>
             <tbody>
@@ -125,9 +113,7 @@
                             }
 
                         </td>
-                        <td>
-                        </td>
-                        <td class="text-right">
+                        <td class="text-center">
                             <a class="btn btn-info btn-sm" href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = item.UserId})"
                                data-toggle="tooltip" data-placement="top" title="Details">
                                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
@@ -152,6 +138,23 @@
 </div>
 
 <script>
+
+    const optionMenu = document.querySelector(".select-menu"),
+        selectBtn = optionMenu.querySelector(".select-btn"),
+        options = optionMenu.querySelectorAll(".option"),
+        sBtn_text = optionMenu.querySelector(".sBtn-text");
+
+    selectBtn.addEventListener("click", () =>
+        optionMenu.classList.toggle("active")
+    );
+
+    options.forEach((option) => {
+        option.addEventListener("click", () => {
+            let selectedOption = option.querySelector(".option-text").innerText;
+            sBtn_text.innerText = selectedOption;
+            optionMenu.classList.remove("active");
+        });
+    });
     $(document).ready(function () {
         $('#dataTables-pages').DataTable();
     });
