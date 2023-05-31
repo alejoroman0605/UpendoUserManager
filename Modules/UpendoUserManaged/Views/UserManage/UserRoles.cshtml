@@ -1,0 +1,73 @@
+@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<Upendo.Modules.UpendoUserManaged.ViewModels.UserViewModel>
+
+@using System.Text.RegularExpressions
+@using DotNetNuke.Web.Mvc.Helpers
+@{
+    string srcLogo = DotNetNuke.Entities.Tabs.TabController.CurrentPage.Title +
+    "/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Images/Upendo-logo-trans.png";
+    string name = Model.DisplayName;
+}
+<div id="Items-@Dnn.ModuleContext.ModuleId" style="margin: 2%!important;">
+    <div class="row">
+        <div class="col-5">
+            <img alt="logo" src=@srcLogo />
+        </div>
+        <div class="col-7">
+            <h1 id="title">@name role list</h1>
+        </div>
+    </div>
+
+    @if (Model == null)
+    {
+        <p>@Dnn.LocalizeString("NoItems")</p>
+    }
+    else
+    {
+        <hr />
+        <div class="buttomForm mt5 mb5">
+            <button id="primary" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
+                Add
+            </button>
+            <ul>
+                @{
+                    foreach (var item in @ViewBag.Roles)
+                    {
+                        <li> @item</li>
+                    }
+                }
+            </ul>
+        </div>
+        <table class="table dynamic table-striped table-bordered table-hover" id="table">
+            <thead>
+                <tr style="background-color:#6d5a2c; color:#FFFFFF">
+                    <th>ROLE</th>
+                    <th style="text-align:center">ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.UserRoles)
+                {
+                    <tr>
+                        <td>
+                            @item
+                        </td>
+                        <td style="text-align:center">
+                            <a data-hint="Delete" class="btn btn-danger btn-sm delete hint--top hint--error"
+                               data-placement="top" data-singleton="true"
+                               href="@Url.Action("Delete", "UserManage", new {itemId = Model.UserId})">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#dataTables-pages').DataTable();
+    });
+</script>
