@@ -7,10 +7,6 @@ namespace Upendo.Modules.UpendoUserManaged.ViewModels
 {
     public class UserViewModel
     {
-        public UserViewModel()
-        {
-            UserRoles = new HashSet<UserRoles>();
-        }
         [Key]
         public int UserId { get; set; }
         public string Username { get; set; }
@@ -27,13 +23,14 @@ namespace Upendo.Modules.UpendoUserManaged.ViewModels
         public string LastIpaddress { get; set; }
         public bool IsDeleted { get; set; }
         public bool SendEmail { get; set; }
+        public bool LockedOut { get; set; }
         public int? CreatedByUserId { get; set; }
         public DateTime? CreatedOnDate { get; set; }
         public int? LastModifiedByUserId { get; set; }
         public DateTime? LastModifiedOnDate { get; set; }
         public Guid? PasswordResetToken { get; set; }
         public DateTime? PasswordResetExpiration { get; set; }
-
-        public virtual ICollection<UserRoles> UserRoles { get; set; }
+        public int PortalID { get; set; }
+        public string[] UserRoles { get; set; }
     }
 }

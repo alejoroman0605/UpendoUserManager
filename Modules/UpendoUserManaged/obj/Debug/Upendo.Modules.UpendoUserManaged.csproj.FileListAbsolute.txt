@@ -73,4 +73,3 @@ D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\Upe
 D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\UpendoUserManaged\obj\Debug\Upendo.Modules.UpendoUserManaged.csproj.CopyComplete
 D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\UpendoUserManaged\obj\Debug\Upendo.Modules.UpendoUserManaged.dll
 D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\UpendoUserManaged\obj\Debug\Upendo.Modules.UpendoUserManaged.pdb
-D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\UpendoUserManaged\obj\Debug\Upendo.Modules.UpendoUserManaged.csproj.AssemblyReference.cache

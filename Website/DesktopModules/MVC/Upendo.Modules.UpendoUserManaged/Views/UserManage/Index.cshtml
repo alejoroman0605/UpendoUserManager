@@ -24,8 +24,10 @@
     {
         <hr />
         <div class="pb10">
-            <div class="col-md-12">
-                <h1 class="left" id="title">List of @ViewBag.Filter Users</h1>
+            <div class="col-md-10">
+                <h1 id="title">List of @ViewBag.Filter Users</h1>
+            </div>
+            <div class="col-md-2">
                 <div class="select-menu ">
                     <div class="select-btn">
                         <span class="sBtn-text">Filters</span>
@@ -60,16 +62,15 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-12">
-
-                <a type="button" class="btn btn-primary right" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
+            <div class="ml5">
+                <a type="button" class="btn btn-primary" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create User
                 </a>
-                <a type="button" class="btn btn-primary right" href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Delete Unauthorized Users
+                <a type="button" class="btn btn-warning" href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})" style="color: white;">
+                    Delete Unauthorized Users
                 </a>
-                <a type="button" class="btn btn-primary right" href="@Url.Action("RemoveDeletedUsers", "UserManage", new {})">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Remove Delete Users
+                <a type="button" class="btn btn-warning" href="@Url.Action("RemoveDeletedUsers", "UserManage", new {})" style="color: white;">
+                    Remove Delete Users
                 </a>
             </div>
         </div>
@@ -114,10 +115,10 @@
 
                         </td>
                         <td class="text-center">
-                            <a class="btn btn-info btn-sm" href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = item.UserId})"
-                               data-toggle="tooltip" data-placement="top" title="Details">
-                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                            </a>
+                            @* <a class="btn btn-info btn-sm" href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = item.UserId})"
+                                   data-toggle="tooltip" data-placement="top" title="Details">
+                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                </a> *@
                             <a data-hint="Edit" class="btn btn-warning btn-sm edit hint--top hint--warning" href="@Url.Action("Edit", "UserManage", new {ctl = "Edit", itemId = item.UserId})"
                                data-toggle="tooltip" data-placement="top" title="Edit">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>

@@ -2,22 +2,46 @@
 
 @using System.Collections.Generic
 @using DotNetNuke.Web.Mvc.Helpers
-
+@{
+    string defaultUserPicture = "/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Images/defaultUserPicture.jpg";
+}
 <div class="row accountSettings">
     <div class="col-6">
         <h4 class="center" id="title">ACCOUNT SETTINGS</h4>
-        <fieldset>
-            <div class="formItem">
-                <div><label>User Name</label></div>
-                @Html.TextBoxFor(m => m.Username)
-            </div>
-            <div class="formItem">
-                <div><label>Display Name</label></div>
-                @Html.TextBoxFor(m => m.DisplayName)
-            </div>
-            <div class="formItem">
-                <div><label>Email Address</label></div>
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @type = "email" })
+        <fieldset class="ml30">
+            <div class="row ml5">
+                <div class="formItem col-6">
+                    <div><label>First Name</label></div>
+                    @Html.TextBoxFor(m => m.FirstName)
+                </div>
+                <div class="formItem col-6">
+                    <div><label>Last Name</label></div>
+                    @Html.TextBoxFor(m => m.LastName)
+                </div>
+                <div class="formItem col-6">
+                    <div><label>Username</label></div>
+                    @Html.TextBoxFor(m => m.Username)
+                </div>
+                <div class="formItem col-6">
+                    <div><label>Email</label></div>
+                    @Html.TextBoxFor(m => m.Email, new
+                    {
+                    @class = "form-control",
+                    @type = "email"
+                    })
+                </div>
+                <div class="col-6">
+                    @Html.CheckBoxFor(m => m.IsSuperUser, new { @id = "checkbox" })
+                    <label class="checkbox">IsSuperUser</label>
+                </div>
+                <div class="col-6">
+                    @Html.CheckBoxFor(m => m.Approved, new { @id = "checkbox" })
+                    <label class="checkbox">Approved</label>
+                </div>
+                <div class="col-6">
+                    @Html.CheckBoxFor(m => m.SendEmail, new { @id = "checkbox" })
+                    <label class="checkbox">Send An Email To New User</label>
+                </div>
             </div>
             @Html.HiddenFor(m => m.UserId)
         </fieldset>
@@ -42,10 +66,9 @@
     </div>
     <div class="col-6">
         <h4 class="center" id="title">ACCOUNT DATA</h4>
-        <div class="accountSettings">
+        <div class="accountData">
             <div>
-                <img src="https://media.istockphoto.com/id/1210939712/es/vector/icono-de-usuario-icono-de-personas-aislado-sobre-fondo-blanco-ilustraci%C3%B3n-vectorial.jpg?s=612x612&w=0&k=20&c=8oAhIlu-JVVIiI5t0mwwQewAmbPereyZCzPYZ6tP-hc="
-                     alt="User" width="200" height="200" class="float-right">
+                <img src=@defaultUserPicture alt="User" width="200" height="200" class="float-right">
             </div>
             <p>User ID: @Model.UserId</p>
             <p>Created Date: @Model.CreatedOnDate</p>
@@ -57,7 +80,7 @@
                 @{
                     foreach (var item in Model.UserRoles)
                     {
-                        <li> @item.Role.RoleName</li>
+                        <li> @item</li>
                     }
                 }
             </ul>

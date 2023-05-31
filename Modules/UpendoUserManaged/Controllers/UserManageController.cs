@@ -41,7 +41,8 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         public ActionResult Edit(int itemId)
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
-            var item = UsuarioRepository.GetUser(itemId);
+            var portalId = ModuleContext.PortalId;
+            var item = UsuarioRepository.GetUser(portalId,itemId);
             //ViewBag.Roles = Functions.GetRoles();
             ViewBag.Roles = new SelectList(Functions.GetRoles(), "RoleId", "RoleName");
             return View(item);
@@ -58,7 +59,8 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         public ActionResult Details(int itemId)
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
-            var item = UsuarioRepository.GetUser(itemId);
+            var portalId = ModuleContext.PortalId;
+            var item = UsuarioRepository.GetUser(portalId,itemId);
             return View(item);
         }
         public ActionResult Delete(int itemId)
@@ -69,7 +71,8 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         public ActionResult ChangePassword(int itemId)
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
-            var item = UsuarioRepository.GetUser(itemId);
+            var portalId = ModuleContext.PortalId;
+            var item = UsuarioRepository.GetUser(portalId,itemId);
             return View(item);
         }
 
