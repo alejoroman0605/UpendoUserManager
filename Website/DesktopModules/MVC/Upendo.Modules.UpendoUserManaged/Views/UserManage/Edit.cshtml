@@ -30,22 +30,6 @@
                     @type = "email"
                     })
                 </div>
-                <div class="formItem col-6">
-                    <div><label>Password</label></div>
-                    @Html.TextBoxFor(m => m.Password, new
-                    {
-                    @class = "form-control",
-                    @id = "password",
-                    @type =
-                    "password"
-                    })
-                </div>
-                <div class="formItem col-6">
-                    <div><label>Confirm Password</label></div>
-                    <input type="password" name="confirm_password" id="confirm_password"
-                           onkeyup='validatePassword();' />
-                    <span id='message'></span>
-                </div>
                 <div class="col-6 mt5">
                     @Html.CheckBoxFor(m => m.Approved, new { @id = "checkbox" })
                     <label class="checkbox">Approved</label>
@@ -77,10 +61,16 @@
             <span>Force Password Change</span>
             </a>
             </div> *@
+        @* <div class="col-12 ml5">
+            <a data-hint="Details"
+            href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = @Model.UserId})">
+            <span>Send Password Reset Link</span>
+            </a>
+            </div> *@
         <div class="col-12 ml5">
             <a data-hint="Details"
-               href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = @Model.UserId})">
-                <span>Send Password Reset Link</span>
+               href="@Url.Action("UserRoles", "UserManage", new {ctl = "Edit", itemId = @Model.UserId})">
+                <span>User Role Management</span>
             </a>
         </div>
     </div>
