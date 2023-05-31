@@ -121,6 +121,8 @@
     <Content Include="App_LocalResources\Settings.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\defaultUserPicture.jpg" />
+    <Content Include="Images\Upendo-logo-trans.png" />
     <Content Include="License.txt" />
     <Content Include="module.css" />
     <Content Include="ReleaseNotes.txt" />
