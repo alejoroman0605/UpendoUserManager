@@ -42,9 +42,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
             var portalId = ModuleContext.PortalId;
-            var item = UsuarioRepository.GetUser(portalId,itemId);
-            //ViewBag.Roles = Functions.GetRoles();
-            ViewBag.Roles = new SelectList(Functions.GetRoles(), "RoleId", "RoleName");
+            var item = UsuarioRepository.GetUser(portalId, itemId);
             return View(item);
         }
 
@@ -60,7 +58,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
             var portalId = ModuleContext.PortalId;
-            var item = UsuarioRepository.GetUser(portalId,itemId);
+            var item = UsuarioRepository.GetUser(portalId, itemId);
             return View(item);
         }
         public ActionResult Delete(int itemId)
@@ -72,7 +70,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
             var portalId = ModuleContext.PortalId;
-            var item = UsuarioRepository.GetUser(portalId,itemId);
+            var item = UsuarioRepository.GetUser(portalId, itemId);
             return View(item);
         }
 
@@ -96,6 +94,15 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
             var portalId = ModuleContext.PortalId;
             UserController.RemoveDeletedUsers(portalId);
             return RedirectToDefaultRoute();
+        }
+
+        public ActionResult UserRoles(int itemId)
+        {
+            var portalId = ModuleContext.PortalId;
+            var item = UsuarioRepository.GetUser(portalId, itemId);
+            //ViewBag.Roles = Functions.GetRoles();
+            ViewBag.Roles = new SelectList(Functions.GetRolesByPortal(portalId), "RoleID", "RoleName");
+            return View(item);
         }
     }
 }
