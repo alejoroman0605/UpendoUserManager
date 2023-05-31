@@ -32,5 +32,6 @@ namespace Upendo.Modules.UpendoUserManaged.ViewModels
         public DateTime? PasswordResetExpiration { get; set; }
         public int PortalID { get; set; }
         public string[] UserRoles { get; set; }
+        public string NewUserRol { get; set; }
     }
 }
