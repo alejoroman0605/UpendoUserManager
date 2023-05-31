@@ -36,26 +36,26 @@
 .dataTables_wrapper input {
     width: 130px;
     box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 16px;
     background-color: white;
     background-position: 10px 10px;
     background-repeat: no-repeat;
     padding: 6px;
     transition: width 0.4s ease-in-out;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .dataTables_wrapper select {
     box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 16px;
     background-color: white;
     background-position: 10px 10px;
     background-repeat: no-repeat;
     padding: 6px;
     transition: width 0.4s ease-in-out;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .dataTables_wrapper input:focus {
@@ -158,6 +158,10 @@
     margin-left: 5px;
 }
 
+.ml30 {
+    margin-left: 30px;
+}
+
 .mt5 {
     margin-top: 5px;
 }
@@ -248,6 +252,113 @@
     padding: 6px;
     box-shadow: 0 1px 6px 0 rgba(0,0,0,0.2), 0 2px 8px 0 rgba(0,0,0,0.19);
     font-size: 16px;
+}
+
+.select-menu {
+    max-width: 330px;
+    margin-bottom: 50px;
+}
+
+    .select-menu .select-btn {
+        display: flex;
+        height: 35px;
+        min-width: 160px;
+        background: #fff;
+        padding: 20px;
+        font-size: 18px;
+        font-weight: 400;
+        border-radius: 8px;
+        align-items: center;
+        cursor: pointer;
+        justify-content: space-between;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .select-menu .options {
+        position: absolute;
+        width: 200px;
+        overflow-y: auto;
+        max-height: 295px;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        animation-name: fadeInDown;
+        -webkit-animation-name: fadeInDown;
+        animation-duration: 0.35s;
+        animation-fill-mode: both;
+        -webkit-animation-duration: 0.35s;
+        -webkit-animation-fill-mode: both;
+    }
+
+        .select-menu .options .option {
+            display: flex;
+            height: 30px;
+            cursor: pointer;
+            padding: 0 16px;
+            border-radius: 8px;
+            align-items: center;
+            background: #fff;
+        }
+
+            .select-menu .options .option:hover {
+                background: #f2f2f2;
+            }
+
+            .select-menu .options .option i {
+                font-size: 25px;
+                margin-right: 12px;
+            }
+
+            .select-menu .options .option .option-text {
+                font-size: 18px;
+                color: #333;
+            }
+
+.select-btn i {
+    font-size: 25px;
+    transition: 0.3s;
+}
+
+.select-menu.active .select-btn i {
+    transform: rotate(-180deg);
+}
+
+.select-menu.active .options {
+    display: block;
+    opacity: 0;
+    z-index: 10;
+    animation-name: fadeInUp;
+    -webkit-animation-name: fadeInUp;
+    animation-duration: 0.4s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 0.4s;
+    -webkit-animation-fill-mode: both;
+    width: 170px;
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translate3d(0, 30px, 0);
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translate3d(0, 20px, 0);
+        opacity: 0;
+    }
 }
 
 /* #Body .ui-widget-overlay {
