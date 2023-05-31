@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using Upendo.Modules.UpendoUserManaged.Models.DnnModel;
-using static Telerik.Web.UI.OrgChartStyles;
-using DotNetNuke.Common;
 using Upendo.Modules.UpendoUserManaged.Data;
-using Upendo.Modules.UpendoUserManaged.ViewModels;
 using DotNetNuke.Entities.Users;
+using DotNetNuke.Security.Roles;
 
 namespace Upendo.Modules.UpendoUserManaged.Utility
 {
@@ -77,22 +73,15 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             }
             return rolesInUser;
         }
-        public static List<RolesViewModel> GetRoles()
+        public static List<RoleInfo> GetRolesByPortal(int portalId)
         {
-            ModuleDbContext _context = new ModuleDbContext();
-            List<RolesViewModel> roles = new List<RolesViewModel>();
-            var rolesDnn = _context.Roles.ToList();
-            foreach (var item in rolesDnn)
+            var items = new List<RoleInfo>();
+            var roles= RoleController.GetRoleGroups(portalId);
+            foreach (RoleInfo r in roles)
             {
-                var rolViewModel = new RolesViewModel
-                {
-                    PortalId = item.PortalId,
-                    RoleName = item.RoleName,
-                    RoleId = item.RoleId
-                };
-                roles.Add(rolViewModel);
+                items.Add(r);
             }
-            return roles;
+            return items;
         }
         public static Users MakeUser(UserInfo u)
         {
