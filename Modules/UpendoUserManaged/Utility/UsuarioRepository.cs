@@ -19,26 +19,27 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
 {
     public class UsuarioRepository
     {
-        public static UserViewModel GetUser(int id)
+        public static UserViewModel GetUser(int portalId, int id)
         {
-            ModuleDbContext _context = new ModuleDbContext();
-            var userDnn = _context.Users.SingleOrDefault(x => x.UserId == id);
+            var userInfo = UserController.GetUserById(portalId, id);
+
             var user = new UserViewModel
             {
-                UserId = userDnn.UserId,
-                DisplayName = userDnn.DisplayName,
-                FirstName = userDnn.FirstName,
-                LastName = userDnn.LastName,
-                Email = userDnn.Email,
-                Username = userDnn.Username,
-                IsSuperUser = userDnn.IsSuperUser,
-                //Approved = Membership.GetUser(userDnn.Username).IsApproved,
-                UserRoles = userDnn.UserRoles,
-                CreatedOnDate = userDnn.CreatedOnDate,
-                IsDeleted = userDnn.IsDeleted,
-                LastModifiedOnDate = userDnn.LastModifiedOnDate,
-                UpdatePassword = userDnn.UpdatePassword,
-
+                UserId = userInfo.UserID,
+                DisplayName = userInfo.DisplayName,
+                FirstName = userInfo.FirstName,
+                LastName = userInfo.LastName,
+                Email = userInfo.Email,
+                Username = userInfo.Username,
+                IsSuperUser = userInfo.IsSuperUser,
+                UserRoles = userInfo.Roles,
+                CreatedOnDate = userInfo.CreatedOnDate,
+                LastModifiedOnDate = userInfo.LastModifiedOnDate,
+                IsDeleted = userInfo.IsDeleted,
+                Approved = userInfo.Membership.Approved,
+                UpdatePassword = userInfo.Membership.UpdatePassword,
+                LockedOut = userInfo.Membership.LockedOut,
+                PortalID = userInfo.PortalID,
             };
             return user;
         }
@@ -76,9 +77,10 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 userInfo.IsSuperUser = user.IsSuperUser;
                 userInfo.IsDeleted = user.IsDeleted;
                 userInfo.Membership.Approved = user.Approved;
+                userInfo.Membership.LockedOut = user.LockedOut;
                 if (user.Password != null)
                 {
-                    userInfo.Membership.Password = user.Password;
+                    ChangePassword(user.UserId, user.Password);
                 }
                 UserController.UpdateUser(portalId, userInfo);
             }
@@ -108,7 +110,6 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             ModuleDbContext _context = new ModuleDbContext();
             var userFind = _context.Set<Users>().Find(itemId);
             UserInfo user = UserController.GetUserByName(0, userFind.Username);
-            UserController.ResetPassword(user, newPassword);
             if (user != null)
             {
                 UserController.ResetAndChangePassword(user, newPassword);
