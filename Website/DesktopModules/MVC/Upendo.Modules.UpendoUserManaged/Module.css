@@ -116,10 +116,12 @@
 
 .left {
     float: left;
+    margin: 2px;
 }
 
 .right {
     float: right;
+    margin: 2px;
 }
 
 .center {
