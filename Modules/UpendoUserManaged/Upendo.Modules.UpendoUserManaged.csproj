@@ -231,7 +231,6 @@
     <Content Include="Resources\lib\jquery-validation\LICENSE.md" />
     <Content Include="Resources\lib\jquery\.bower.json" />
     <Content Include="Resources\lib\jquery\dist\jquery.min.map" />
-    <Content Include="Resources\css\profile.css" />
     <Content Include="Views\UserManage\UserRoles.cshtml" />
   </ItemGroup>
   <PropertyGroup>
