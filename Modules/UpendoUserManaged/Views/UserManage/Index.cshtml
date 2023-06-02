@@ -63,15 +63,19 @@
                 </div>
             </div>
             <div class="ml5">
-                <a type="button" class="btn btn-primary" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
+                <a type="button" class="dnnPrimaryAction" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create User
                 </a>
-                <a type="button" class="btn btn-warning" href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})" style="color: white;">
-                    Delete Unauthorized Users
-                </a>
-                <a type="button" class="btn btn-warning" href="@Url.Action("RemoveDeletedUsers", "UserManage", new {})" style="color: white;">
-                    Remove Delete Users
-                </a>
+                <span id="dialogs-DeleteUnauthorized" class="dnnActions" style="display: initial;">
+                    <a type="button" class="confirm btn btn-warning" href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})" style="color: white;">
+                        Delete Unauthorized Users
+                    </a>
+                </span>
+                <span id="dialogs-RemoveDelete" class="dnnActions" style="display: initial;">
+                    <a type="button" class="confirm btn btn-warning" href="@Url.Action("RemoveDeletedUsers", "UserManage", new {})" style="color: white;">
+                        Remove Delete Users
+                    </a>
+                </span>
             </div>
         </div>
 
@@ -80,7 +84,7 @@
                 <tr style="background-color:#6d5a2c; color:#FFFFFF">
                     <th class="hidden">Id</th>
                     <th>USERNAME</th>
-                    <th>NAME</th>
+                    <th>DISPLAY NAME</th>
                     <th>EMAIL</th>
                     <th style="text-align:center">SUPERUSER</th>
                     <th style="text-align:center">ACTIONS</th>
@@ -115,10 +119,6 @@
 
                         </td>
                         <td class="text-center">
-                            @* <a class="btn btn-info btn-sm" href="@Url.Action("Details", "UserManage", new {ctl = "Edit", itemId = item.UserId})"
-                                   data-toggle="tooltip" data-placement="top" title="Details">
-                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                </a> *@
                             <a data-hint="Edit" class="btn btn-warning btn-sm edit hint--top hint--warning" href="@Url.Action("Edit", "UserManage", new {ctl = "Edit", itemId = item.UserId})"
                                data-toggle="tooltip" data-placement="top" title="Edit">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
@@ -131,9 +131,11 @@
                                data-toggle="tooltip" data-placement="top" title="User Roles">
                                 <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
                             </a>
-                            <a data-hint="Delete" class="btn btn-danger btn-sm delete hint--top hint--error" data-placement="top" data-singleton="true" href="@Url.Action("Delete", "UserManage", new {itemId = item.UserId})">
-                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                            </a>
+                            <span id="dialogs-delete" class="dnnActions" style="display: initial;">
+                                <a data-hint="Delete" class="confirm btn btn-danger btn-sm delete hint--top hint--error" data-placement="top" data-singleton="true" href="@Url.Action("Delete", "UserManage", new {itemId = item.UserId})">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </a>
+                            </span>
                         </td>
                     </tr>
                 }
@@ -143,6 +145,25 @@
 </div>
 
 <script>
+    $(function () {
+        $('#dialogs-delete .confirm').dnnConfirm(
+            {
+                title: "", yesText: "Delete", noText: "Cancel", dialogClass: 'dnnFormPopup',
+                text: '<p style="font-size:20px;">Are you sure you want to delete this user?</p>',
+            },
+
+        );
+    });
+    $(function () {
+        $('#dialogs-DeleteUnauthorized .confirm').dnnConfirm(
+            { title: "", text: '<p style="font-size:20px;">Are you sure you want to delete unauthorized users?</p>' }
+        );
+    });
+    $(function () {
+        $('#dialogs-RemoveDelete .confirm').dnnConfirm(
+            { title: "", text: '<p style="font-size:20px;">Do you wish to permanently remove deleted users? You cannot undo this operation.</p>' }
+        );
+    });
 
     const optionMenu = document.querySelector(".select-menu"),
         selectBtn = optionMenu.querySelector(".select-btn"),
@@ -163,4 +184,4 @@
     $(document).ready(function () {
         $('#dataTables-pages').DataTable();
     });
-</script>
+</script>   
