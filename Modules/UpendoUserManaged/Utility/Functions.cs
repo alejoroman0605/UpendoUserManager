@@ -96,6 +96,8 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             var user = new Users()
             {
                 UserId = u.UserID,
+                FirstName   = u.FirstName,
+                LastName = u.LastName,
                 Username = u.Username,
                 DisplayName = u.DisplayName,
                 Email = u.Email,
