@@ -23,14 +23,16 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
     {
         public static UserViewModel GetUser(int portalId, int id)
         {
+            ModuleDbContext _context = new ModuleDbContext();
+            var u = _context.Users.FirstOrDefault(x => x.UserId == id);
             var userInfo = UserController.GetUserById(portalId, id);
 
             var user = new UserViewModel
             {
                 UserId = userInfo.UserID,
                 DisplayName = userInfo.DisplayName,
-                FirstName = userInfo.FirstName,
-                LastName = userInfo.LastName,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
                 Email = userInfo.Email,
                 Username = userInfo.Username,
                 IsSuperUser = userInfo.IsSuperUser,
@@ -57,7 +59,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             userInfo.Membership.Password = user.Password;
             userInfo.Membership.Approved = user.Approved;
 
-            var roles = RoleController.Instance.GetRoles(portalId).Where(r=>r.AutoAssignment==true);
+            var roles = RoleController.Instance.GetRoles(portalId).Where(r => r.AutoAssignment == true);
             foreach (var item in roles)
             {
                 userInfo.Roles.Append(item.RoleName);
@@ -79,9 +81,9 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 userInfo.IsDeleted = user.IsDeleted;
                 userInfo.Membership.Approved = user.Approved;
                 userInfo.Membership.LockedOut = user.LockedOut;
-                if (user.NewUserRol!=null)
+                if (user.NewUserRol != null)
                 {
-                    userInfo.Roles[userInfo.Roles.Count()-1]=user.NewUserRol;
+                    userInfo.Roles[userInfo.Roles.Count() - 1] = user.NewUserRol;
                 }
                 UserController.UpdateUser(portalId, userInfo);
             }
