@@ -14,6 +14,8 @@ using DotNetNuke.Entities.Users;
 using Hotcakes.Commerce.Marketing.PromotionQualifications;
 using DotNetNuke.Security.Membership;
 using Upendo.Modules.UpendoUserManaged.ViewModels;
+using Upendo.Modules.UpendoUserManaged.Controllers;
+using DotNetNuke.Security.Roles;
 
 namespace Upendo.Modules.UpendoUserManaged.Utility
 {
@@ -55,8 +57,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             userInfo.Membership.Password = user.Password;
             userInfo.Membership.Approved = user.Approved;
 
-            ModuleDbContext _context = new ModuleDbContext();
-            var roles = _context.Roles.Where(r => r.AutoAssignment == true).ToList();
+            var roles = RoleController.Instance.GetRoles(portalId).Where(r=>r.AutoAssignment==true);
             foreach (var item in roles)
             {
                 userInfo.Roles.Append(item.RoleName);
@@ -80,7 +81,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 userInfo.Membership.LockedOut = user.LockedOut;
                 if (user.NewUserRol!=null)
                 {
-                    userInfo.Roles[userInfo.Roles.Count()+1]=user.NewUserRol;
+                    userInfo.Roles[userInfo.Roles.Count()-1]=user.NewUserRol;
                 }
                 UserController.UpdateUser(portalId, userInfo);
             }
