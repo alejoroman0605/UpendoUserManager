@@ -1,22 +1,22 @@
-@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<Upendo.Modules.UpendoUserManaged.ViewModels.UserViewModel>
+@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<IEnumerable<Upendo.Modules.UpendoUserManaged.ViewModels.RolesViewModel>>
 
 @using System.Text.RegularExpressions
 @using DotNetNuke.Web.Mvc.Helpers
 @{
     string srcLogo = DotNetNuke.Entities.Tabs.TabController.CurrentPage.Title +
     "/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Images/Upendo-logo-trans.png";
-    string name = Model.DisplayName;
+    string name = ViewBag.User.DisplayName;
+    int userId = ViewBag.User.UserId;
 }
 <div id="Items-@Dnn.ModuleContext.ModuleId" style="margin: 2%!important;">
-    <div class="row">
-        <div class="col-5">
+    <div class="col-md-12">
+        <div class="col-md-4">
             <img alt="logo" src=@srcLogo />
         </div>
-        <div class="col-7">
-            <h1 id="title">@name role list</h1>
+        <div class="col-md-8">
+            <h1 id="title">@name Role List</h1>
         </div>
     </div>
-
     @if (Model == null)
     {
         <p>@Dnn.LocalizeString("NoItems")</p>
@@ -24,40 +24,39 @@
     else
     {
         <hr />
-        <div class="buttomForm mt5 mb5">
-            <button id="primary" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
-                Add
-            </button>
-            <ul>
-                @{
-                    foreach (var item in @ViewBag.Roles)
-                    {
-                        <li> @item</li>
-                    }
-                }
-            </ul>
-        </div>
         <table class="table dynamic table-striped table-bordered table-hover" id="table">
             <thead>
                 <tr style="background-color:#6d5a2c; color:#FFFFFF">
+                    <th hidden></th>
                     <th>ROLE</th>
                     <th style="text-align:center">ACTIONS</th>
                 </tr>
             </thead>
             <tbody>
-
-                @foreach (var item in Model.UserRoles)
+                @foreach (var item in Model)
                 {
                     <tr>
+                        <td hidden>
+                            @item.Index
+                        </td>
                         <td>
-                            @item
+                            @item.RoleName
                         </td>
                         <td style="text-align:center">
-                            <a data-hint="Delete" class="btn btn-danger btn-sm delete hint--top hint--error"
-                               data-placement="top" data-singleton="true"
-                               href="@Url.Action("Delete", "UserManage", new {itemId = Model.UserId})">
-                                Delete
-                            </a>
+                            @if (@item.HasRole == true)
+                            {
+                                <a data-hint="Delete" class="btn btn-danger btn-sm edit hint--top hint--" href="@Url.Action("DeleteUserRole", "UserManage", new {roleId = item.RoleId, userId = @userId})"
+                                   data-toggle="tooltip" data-placement="top" title="Delete">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a data-hint="Add Role" class="btn btn-primary btn-sm edit hint--top hint--" href="@Url.Action("AddUserToRole", "UserManage", new {roleId = item.RoleId, userId = @userId })"
+                                   data-toggle="tooltip" data-placement="top" title="Add Role">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </a>
+                            }
                         </td>
                     </tr>
                 }
@@ -68,6 +67,7 @@
 
 <script>
     $(document).ready(function () {
-        $('#dataTables-pages').DataTable();
+        $('#dataTables-pages').DataTable({
+        });
     });
 </script>
