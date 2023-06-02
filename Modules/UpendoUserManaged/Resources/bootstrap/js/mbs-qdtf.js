@@ -24,7 +24,7 @@
 var colums = $('.dynamic thead th').length;
 $(document).ready(function () {
     var dynamicTable = $(".dynamic").DataTable({
-        "lengthMenu": [ [10,20, 25, 30, 50, 100, -1], [10,20, 25, 30, 50, 100, "All"] ],
+        "lengthMenu": [[10, 20, 25, 30, 50, 100, -1], [10, 20, 25, 30, 50, 100, "All"]],
         //"language": {
         //    "paginate": {
         //        "first": "Primera",
@@ -41,10 +41,11 @@ $(document).ready(function () {
         //},
         "pagingType": "full_numbers",
         "columnDefs": [
-            { "orderable": false, "targets": colums - 1 }
-        ]
+            { "orderable": true, "targets": colums - 1 }
+        ],
+        "order": [[0, 'desc']],
     });
-    dynamicTable.on('draw', function() {
+    dynamicTable.on('draw', function () {
         var body = $(dynamicTable.table().body());
 
         //body.unhighlight();

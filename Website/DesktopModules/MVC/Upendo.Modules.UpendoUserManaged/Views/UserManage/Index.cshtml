@@ -127,6 +127,10 @@
                                data-toggle="tooltip" data-placement="top" title="Reset Password">
                                 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
                             </a>
+                            <a data-hint="User Roles" class="btn btn-info btn-sm edit hint--top hint--" href="@Url.Action("UserRoles", "UserManage", new {itemId = item.UserId})"
+                               data-toggle="tooltip" data-placement="top" title="User Roles">
+                                <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
+                            </a>
                             <a data-hint="Delete" class="btn btn-danger btn-sm delete hint--top hint--error" data-placement="top" data-singleton="true" href="@Url.Action("Delete", "UserManage", new {itemId = item.UserId})">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </a>

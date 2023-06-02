@@ -1,8 +1,10 @@
 
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Framework.JavaScriptLibraries;
+using DotNetNuke.Security.Roles;
 using DotNetNuke.Web.Mvc.Framework.ActionFilters;
 using DotNetNuke.Web.Mvc.Framework.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Upendo.Modules.UpendoUserManaged.Models.DnnModel;
@@ -42,9 +44,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
             var portalId = ModuleContext.PortalId;
-            var item = UsuarioRepository.GetUser(portalId,itemId);
-            //ViewBag.Roles = Functions.GetRoles();
-            ViewBag.Roles = new SelectList(Functions.GetRoles(), "RoleId", "RoleName");
+            var item = UsuarioRepository.GetUser(portalId, itemId);
             return View(item);
         }
 
@@ -60,7 +60,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
             var portalId = ModuleContext.PortalId;
-            var item = UsuarioRepository.GetUser(portalId,itemId);
+            var item = UsuarioRepository.GetUser(portalId, itemId);
             return View(item);
         }
         public ActionResult Delete(int itemId)
@@ -72,7 +72,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
             var portalId = ModuleContext.PortalId;
-            var item = UsuarioRepository.GetUser(portalId,itemId);
+            var item = UsuarioRepository.GetUser(portalId, itemId);
             return View(item);
         }
 
@@ -96,6 +96,29 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
             var portalId = ModuleContext.PortalId;
             UserController.RemoveDeletedUsers(portalId);
             return RedirectToDefaultRoute();
+        }
+
+        public ActionResult UserRoles(int itemId)
+        {
+            var portalId = ModuleContext.PortalId;
+            ViewBag.User = UsuarioRepository.GetUser(portalId, itemId);
+            var result = Functions.GetRolesByUser(portalId, itemId);
+            return View(result);
+        }
+
+        public ActionResult AddUserToRole(int roleId, int userId)
+        {
+            var portalId = ModuleContext.PortalId;           
+            RoleController.Instance.AddUserRole(portalId, userId, roleId, RoleStatus.Approved, false, DateTime.Now, DateTime.Now.AddDays(30));
+            return RedirectToAction("Index");
+            //return RedirectToAction("UserRoles",  new { itemId = userId });
+        }
+        public ActionResult DeleteUserRole(int roleId, int userId)
+        {
+            var portalId = ModuleContext.PortalId;           
+            RoleController.Instance.UpdateUserRole(portalId,userId,roleId,RoleStatus.Approved,false,true);
+            return RedirectToAction("Index");
+            //return RedirectToAction("UserRoles",  new { itemId = userId });
         }
     }
 }

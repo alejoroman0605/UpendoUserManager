@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using Upendo.Modules.UpendoUserManaged.Models.DnnModel;
-using static Telerik.Web.UI.OrgChartStyles;
-using DotNetNuke.Common;
 using Upendo.Modules.UpendoUserManaged.Data;
-using Upendo.Modules.UpendoUserManaged.ViewModels;
 using DotNetNuke.Entities.Users;
+using DotNetNuke.Security.Roles;
+using Upendo.Modules.UpendoUserManaged.ViewModels;
 
 namespace Upendo.Modules.UpendoUserManaged.Utility
 {
@@ -30,7 +27,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                     items.Add(MakeUser(u));
                 }
                 return items;
-            }  
+            }
             if (filter == "Unauthorized")
             {
                 var items = new List<Users>();
@@ -65,34 +62,34 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 return users;
             }
         }
-
-        public static IEnumerable<Roles> GetUserRoles(int id)
+        public static List<RolesViewModel> GetRolesByUser(int portalId, int itemId)
         {
-            ModuleDbContext _context = new ModuleDbContext();
-            var roles = _context.UserRoles.Where(s => s.UserId == id).ToList();
-            var rolesInUser = new List<Roles>();
+            var roles = RoleController.Instance.GetRoles(portalId);
+            var rolesViewModel = new List<RolesViewModel>();
+            var userInfo = UserController.GetUserById(portalId, itemId);
+
             foreach (var item in roles)
             {
-                rolesInUser.Add(item.Role);
-            }
-            return rolesInUser;
-        }
-        public static List<RolesViewModel> GetRoles()
-        {
-            ModuleDbContext _context = new ModuleDbContext();
-            List<RolesViewModel> roles = new List<RolesViewModel>();
-            var rolesDnn = _context.Roles.ToList();
-            foreach (var item in rolesDnn)
-            {
-                var rolViewModel = new RolesViewModel
+                if (item.Status == RoleStatus.Approved)
                 {
-                    PortalId = item.PortalId,
-                    RoleName = item.RoleName,
-                    RoleId = item.RoleId
-                };
-                roles.Add(rolViewModel);
+                    var rolViewModel = new RolesViewModel()
+                    {
+                        RoleId = item.RoleID,
+                        RoleName = item.RoleName,
+                        PortalId = item.PortalID,
+                        HasRole = false,
+                        Index = 1,
+                    };
+                    if (userInfo.Roles.FirstOrDefault(r => r == item.RoleName) != null)
+                    {
+                        rolViewModel.HasRole = true;
+                        rolViewModel.Index = 2;
+                    }
+                    rolesViewModel.Add(rolViewModel);
+                }
             }
-            return roles;
+            var result = rolesViewModel.OrderByDescending(r => r.Index).ToList();
+            return result;
         }
         public static Users MakeUser(UserInfo u)
         {
