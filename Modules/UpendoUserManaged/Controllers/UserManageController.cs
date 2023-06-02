@@ -42,7 +42,6 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
 
         public ActionResult Edit(int itemId)
         {
-            DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
             var portalId = ModuleContext.PortalId;
             var item = UsuarioRepository.GetUser(portalId, itemId);
             return View(item);
