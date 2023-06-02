@@ -4,6 +4,7 @@ using Upendo.Modules.UpendoUserManaged.Models.DnnModel;
 using Upendo.Modules.UpendoUserManaged.Data;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Security.Roles;
+using Upendo.Modules.UpendoUserManaged.ViewModels;
 
 namespace Upendo.Modules.UpendoUserManaged.Utility
 {
@@ -26,7 +27,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                     items.Add(MakeUser(u));
                 }
                 return items;
-            }  
+            }
             if (filter == "Unauthorized")
             {
                 var items = new List<Users>();
@@ -61,27 +62,34 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 return users;
             }
         }
-
-        public static IEnumerable<Roles> GetUserRoles(int id)
+        public static List<RolesViewModel> GetRolesByUser(int portalId, int itemId)
         {
-            ModuleDbContext _context = new ModuleDbContext();
-            var roles = _context.UserRoles.Where(s => s.UserId == id).ToList();
-            var rolesInUser = new List<Roles>();
+            var roles = RoleController.Instance.GetRoles(portalId);
+            var rolesViewModel = new List<RolesViewModel>();
+            var userInfo = UserController.GetUserById(portalId, itemId);
+
             foreach (var item in roles)
             {
-                rolesInUser.Add(item.Role);
+                if (item.Status == RoleStatus.Approved)
+                {
+                    var rolViewModel = new RolesViewModel()
+                    {
+                        RoleId = item.RoleID,
+                        RoleName = item.RoleName,
+                        PortalId = item.PortalID,
+                        HasRole = false,
+                        Index = 1,
+                    };
+                    if (userInfo.Roles.FirstOrDefault(r => r == item.RoleName) != null)
+                    {
+                        rolViewModel.HasRole = true;
+                        rolViewModel.Index = 2;
+                    }
+                    rolesViewModel.Add(rolViewModel);
+                }
             }
-            return rolesInUser;
-        }
-        public static List<RoleInfo> GetRolesByPortal(int portalId)
-        {
-            var items = new List<RoleInfo>();
-            var roles= RoleController.GetRoleGroups(portalId);
-            foreach (RoleInfo r in roles)
-            {
-                items.Add(r);
-            }
-            return items;
+            var result = rolesViewModel.OrderByDescending(r => r.Index).ToList();
+            return result;
         }
         public static Users MakeUser(UserInfo u)
         {
