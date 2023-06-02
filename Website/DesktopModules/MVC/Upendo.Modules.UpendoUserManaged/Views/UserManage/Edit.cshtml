@@ -100,7 +100,7 @@
 </div>
 <div class="buttomForm mt20">
     <div class="center">
-        <button type="submit" id="primary">Save</button>
+        <button type="submit" class="primary">Save</button>
         <button id="cancelEdit" href="#">@Dnn.LocalizeString("Cancel")</button>
     </div>
 </div>
@@ -108,18 +108,6 @@
 
 </script>
 <script type="text/javascript">
-    function validatePassword() {
-        var password = document.getElementById('password').value;
-        var confirm_password = document.getElementById('confirm_password').value;
-        var message = document.getElementById('message');
-        if (password == confirm_password) {
-            message.style.color = 'green';
-            message.innerHTML = '';
-        } else {
-            message.style.color = 'red';
-            message.innerHTML = 'Password and Confirmation Password must match.';
-        }
-    }
     /*globals jQuery, window, Sys */
     (function ($, Sys) {
         function dnnEditBasicSettings() {

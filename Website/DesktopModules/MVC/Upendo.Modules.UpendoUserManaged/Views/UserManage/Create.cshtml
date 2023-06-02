@@ -47,12 +47,11 @@
             @Html.CheckBoxFor(m => m.SendEmail, new { @id = "checkbox" })
             <label class="checkbox">Send An Email To New User</label>
         </div>
-    </div>
-    @Html.HiddenFor(m => m.UserId)
+        @Html.HiddenFor(m => m.UserId)
 </fieldset>
 <div class="buttomForm mt20">
     <div class="center">
-        <button type="submit" id="primary">Save</button>
+        <button type="submit" class="primary" id="saveButton">Save</button>
         <button id="cancelEdit" href="#">@Dnn.LocalizeString("Cancel")</button>
     </div>
 </div>
@@ -63,10 +62,16 @@
         var message = document.getElementById('message');
         if (password == confirm_password) {
             message.style.color = 'green';
-            message.innerHTML = '';
+            message.innerHTML = 'Match';
+            // Enabling a button again
+            document.querySelector('#saveButton').classList.remove("disabled");
+            document.querySelector('#saveButton').classList.add("primary");
         } else {
             message.style.color = 'red';
             message.innerHTML = 'Password and Confirmation Password must match.';
+            // Disabling a button
+            document.querySelector('#saveButton').classList.remove("primary");
+            document.querySelector('#saveButton').classList.add("disabled");
         }
     }
     /*globals jQuery, window, Sys */

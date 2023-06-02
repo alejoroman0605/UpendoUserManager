@@ -93,8 +93,15 @@
     border-radius: 8px;
 }
 
-.buttomForm #primary {
+.buttomForm .primary {
     background-color: #008CBA;
+}
+
+.buttomForm .disabled {
+    background-color: #b4babc;
+    pointer-events: none;
+    opacity: 0.65;
+    cursor: not-allowed;
 }
 
 .buttomForm #cancelEdit {
