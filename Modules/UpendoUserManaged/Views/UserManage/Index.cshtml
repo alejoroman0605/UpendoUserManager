@@ -25,27 +25,29 @@
         </div>
     </div>
     <hr />
-    <div class="pb10">
-        <div class="col-md-12">
-            <h1 id="title">List of @titleView Users</h1>
+    <div class="col-md-12">
+        <div class="col-md-5">
         </div>
-        <div class="ml5">
-            <a type="button" class="dnnPrimaryAction" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
-                Create User
-            </a>
-            @* <a type="button" class="dnnPrimaryAction" href="@Url.Action("CreateUserTest", "UserManage", new {ctl = "Edit"})">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> CreateUserTest
-                </a> *@
-            <span id="dialogs-DeleteUnauthorized" class="dnnActions" style="display: initial;">
-                <a type="button" class="confirm btn btn-warning" href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})" style="color: white;">
-                    Delete Unauthorized Users
+        <div class="col-md-7">
+            <ul class="nav navbar-nav navbar-right">
+
+                <a type="button" class="dnnPrimaryAction" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
+                    Create User
                 </a>
-            </span>
-            <span id="dialogs-RemoveDelete" class="dnnActions" style="display: initial;">
-                <a type="button" class="confirm btn btn-warning" href="@Url.Action("RemoveDeletedUsers", "UserManage", new {})" style="color: white;">
-                    Remove Delete Users
-                </a>
-            </span>
+                @* <a type="button" class="dnnPrimaryAction" href="@Url.Action("CreateUserTest", "UserManage", new {ctl = "Edit"})">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> CreateUserTest
+                    </a> *@
+                <span id="dialogs-DeleteUnauthorized" class="dnnActions" style="display: initial;">
+                    <a type="button" class="confirm btn btn-warning" href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})" style="color: white;">
+                        Delete Unauthorized Users
+                    </a>
+                </span>
+                <span id="dialogs-RemoveDelete" class="dnnActions" style="display: initial;">
+                    <a type="button" class="confirm btn btn-warning" href="@Url.Action("RemoveDeletedUsers", "UserManage", new {})" style="color: white;">
+                        Remove Delete Users
+                    </a>
+                </span>
+            </ul>
         </div>
     </div>
     <div class="col-md-7">
