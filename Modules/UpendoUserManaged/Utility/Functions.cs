@@ -10,7 +10,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
 {
     public class Functions
     {
-        public static DataTableResponse<Users> GetUsers(int take, int skip, string filter, int? goToPage, int portalId, string search)
+        public static DataTableResponse<Users> GetUsers(int take, int skip, string filter, int? goToPage, int portalId, string search, string orderBy, string order)
         {
             take = take == 0 ? 10 : take;
             int goToPageValue = goToPage == null ? default : goToPage.Value;
@@ -29,7 +29,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             {
                 var users = _context.Users.ToList();
                 var usersTotal = users.Count();
-                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search);
+                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
             }
             if (filter == "Deleted")
             {
@@ -40,7 +40,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                     users.Add(MakeUser(u));
                 }
                 var usersTotal = users.Count();
-                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search);
+                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
             }
             if (filter == "Unauthorized")
             {
@@ -51,13 +51,13 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                     users.Add(MakeUser(u));
                 }
                 var usersTotal = users.Count();
-                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search);
+                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
             }
             if (filter == "SuperUsers")
             {
                 var users = _context.Users.Where(u => u.IsSuperUser == true).ToList();
                 var usersTotal = users.Count();
-                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search);
+                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
             }
             else
             {
@@ -68,7 +68,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                     users.Add(MakeUser(u));
                 }
                 var usersTotal = users.Count();
-                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search);
+                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
             }
         }
         public static List<RolesViewModel> GetRolesByUser(int portalId, int itemId)
@@ -115,7 +115,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             };
             return user;
         }
-        public static DataTableResponse<Users> ListOfUsers(List<Users> users, int usersTotal, int take, int skip, int goToPageValue, string search)
+        public static DataTableResponse<Users> ListOfUsers(List<Users> users, int usersTotal, int take, int skip, int goToPageValue, string search, string orderBy, string order)
         {
             if (!string.IsNullOrEmpty(search))
             {
@@ -124,7 +124,22 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             }
             users = users.Skip(skip).Take(take).ToList();
             var pagesTotal = (usersTotal / take) == 0 ? 1 : (usersTotal / take);
-            return new DataTableResponse<Users>() { Take = take, Skip = skip, PagesTotal = pagesTotal, RecordsTotal = usersTotal, GoToPage = goToPageValue, Search = search, Data = users };
+            if (!string.IsNullOrEmpty(orderBy))
+            {
+                switch (orderBy)
+                {
+                    case "Username":
+                        users = order == "desc" ? users.OrderByDescending(x => x.Username).ToList() : users.OrderBy(x => x.Username).ToList();
+                        break;
+                    case "DisplayName":
+                        users = order == "desc" ? users.OrderByDescending(x => x.DisplayName).ToList() : users.OrderBy(x => x.DisplayName).ToList();
+                        break;
+                    case "Email":
+                        users = order == "desc" ? users.OrderByDescending(x => x.Email).ToList() : users.OrderBy(x => x.Email).ToList();
+                        break;
+                }
+            }
+            return new DataTableResponse<Users>() { Take = take, Skip = skip, PagesTotal = pagesTotal, RecordsTotal = usersTotal, GoToPage = goToPageValue, Search = search, OrderBy = orderBy, Order = order, Data = users };
         }
     }
 }
