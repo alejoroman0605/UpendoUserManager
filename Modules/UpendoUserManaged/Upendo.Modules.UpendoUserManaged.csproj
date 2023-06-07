@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\FeatureController.cs" />
+    <Compile Include="Controllers\RolesManageController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="Data\ExampleInfoRepository.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
