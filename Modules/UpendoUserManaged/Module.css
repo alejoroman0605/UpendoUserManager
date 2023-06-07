@@ -281,7 +281,8 @@
 }
 
 .box-shadow {
-    box-shadow: 0 0 10px 0 #888888
+    height: 40px;
+    box-shadow: 0 0 8px 0 #888888
 }
 
 .paginationStyle {
