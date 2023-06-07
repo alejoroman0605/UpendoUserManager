@@ -20,7 +20,12 @@
       "ProjectGuid": "b51aa4af-ee33-49e1-b621-df1bcd22a28c",
       "DisplayName": "Configuration Files",
       "ColorIndex": 2
+    },
+    "70fb7edf-2e12-405f-b9cd-8a437e96fb11": {
+      "ProjectGuid": "70fb7edf-2e12-405f-b9cd-8a437e96fb11",
+      "DisplayName": "Modules",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 3
+  "NextColorIndex": 4
 }
