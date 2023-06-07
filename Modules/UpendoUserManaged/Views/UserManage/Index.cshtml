@@ -1,9 +1,18 @@
-@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<IEnumerable<Upendo.Modules.UpendoUserManaged.Models.DnnModel.Users>>
+@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<DataTableResponse<Upendo.Modules.UpendoUserManaged.Models.DnnModel.Users>>
 
 @using System.Text.RegularExpressions
 @using DotNetNuke.Web.Mvc.Helpers
+@using Upendo.Modules.UpendoUserManaged.ViewModels;
+
 @{
     string srcLogo = DotNetNuke.Entities.Tabs.TabController.CurrentPage.Title + "/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Images/Upendo-logo-trans.png";
+    var skipMinus = (@Model.Skip - @Model.Take) <= 0 ? 0 : (@Model.Skip - @Model.Take);
+    var skipPlus = @Model.Skip + @Model.Take;
+    var skipPaginate = @Model.Skip + 1;
+    var skipTo = @Model.Skip + @Model.Take;
+    var pageView = @Model.GoToPage > 1 ? @Model.GoToPage : (skipTo / @Model.Take) == 0 ? 1 : (skipTo / @Model.Take);
+    var titleView = @ViewBag.Filter == "Filters" ? "" : @ViewBag.Filter;
+    @ViewBag.Filter = string.IsNullOrEmpty(@ViewBag.Filter) ? "Filters" : @ViewBag.Filter;
 }
 <div id="Items-@Dnn.ModuleContext.ModuleId" style="margin: 2%!important;">
     <div class="col-md-12">
@@ -15,83 +24,137 @@
             <h6 id="subtitle">Module for user management in DNN</h6>
         </div>
     </div>
-
-    @if (Model == null)
-    {
-        <p>@Dnn.LocalizeString("NoItems")</p>
-    }
-    else
-    {
-        <hr />
-        <div class="pb10">
-            <div class="col-md-10">
-                <h1 id="title">List of @ViewBag.Filter Users</h1>
-            </div>
-            <div class="col-md-2">
-                <div class="select-menu ">
-                    <div class="select-btn">
-                        <span class="sBtn-text">Filters</span>
-                        <i class="bx bx-chevron-down"></i>
-                    </div>
-                    <ul class="options">
-                        <li class="option">
-                            <a href="@Url.Action("Index", "UserManage", new {filter = "All"})">
-                                <span class="option-text">All</span>
-                            </a>
-                        </li>
-                        <li class="option">
-                            <a href="@Url.Action("Index", "UserManage", new {filter = "Authorized"})">
-                                <span class="option-text">Authorized</span>
-                            </a>
-                        </li>
-                        <li class="option">
-                            <a href="@Url.Action("Index", "UserManage", new {filter = "Unauthorized"})">
-                                <span class="option-text">Unauthorized</span>
-                            </a>
-                        </li>
-                        <li class="option">
-                            <a href="@Url.Action("Index", "UserManage", new {filter = "Deleted"})">
-                                <span class="option-text">Deleted</span>
-                            </a>
-                        </li>
-                        <li class="option">
-                            <a href="@Url.Action("Index", "UserManage", new {filter = "SuperUsers"})">
-                                <span class="option-text">SuperUsers</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="ml5">
-                <a type="button" class="dnnPrimaryAction" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create User
-                </a>
-                <span id="dialogs-DeleteUnauthorized" class="dnnActions" style="display: initial;">
-                    <a type="button" class="confirm btn btn-warning" href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})" style="color: white;">
-                        Delete Unauthorized Users
-                    </a>
-                </span>
-                <span id="dialogs-RemoveDelete" class="dnnActions" style="display: initial;">
-                    <a type="button" class="confirm btn btn-warning" href="@Url.Action("RemoveDeletedUsers", "UserManage", new {})" style="color: white;">
-                        Remove Delete Users
-                    </a>
-                </span>
-            </div>
+    <hr />
+    <div class="pb10">
+        <div class="col-md-12">
+            <h1 id="title">List of @titleView Users</h1>
         </div>
-
-        <table class="table dynamic table-striped table-bordered table-hover" id="usersTable">
-            <thead>
-                <tr style="background-color:#6d5a2c; color:#FFFFFF">
-                    <th class="hidden">Id</th>
-                    <th>USERNAME</th>
-                    <th>DISPLAY NAME</th>
-                    <th>EMAIL</th>
-                    <th style="text-align:center">SUPERUSER</th>
-                    <th style="text-align:center">ACTIONS</th>
+        <div class="ml5">
+            <a type="button" class="dnnPrimaryAction" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
+                Create User
+            </a>
+            @* <a type="button" class="dnnPrimaryAction" href="@Url.Action("CreateUserTest", "UserManage", new {ctl = "Edit"})">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> CreateUserTest
+                </a> *@
+            <span id="dialogs-DeleteUnauthorized" class="dnnActions" style="display: initial;">
+                <a type="button" class="confirm btn btn-warning" href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})" style="color: white;">
+                    Delete Unauthorized Users
+                </a>
+            </span>
+            <span id="dialogs-RemoveDelete" class="dnnActions" style="display: initial;">
+                <a type="button" class="confirm btn btn-warning" href="@Url.Action("RemoveDeletedUsers", "UserManage", new {})" style="color: white;">
+                    Remove Delete Users
+                </a>
+            </span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <ul class="nav navbar-nav navbar-left">
+            <li class="dropdown">
+                <a class="dropDown btn dropdown-toggle" data-toggle="dropdown" href="#" style=" display: inline-flex;">
+                    Rows per page: @Model.Take
+                    <span class="caret"></span>
+                </a>        <ul class="dropdown-menu">
+                    <li>
+                        <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = 5, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search})">
+                            <span aria-hidden="true">5</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = 10, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search})">
+                            <span aria-hidden="true">10</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = 50, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search})">
+                            <span aria-hidden="true">50</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = 100, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search})">
+                            <span aria-hidden="true">100</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.RecordsTotal, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search})">
+                            <span aria-hidden="true">All</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-primary box-shadow" type="submit">Search!</button>
+            </span>
+            @Html.TextBoxFor(m => m.Search, new { @class = "form-control", @type = "text", @style = "box-shadow: 0 0 3px 0 #888888" })
+        </div>
+    </div>
+    <div class="col-md-4">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropDown btn dropdown-toggle" data-toggle="dropdown" href="#" style=" display: inline-flex;">
+                    <span> @ViewBag.Filter</span>
+                    <span class="caret" style=" display: inline-flex;"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "All"})">
+                            <span aria-hidden="true">All</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "Authorized"})">
+                            <span aria-hidden="true">Authorized</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "Unauthorized"})">
+                            <span aria-hidden="true">Unauthorized</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "Deleted"})">
+                            <span aria-hidden="true">Deleted</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "SuperUsers"})">
+                            <span aria-hidden="true">SuperUsers</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr style="background-color:#6d5a2c; color:#FFFFFF">
+                <th class="hidden">Id</th>
+                <th>USERNAME</th>
+                <th>DISPLAY NAME</th>
+                <th>EMAIL</th>
+                <th style="text-align:center">SUPERUSER</th>
+                <th style="text-align:center">ACTIONS</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.PagesTotal == 0)
+            {
+                <tr>
+                    <td colspan="6">
+                        <div class="center">
+                            <h1>No users founds</h1>
+                            <h2>with this search criteria</h2>
+                        </div>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
+            }
+            else
+            {
+                foreach (var item in Model.Data)
                 {
                     <tr>
                         <td class="hidden">
@@ -139,12 +202,35 @@
                         </td>
                     </tr>
                 }
-            </tbody>
-        </table>
-    }
+            }
+        </tbody>
+    </table>
+    <div class="data-footer">
+        <span class="text-align-left">Page @pageView of @Model.PagesTotal Pages</span>
+        <div class="input-group ml10">
+            <span class="input-group-btn">
+                <button class="btn btn-primary box-shadow" type="submit">Go To Page!</button>
+            </span>
+            @Html.TextBoxFor(m => m.GoToPage, new { @class = "form-control", @type = "text", @style = "width: 82px;box-shadow: 0 0 3px 0 #888888" })
+        </div>
+        <div class="right">
+            <span> Showing @skipPaginate to @skipTo of @Model.RecordsTotal entries</span>
+            <a data-hint="Previus" class="btn btn-default btn-sm hint--top hint--" href="@Url.Action("Index", "UserManage", new {take = @Model.Take, skip=@skipMinus, filter = @ViewBag.Filter, search=@Model.Search})"
+               data-toggle="tooltip" data-placement="top" title="Previus">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            </a>
+            <a data-hint="Next" class="btn btn-default btn-sm ml5 hint--top hint--" href="@Url.Action("Index", "UserManage", new {take = @Model.Take, skip=@skipPlus, filter = @ViewBag.Filter, search=@Model.Search})"
+               data-toggle="tooltip" data-placement="top" title="Next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
 </div>
 
 <script>
+    $(function () {
+        $('.dropdown-toggle').dropdown()
+    });
     $(function () {
         $('#dialogs-delete .confirm').dnnConfirm(
             {
@@ -181,7 +267,7 @@
             optionMenu.classList.remove("active");
         });
     });
-    $(document).ready(function () {
+    @* $(document).ready(function () {
         $('#usersTable').DataTable();
-    });
+    }); *@
 </script>   
