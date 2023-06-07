@@ -36,6 +36,7 @@ C:\Users\Nariel\Documents\Upendo\Modules\UpendoUserManaged\Modules\UpendoUserMan
 C:\Users\Nariel\Documents\Upendo\Modules\UpendoUserManaged\Modules\UpendoUserManaged\obj\Release\Upendo.Modules.UpendoUserManaged.csproj.CopyComplete
 C:\Users\Nariel\Documents\Upendo\Modules\UpendoUserManaged\Modules\UpendoUserManaged\obj\Release\Upendo.Modules.UpendoUserManaged.dll
 C:\Users\Nariel\Documents\Upendo\Modules\UpendoUserManaged\Modules\UpendoUserManaged\obj\Release\Upendo.Modules.UpendoUserManaged.pdb
+D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\UpendoUserManaged\bin\Telerik.Web.UI.dll
 D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\UpendoUserManaged\bin\Upendo.Modules.UpendoUserManaged.xml
 D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\UpendoUserManaged\bin\Upendo.Modules.UpendoUserManaged.dll
 D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\UpendoUserManaged\bin\Upendo.Modules.UpendoUserManaged.pdb
@@ -54,7 +55,6 @@ D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\Upe
 D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\UpendoUserManaged\bin\DotNetNuke.Web.Client.pdb
 D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\UpendoUserManaged\bin\DotNetNuke.Web.Deprecated.dll
 D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\UpendoUserManaged\bin\DotNetNuke.Web.Deprecated.pdb
-D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\UpendoUserManaged\bin\Telerik.Web.UI.dll
 D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\UpendoUserManaged\bin\DotNetNuke.Web.Mvc.dll
 D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\UpendoUserManaged\bin\DotNetNuke.Web.Mvc.pdb
 D:\Trabajo\NTSPRINT\Extension Generator Upendo DNN\UpendoUserManaged\Modules\UpendoUserManaged\bin\EntityFramework.SqlServer.dll
