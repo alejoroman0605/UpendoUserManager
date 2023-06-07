@@ -17,11 +17,13 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
     public class UserManageController : DnnController
     {
         [ModuleAction(ControlKey = "Edit", TitleKey = "AddItem")]
-        public ActionResult Index(string filter)
+        public ActionResult Index(int? take, int? skip, string filter,int? goToPage, string search)
         {
+            int takeValue = take == null ? default : take.Value;
+            int skipValue = take == null ? default : skip.Value;
             var portalId = ModuleContext.PortalId;
-            var result = Functions.GetUsers(filter, portalId);
             ViewBag.Filter = filter;
+            var result = Functions.GetUsers(takeValue, skipValue, filter,goToPage, portalId, search);
             return View(result);
         }
 
@@ -29,6 +31,26 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
             return View();
+        }
+        public ActionResult CreateUserTest()
+        {
+            var portalId = ModuleContext.PortalId;
+            for (int i = 1001; i < 2000; i++)
+            {
+                var item = new UserViewModel()
+                {
+                    Username = "user" + i,
+                    LastName = "Last Name " + i,
+                    FirstName = "User" + i,
+                    Email = "user" + i + "@gmail.com",
+                    IsSuperUser = false,
+                    IsDeleted = false,
+                    Approved = true,
+                    Password = "Admin123*"
+                };
+                UsuarioRepository.CreateUser(item, portalId);
+            }
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -107,15 +129,15 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
 
         public ActionResult AddUserToRole(int roleId, int userId)
         {
-            var portalId = ModuleContext.PortalId;           
+            var portalId = ModuleContext.PortalId;
             RoleController.Instance.AddUserRole(portalId, userId, roleId, RoleStatus.Approved, false, DateTime.Now, DateTime.Now.AddDays(30));
             return RedirectToAction("Index");
             //return RedirectToAction("UserRoles",  new { itemId = userId });
         }
         public ActionResult DeleteUserRole(int roleId, int userId)
         {
-            var portalId = ModuleContext.PortalId;           
-            RoleController.Instance.UpdateUserRole(portalId,userId,roleId,RoleStatus.Approved,false,true);
+            var portalId = ModuleContext.PortalId;
+            RoleController.Instance.UpdateUserRole(portalId, userId, roleId, RoleStatus.Approved, false, true);
             return RedirectToAction("Index");
             //return RedirectToAction("UserRoles",  new { itemId = userId });
         }

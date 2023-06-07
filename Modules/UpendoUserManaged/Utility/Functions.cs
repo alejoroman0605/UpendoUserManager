@@ -10,56 +10,65 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
 {
     public class Functions
     {
-        public static IEnumerable<Users> GetUsers(string filter, int portalId)
+        public static DataTableResponse<Users> GetUsers(int take, int skip, string filter, int? goToPage, int portalId, string search)
         {
+            take = take == 0 ? 10 : take;
+            int goToPageValue = goToPage == null ? default : goToPage.Value;
+
+            if (goToPage != null && goToPage != 0)
+            {
+                skip = take * goToPageValue;
+            }
+            if (goToPage == 1)
+            {
+                skip = 0;
+            }
+
             ModuleDbContext _context = new ModuleDbContext();
             if (filter == "All")
             {
                 var users = _context.Users.ToList();
-                return users;
+                var usersTotal = users.Count();
+                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search);
             }
             if (filter == "Deleted")
             {
-                var items = new List<Users>();
+                var users = new List<Users>();
                 var deletedUsers = UserController.GetDeletedUsers(portalId).ToArray();
                 foreach (UserInfo u in deletedUsers)
                 {
-                    items.Add(MakeUser(u));
+                    users.Add(MakeUser(u));
                 }
-                return items;
+                var usersTotal = users.Count();
+                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search);
             }
             if (filter == "Unauthorized")
             {
-                var items = new List<Users>();
-                var deletedUsers = UserController.GetUnAuthorizedUsers(portalId).ToArray();
-                foreach (UserInfo u in deletedUsers)
+                var users = new List<Users>();
+                var unauthorizedUsers = UserController.GetUnAuthorizedUsers(portalId).ToArray();
+                foreach (UserInfo u in unauthorizedUsers)
                 {
-                    items.Add(MakeUser(u));
+                    users.Add(MakeUser(u));
                 }
-                return items;
+                var usersTotal = users.Count();
+                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search);
             }
             if (filter == "SuperUsers")
             {
                 var users = _context.Users.Where(u => u.IsSuperUser == true).ToList();
-                return users;
-                //var items = new List<Users>();
-                ////(bool includeDeleted, bool superUsersOnly, int portalId)
-                //var users = UserController.GetUsers(false, true, portalId).ToArray();
-                //foreach (UserInfo u in users)
-                //{
-                //    items.Add(MakeUser(u));
-                //}
-                //return items;
+                var usersTotal = users.Count();
+                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search);
             }
             else
             {
-                var users = new List<Users>();
                 var getUsers = UserController.GetUsers(portalId).ToArray();
+                var users = new List<Users>();
                 foreach (UserInfo u in getUsers)
                 {
                     users.Add(MakeUser(u));
                 }
-                return users;
+                var usersTotal = users.Count();
+                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search);
             }
         }
         public static List<RolesViewModel> GetRolesByUser(int portalId, int itemId)
@@ -96,7 +105,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             var user = new Users()
             {
                 UserId = u.UserID,
-                FirstName   = u.FirstName,
+                FirstName = u.FirstName,
                 LastName = u.LastName,
                 Username = u.Username,
                 DisplayName = u.DisplayName,
@@ -105,6 +114,17 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 IsDeleted = u.IsDeleted,
             };
             return user;
+        }
+        public static DataTableResponse<Users> ListOfUsers(List<Users> users, int usersTotal, int take, int skip, int goToPageValue, string search)
+        {
+            if (!string.IsNullOrEmpty(search))
+            {
+                users = users.Where(e => string.Concat(e.FirstName, e.DisplayName, e.Email, e.Username).Contains(search)).ToList();
+                usersTotal = users.Count();
+            }
+            users = users.Skip(skip).Take(take).ToList();
+            var pagesTotal = (usersTotal / take) == 0 ? 1 : (usersTotal / take);
+            return new DataTableResponse<Users>() { Take = take, Skip = skip, PagesTotal = pagesTotal, RecordsTotal = usersTotal, GoToPage = goToPageValue, Search = search, Data = users };
         }
     }
 }
