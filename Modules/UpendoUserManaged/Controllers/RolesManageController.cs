@@ -14,7 +14,7 @@ using Upendo.Modules.UpendoUserManaged.ViewModels;
 namespace Upendo.Modules.UpendoUserManaged.Controllers
 {
     [DnnHandleError]
-    public class UserManageController : DnnController
+    public class RolesManageController : DnnController
     {
         [ModuleAction(ControlKey = "Edit", TitleKey = "AddItem")]
         public ActionResult Index(int? take, int? skip, string filter,int? goToPage, string search, string orderBy, string order)
