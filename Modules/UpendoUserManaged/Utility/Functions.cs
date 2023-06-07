@@ -71,7 +71,8 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
             }
         }
-        public static List<RolesViewModel> GetRolesByUser(int portalId, int itemId)
+
+        public static DataTableResponse<RolesViewModel> GetRolesByUser(int take, int skip, int? goToPage, int portalId, string search, int itemId)
         {
             var roles = RoleController.Instance.GetRoles(portalId);
             var rolesViewModel = new List<RolesViewModel>();
@@ -98,7 +99,27 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 }
             }
             var result = rolesViewModel.OrderByDescending(r => r.Index).ToList();
-            return result;
+            var rolesTotal = rolesViewModel.Count();
+
+            take = take == 0 ? 10 : take;
+            int goToPageValue = goToPage == null ? default : goToPage.Value;
+
+            if (goToPage != null && goToPage != 0)
+            {
+                skip = take * goToPageValue;
+            }
+            if (goToPage == 1)
+            {
+                skip = 0;
+            }
+            if (!string.IsNullOrEmpty(search) && search != " ")
+            {
+                result = result.Where(e => string.Concat(e.RoleName).Contains(search)).ToList();
+                rolesTotal = rolesViewModel.Count();
+            }
+            var pagesTotal = (rolesTotal / take) == 0 ? 1 : (rolesTotal / take);
+            result = result.Skip(skip).Take(take).ToList();
+            return new DataTableResponse<RolesViewModel>() { Take = take, Skip = skip, PagesTotal = pagesTotal, RecordsTotal = rolesTotal, GoToPage = goToPageValue, Search = search, Data = result };
         }
         public static Users MakeUser(UserInfo u)
         {
