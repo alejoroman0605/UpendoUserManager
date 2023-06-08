@@ -109,14 +109,14 @@
                         <td style="text-align:center">
                             @if (@item.HasRole == true)
                             {
-                                <a data-hint="Delete" class="btn btn-danger btn-sm edit hint--top hint--" href="@Url.Action("DeleteUserRole", "UserManage", new {roleId = item.RoleId, userId = @userId})"
+                                <a data-hint="Delete" class="btn btn-danger btn-sm edit hint--top hint--" href="@Url.Action("UserRoles", "UserManage", new {take = @Model.Take, skip=@Model.Skip, search=@Model.Search, itemId=@userId, roleId = item.RoleId, userId = @userId, actionView="Remove"})"
                                    data-toggle="tooltip" data-placement="top" title="Delete">
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 </a>
                             }
                             else
                             {
-                                <a data-hint="Add Role" class="btn btn-primary btn-sm edit hint--top hint--" href="@Url.Action("AddUserToRole", "UserManage", new {roleId = item.RoleId, userId = @userId })"
+                                <a data-hint="Add Role" class="btn btn-primary btn-sm edit hint--top hint--" href="@Url.Action("UserRoles", "UserManage", new {take = @Model.Take, skip=@Model.Skip, search=@Model.Search, itemId=@userId, roleId = item.RoleId, userId = @userId, actionView="Add" })"
                                    data-toggle="tooltip" data-placement="top" title="Add Role">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 </a>
