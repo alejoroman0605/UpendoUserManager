@@ -5,19 +5,20 @@ using Upendo.Modules.UpendoUserManaged.Data;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Security.Roles;
 using Upendo.Modules.UpendoUserManaged.ViewModels;
+using System;
 
 namespace Upendo.Modules.UpendoUserManaged.Utility
 {
     public class Functions
     {
-        public static DataTableResponse<Users> GetUsers(int take, int skip, string filter, int? goToPage, int portalId, string search, string orderBy, string order)
+        public static DataTableResponse<Users> GetUsers(double take, int skip, string filter, int? goToPage, int portalId, string search, string orderBy, string order)
         {
             take = take == 0 ? 10 : take;
             int goToPageValue = goToPage == null ? default : goToPage.Value;
 
             if (goToPage != null && goToPage != 0)
             {
-                skip = take * goToPageValue;
+                skip = (int)take*( goToPageValue - 1);
             }
             if (goToPage == 1)
             {
@@ -71,7 +72,8 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
             }
         }
-        public static List<RolesViewModel> GetRolesByUser(int portalId, int itemId)
+
+        public static DataTableResponse<RolesViewModel> GetRolesByUser(double take, int skip, int? goToPage, int portalId, string search, int itemId)
         {
             var roles = RoleController.Instance.GetRoles(portalId);
             var rolesViewModel = new List<RolesViewModel>();
@@ -98,7 +100,28 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 }
             }
             var result = rolesViewModel.OrderByDescending(r => r.Index).ToList();
-            return result;
+            double rolesTotal = rolesViewModel.Count();
+
+            take = take == 0 ? 10 : take;
+            int goToPageValue = goToPage == null ? default : goToPage.Value;
+
+            if (goToPage != null && goToPage != 0)
+            {
+                skip = (int)take * (goToPageValue - 1);
+            }
+            if (goToPage == 1)
+            {
+                skip = 0;
+            }
+            if (!string.IsNullOrEmpty(search) && search != " ")
+            {
+                result = result.Where(e => string.Concat(e.RoleName).Contains(search)).ToList();
+                rolesTotal = rolesViewModel.Count();
+            }
+            double total = rolesTotal / take;
+            var pagesTotal = Math.Ceiling(Math.Max(total, 2)) == 0 ? 1 : Math.Ceiling(Math.Max(total, 2));
+            result = result.Skip(skip).Take((int)take).ToList();
+            return new DataTableResponse<RolesViewModel>() { Take = take, Skip = skip, PagesTotal = pagesTotal, RecordsTotal = rolesTotal, GoToPage = goToPageValue, Search = search, Data = result };
         }
         public static Users MakeUser(UserInfo u)
         {
@@ -115,15 +138,16 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             };
             return user;
         }
-        public static DataTableResponse<Users> ListOfUsers(List<Users> users, int usersTotal, int take, int skip, int goToPageValue, string search, string orderBy, string order)
+        public static DataTableResponse<Users> ListOfUsers(List<Users> users, int usersTotal, double take, int skip, int goToPageValue, string search, string orderBy, string order)
         {
             if (!string.IsNullOrEmpty(search))
             {
                 users = users.Where(e => string.Concat(e.FirstName, e.DisplayName, e.Email, e.Username).Contains(search)).ToList();
                 usersTotal = users.Count();
             }
-            users = users.Skip(skip).Take(take).ToList();
-            var pagesTotal = (usersTotal / take) == 0 ? 1 : (usersTotal / take);
+            users = users.Skip(skip).Take((int)take).ToList();
+            double total = usersTotal / take;
+            var pagesTotal = Math.Ceiling(Math.Max(total, 2)) == 0 ? 1 : Math.Ceiling(Math.Max(total, 2));
             if (!string.IsNullOrEmpty(orderBy))
             {
                 switch (orderBy)

@@ -17,13 +17,13 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
     public class UserManageController : DnnController
     {
         [ModuleAction(ControlKey = "Edit", TitleKey = "AddItem")]
-        public ActionResult Index(int? take, int? skip, string filter,int? goToPage, string search, string orderBy, string order)
+        public ActionResult Index(double? take, int? skip, string filter, int? goToPage, string search, string orderBy, string order)
         {
-            int takeValue = take == null ? default : take.Value;
+            double takeValue = take == null ? default : take.Value;
             int skipValue = take == null ? default : skip.Value;
             var portalId = ModuleContext.PortalId;
             ViewBag.Filter = filter;
-            var result = Functions.GetUsers(takeValue, skipValue, filter,goToPage, portalId, search, orderBy, order);
+            var result = Functions.GetUsers(takeValue, skipValue, filter, goToPage, portalId, search, orderBy, order);
             return View(result);
         }
 
@@ -119,11 +119,14 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
             return RedirectToDefaultRoute();
         }
 
-        public ActionResult UserRoles(int itemId)
+        public ActionResult UserRoles(double? take, int? skip, int? goToPage, string search, int itemId)
         {
+            double takeValue = take == null ? default : take.Value;
+            int skipValue = take == null ? default : skip.Value;
+
             var portalId = ModuleContext.PortalId;
             ViewBag.User = UsuarioRepository.GetUser(portalId, itemId);
-            var result = Functions.GetRolesByUser(portalId, itemId);
+            var result = Functions.GetRolesByUser(takeValue, skipValue, goToPage, portalId, search, itemId);
             return View(result);
         }
 
