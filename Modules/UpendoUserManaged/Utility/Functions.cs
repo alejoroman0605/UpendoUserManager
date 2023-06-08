@@ -115,7 +115,7 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             }
             if (!string.IsNullOrEmpty(search) && search != " ")
             {
-                result = result.Where(e => string.Concat(e.RoleName).Contains(search)).ToList();
+                result = result.Where(e => e.RoleName.Contains(search)).ToList();
                 rolesTotal = rolesViewModel.Count();
             }
             double total = rolesTotal / take;
