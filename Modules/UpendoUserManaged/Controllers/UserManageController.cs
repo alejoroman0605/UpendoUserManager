@@ -119,12 +119,26 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
             return RedirectToDefaultRoute();
         }
 
-        public ActionResult UserRoles(double? take, int? skip, int? goToPage, string search, int itemId)
+        public ActionResult UserRoles(double? take, int? skip, int? goToPage, string search, int itemId, int? roleId,string actionView)
         {
             double takeValue = take == null ? default : take.Value;
             int skipValue = take == null ? default : skip.Value;
+            int roleIdValue = roleId == null ? default : roleId.Value;
 
             var portalId = ModuleContext.PortalId;
+
+            if (roleId!=null)
+            {
+                if (actionView == "Add")
+                {
+                    RoleController.Instance.AddUserRole(portalId, itemId, roleIdValue, RoleStatus.Approved, false, DateTime.Now, DateTime.Now.AddDays(30));
+
+                }
+                else
+                {
+                    RoleController.Instance.UpdateUserRole(portalId, itemId, roleIdValue, RoleStatus.Approved, false, true);
+                }
+            }
             ViewBag.User = UsuarioRepository.GetUser(portalId, itemId);
             var result = Functions.GetRolesByUser(takeValue, skipValue, goToPage, portalId, search, itemId);
             return View(result);
