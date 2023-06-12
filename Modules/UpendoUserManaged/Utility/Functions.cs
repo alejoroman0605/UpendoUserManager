@@ -11,118 +11,6 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
 {
     public class Functions
     {
-        public static DataTableResponse<Users> GetUsers(double take, int skip, string filter, int? goToPage, int portalId, string search, string orderBy, string order)
-        {
-            take = take == 0 ? 10 : take;
-            int goToPageValue = goToPage == null ? default : goToPage.Value;
-
-            if (goToPage != null && goToPage != 0)
-            {
-                skip = (int)take*( goToPageValue - 1);
-            }
-            if (goToPage == 1)
-            {
-                skip = 0;
-            }
-
-            ModuleDbContext _context = new ModuleDbContext();
-            if (filter == "All")
-            {
-                var users = _context.Users.ToList();
-                var usersTotal = users.Count();
-                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
-            }
-            if (filter == "Deleted")
-            {
-                var users = new List<Users>();
-                var deletedUsers = UserController.GetDeletedUsers(portalId).ToArray();
-                foreach (UserInfo u in deletedUsers)
-                {
-                    users.Add(MakeUser(u));
-                }
-                var usersTotal = users.Count();
-                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
-            }
-            if (filter == "Unauthorized")
-            {
-                var users = new List<Users>();
-                var unauthorizedUsers = UserController.GetUnAuthorizedUsers(portalId).ToArray();
-                foreach (UserInfo u in unauthorizedUsers)
-                {
-                    users.Add(MakeUser(u));
-                }
-                var usersTotal = users.Count();
-                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
-            }
-            if (filter == "SuperUsers")
-            {
-                var users = _context.Users.Where(u => u.IsSuperUser == true).ToList();
-                var usersTotal = users.Count();
-                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
-            }
-            else
-            {
-                var getUsers = UserController.GetUsers(portalId).ToArray();
-                var users = new List<Users>();
-                foreach (UserInfo u in getUsers)
-                {
-                    users.Add(MakeUser(u));
-                }
-                var usersTotal = users.Count();
-                return ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
-            }
-        }
-
-        public static DataTableResponse<RolesViewModel> GetRolesByUser(double take, int skip, int? goToPage, int portalId, string search, int itemId)
-        {
-            var roles = RoleController.Instance.GetRoles(portalId);
-            var rolesViewModel = new List<RolesViewModel>();
-            var userInfo = UserController.GetUserById(portalId, itemId);
-
-            foreach (var item in roles)
-            {
-                if (item.Status == RoleStatus.Approved)
-                {
-                    var rolViewModel = new RolesViewModel()
-                    {
-                        RoleId = item.RoleID,
-                        RoleName = item.RoleName,
-                        PortalId = item.PortalID,
-                        HasRole = false,
-                        Index = 1,
-                    };
-                    if (userInfo.Roles.FirstOrDefault(r => r == item.RoleName) != null)
-                    {
-                        rolViewModel.HasRole = true;
-                        rolViewModel.Index = 2;
-                    }
-                    rolesViewModel.Add(rolViewModel);
-                }
-            }
-            var result = rolesViewModel.OrderByDescending(r => r.Index).ToList();
-            double rolesTotal = rolesViewModel.Count();
-
-            take = take == 0 ? 10 : take;
-            int goToPageValue = goToPage == null ? default : goToPage.Value;
-
-            if (goToPage != null && goToPage != 0)
-            {
-                skip = (int)take * (goToPageValue - 1);
-            }
-            if (goToPage == 1)
-            {
-                skip = 0;
-            }
-            if (!string.IsNullOrEmpty(search) && search != " ")
-            {
-                result = result.Where(e => e.RoleName.Contains(search)).ToList();
-                rolesTotal = rolesViewModel.Count();
-            }
-            double total = rolesTotal / take;
-            var pagesTotal = Math.Ceiling(Math.Max(total, 2)) == 0 ? 1 : Math.Ceiling(Math.Max(total, 2));
-            result = result.Skip(skip).Take((int)take).ToList();
-            return new DataTableResponse<RolesViewModel>() { Take = take, Skip = skip, PagesTotal = pagesTotal, RecordsTotal = rolesTotal, GoToPage = goToPageValue, Search = search, Data = result };
-        }
         public static Users MakeUser(UserInfo u)
         {
             var user = new Users()
@@ -140,10 +28,11 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
         }
         public static DataTableResponse<Users> ListOfUsers(List<Users> users, int usersTotal, double take, int skip, int goToPageValue, string search, string orderBy, string order)
         {
-            if (!string.IsNullOrEmpty(search))
+            if (!string.IsNullOrEmpty(search) && search != " ")
             {
-                users = users.Where(e => string.Concat(e.FirstName, e.DisplayName, e.Email, e.Username).Contains(search)).ToList();
+                users = users.Where(e => string.Concat(e.FirstName.ToLower(), e.DisplayName.ToLower(), e.Email.ToLower(), e.Username.ToLower()).Contains(search.Trim().ToLower())).ToList();
                 usersTotal = users.Count();
+                skip = 0;
             }
             users = users.Skip(skip).Take((int)take).ToList();
             double total = usersTotal / take;
@@ -165,5 +54,29 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
             }
             return new DataTableResponse<Users>() { Take = take, Skip = skip, PagesTotal = pagesTotal, RecordsTotal = usersTotal, GoToPage = goToPageValue, Search = search, OrderBy = orderBy, Order = order, Data = users };
         }
+
+        public static DataTableResponse<RolesViewModel> ListOfRoles(List<RolesViewModel> roles, int rolesTotal, double take, int skip, int goToPageValue, string search, string orderBy, string order)
+        {
+            if (!string.IsNullOrEmpty(search)&& search!=" ")
+            {
+                roles = roles.Where(e => string.Concat(e.RoleName.ToLower()).Contains(search.Trim().ToLower())).ToList();
+                rolesTotal = roles.Count();
+                skip = 0;
+            }
+            roles = roles.Skip(skip).Take((int)take).ToList();
+            double total = rolesTotal / take;
+            var pagesTotal = Math.Ceiling(Math.Max(total, 2)) == 0 ? 1 : Math.Ceiling(Math.Max(total, 2));
+            if (!string.IsNullOrEmpty(orderBy))
+            {
+                switch (orderBy)
+                {
+                    case "RoleName":
+                        roles = order == "desc" ? roles.OrderByDescending(x => x.RoleName).ToList() : roles.OrderBy(x => x.RoleName).ToList();
+                        break;
+                }
+            }
+            return new DataTableResponse<RolesViewModel>() { Take = take, Skip = skip, PagesTotal = pagesTotal, RecordsTotal = rolesTotal, GoToPage = goToPageValue, Search = search, OrderBy = orderBy, Order = order, Data = roles };
+        }
+
     }
 }

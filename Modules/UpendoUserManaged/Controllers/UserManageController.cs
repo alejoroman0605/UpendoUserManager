@@ -23,7 +23,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
             int skipValue = take == null ? default : skip.Value;
             var portalId = ModuleContext.PortalId;
             ViewBag.Filter = filter;
-            var result = Functions.GetUsers(takeValue, skipValue, filter, goToPage, portalId, search, orderBy, order);
+            var result = UsuarioRepository.GetUsers(takeValue, skipValue, filter, goToPage, portalId, search, orderBy, order);
             return View(result);
         }
 
@@ -119,7 +119,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
             return RedirectToDefaultRoute();
         }
 
-        public ActionResult UserRoles(double? take, int? skip, int? goToPage, string search, int itemId, int? roleId,string actionView)
+        public ActionResult UserRoles(double? take, int? skip, int? goToPage, string search, int itemId, int? roleId, string actionView)
         {
             double takeValue = take == null ? default : take.Value;
             int skipValue = take == null ? default : skip.Value;
@@ -127,7 +127,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
 
             var portalId = ModuleContext.PortalId;
 
-            if (roleId!=null)
+            if (roleId != null)
             {
                 if (actionView == "Add")
                 {
@@ -140,23 +140,8 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
                 }
             }
             ViewBag.User = UsuarioRepository.GetUser(portalId, itemId);
-            var result = Functions.GetRolesByUser(takeValue, skipValue, goToPage, portalId, search, itemId);
+            var result = UsuarioRepository.GetRolesByUser(takeValue, skipValue, goToPage, portalId, search, itemId);
             return View(result);
-        }
-
-        public ActionResult AddUserToRole(int roleId, int userId)
-        {
-            var portalId = ModuleContext.PortalId;
-            RoleController.Instance.AddUserRole(portalId, userId, roleId, RoleStatus.Approved, false, DateTime.Now, DateTime.Now.AddDays(30));
-            return RedirectToAction("Index");
-            //return RedirectToAction("UserRoles",  new { itemId = userId });
-        }
-        public ActionResult DeleteUserRole(int roleId, int userId)
-        {
-            var portalId = ModuleContext.PortalId;
-            RoleController.Instance.UpdateUserRole(portalId, userId, roleId, RoleStatus.Approved, false, true);
-            return RedirectToAction("Index");
-            //return RedirectToAction("UserRoles",  new { itemId = userId });
         }
     }
 }
