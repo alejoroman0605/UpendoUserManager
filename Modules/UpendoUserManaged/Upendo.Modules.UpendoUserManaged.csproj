@@ -94,8 +94,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\FeatureController.cs" />
+    <Compile Include="Controllers\RolesManageController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
-    <Compile Include="Data\ExampleInfoRepository.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Data\ModuleDbContext.cs" />
     <Compile Include="Models\DnnModel\AspnetApplications.cs" />
@@ -107,10 +107,9 @@
     <Compile Include="Models\DnnModel\UserRoles.cs" />
     <Compile Include="Models\DnnModel\Users.cs" />
     <Compile Include="Models\Interfaces\IExampleInfo.cs" />
-    <Compile Include="Models\ExampleInfo.cs" />
-    <Compile Include="Controllers\ExampleController.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\RolesRepository.cs" />
     <Compile Include="Utility\UsuarioRepository.cs" />
     <Compile Include="Utility\Functions.cs" />
     <Compile Include="ViewModels\Pagination.cs" />
@@ -130,38 +129,6 @@
     <Content Include="Images\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\bootstrap\css\bootstrap.css" />
-    <Content Include="Resources\bootstrap\css\bootstrap.min.css" />
-    <Content Include="Resources\bootstrap\css\chosen.min.css" />
-    <Content Include="Resources\bootstrap\css\images\sort_asc.png" />
-    <Content Include="Resources\bootstrap\css\images\sort_asc_disabled.png" />
-    <Content Include="Resources\bootstrap\css\images\sort_both.png" />
-    <Content Include="Resources\bootstrap\css\images\sort_desc.png" />
-    <Content Include="Resources\bootstrap\css\images\sort_desc_disabled.png" />
-    <Content Include="Resources\bootstrap\css\jquery.datatables.css" />
-    <Content Include="Resources\bootstrap\css\jquery.dataTables.min.css" />
-    <Content Include="Resources\bootstrap\css\mbs-qdtf.css" />
-    <Content Include="Resources\bootstrap\img\glyphicons-halflings-white.png" />
-    <Content Include="Resources\bootstrap\img\glyphicons-halflings.png" />
-    <Content Include="Resources\bootstrap\img\sort_asc.png" />
-    <Content Include="Resources\bootstrap\img\sort_asc_disabled.png" />
-    <Content Include="Resources\bootstrap\img\sort_both.png" />
-    <Content Include="Resources\bootstrap\img\sort_desc.png" />
-    <Content Include="Resources\bootstrap\img\sort_desc_disabled.png" />
-    <Content Include="Resources\bootstrap\js\bootstrap.js" />
-    <Content Include="Resources\bootstrap\js\bootstrap.min.js" />
-    <Content Include="Resources\bootstrap\js\chosen.jquery.min.js" />
-    <Content Include="Resources\bootstrap\js\jquery.dataTables.js" />
-    <Content Include="Resources\bootstrap\js\jquery.dataTables.min.js" />
-    <Content Include="Resources\bootstrap\js\mbs-qdtf.js" />
-    <Content Include="Resources\css\dataTables.bootstrap.css" />
-    <Content Include="Resources\css\hint.css" />
-    <Content Include="Resources\js\bootstrap-confirmation.js" />
-    <Content Include="Resources\js\bootstrap-confirmation.min.js" />
-    <Content Include="Resources\js\dataTables.bootstrap.js" />
-    <Content Include="Resources\js\jquery.dataTables.js" />
-    <Content Include="Resources\js\jquery.min.js" />
-    <Content Include="Resources\js\vue.js" />
     <Content Include="Resources\lib\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="Resources\lib\bootstrap\dist\css\bootstrap-theme.min.css" />
     <Content Include="Resources\lib\bootstrap\dist\css\bootstrap.css" />
@@ -202,19 +169,21 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Example\Index.cshtml" />
-    <Content Include="Views\Example\Edit.cshtml" />
     <Content Include="Views\Settings\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NuGet.config" />
     <None Include="packages.config" />
     <Content Include="Views\UserManage\Index.cshtml" />
-    <Content Include="Views\UserManage\Roles.cshtml" />
     <Content Include="Views\UserManage\Edit.cshtml" />
     <Content Include="Views\UserManage\ChangePassword.cshtml" />
     <Content Include="Views\UserManage\Details.cshtml" />
     <Content Include="Views\UserManage\Create.cshtml" />
+    <Content Include="Views\UserManage\UserRoles.cshtml" />
+    <Content Include="Views\RolesManage\Create.cshtml" />
+    <Content Include="Views\RolesManage\Details.cshtml" />
+    <Content Include="Views\RolesManage\Edit.cshtml" />
+    <Content Include="Views\RolesManage\Index.cshtml" />
     <Content Include="Resources\lib\bootstrap\.bower.json" />
     <Content Include="Resources\lib\bootstrap\dist\css\bootstrap-theme.css.map" />
     <Content Include="Resources\lib\bootstrap\dist\css\bootstrap-theme.min.css.map" />
@@ -230,7 +199,6 @@
     <Content Include="Resources\lib\jquery-validation\LICENSE.md" />
     <Content Include="Resources\lib\jquery\.bower.json" />
     <Content Include="Resources\lib\jquery\dist\jquery.min.map" />
-    <Content Include="Views\UserManage\UserRoles.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

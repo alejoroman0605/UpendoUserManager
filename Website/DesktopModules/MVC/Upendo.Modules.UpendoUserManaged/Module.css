@@ -299,3 +299,16 @@
     font-size: 16px !important;
     padding: 0 8px;
 }
+
+.navbar-default {
+    background-color: #ffffff00 !important;
+    border-color: #ffffff0a !important;
+}
+
+.color-white {
+    color: white !important;
+}
+
+.color-black {
+    color: black !important;
+}
