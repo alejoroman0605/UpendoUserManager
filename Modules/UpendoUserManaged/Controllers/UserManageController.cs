@@ -86,7 +86,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         }
         public ActionResult Delete(int itemId)
         {
-            UsuarioRepository.DeleteUser(itemId);
+            UsuarioRepository.DeleteUser(itemId);   
             return RedirectToDefaultRoute();
         }
         public ActionResult ChangePassword(int itemId)

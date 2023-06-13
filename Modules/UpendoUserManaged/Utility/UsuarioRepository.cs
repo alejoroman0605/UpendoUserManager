@@ -207,7 +207,11 @@ namespace Upendo.Modules.UpendoUserManaged.Utility
                 userInfo.IsDeleted = user.IsDeleted;
                 userInfo.Membership.Approved = user.Approved;
                 userInfo.Membership.LockedOut = user.LockedOut;
-                if (user.NewUserRol != null)
+                if (!string.IsNullOrEmpty(user.Password) && user.Password != " ")
+                {
+                    ChangePassword(user.UserId, user.Password);
+                }
+                    if (user.NewUserRol != null)
                 {
                     userInfo.Roles[userInfo.Roles.Count() - 1] = user.NewUserRol;
                 }

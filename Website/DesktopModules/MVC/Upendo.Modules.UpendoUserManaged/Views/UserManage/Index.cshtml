@@ -26,37 +26,33 @@
     </div>
     <hr />
     <div class="col-md-12" style="margin-bottom: 20px;">
-        <div class="col-md-5">
-        </div>
-        <div class="col-md-7">
-            <ul class="nav navbar-nav navbar-right">
-                <a type="button" class="dnnPrimaryAction" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
-                    Create User
+        <ul class="nav navbar-nav navbar-right">
+            <a type="button" class="dnnPrimaryAction" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
+                Create User
+            </a>
+            @* <a type="button" class="dnnPrimaryAction" href="@Url.Action("CreateUserTest", "UserManage", new {ctl = "Edit"})">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> CreateUserTest
+                </a> *@
+            <span id="dialogs-DeleteUnauthorized" class="dnnActions" style="display: initial;">
+                <a type="button" class="confirm btn btn-warning" href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})" style="color: white;">
+                    Delete Unauthorized Users
                 </a>
-                @* <a type="button" class="dnnPrimaryAction" href="@Url.Action("CreateUserTest", "UserManage", new {ctl = "Edit"})">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> CreateUserTest
-                    </a> *@
-                <span id="dialogs-DeleteUnauthorized" class="dnnActions" style="display: initial;">
-                    <a type="button" class="confirm btn btn-warning" href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})" style="color: white;">
-                        Delete Unauthorized Users
-                    </a>
-                </span>
-                <span id="dialogs-RemoveDelete" class="dnnActions" style="display: initial;">
-                    <a type="button" class="confirm btn btn-warning" href="@Url.Action("RemoveDeletedUsers", "UserManage", new {})" style="color: white;">
-                        Remove Delete Users
-                    </a>
-                </span>
-                <span class="dnnActions" style="display: initial;">
-                    <a type="button" class="btn btn-info" href="@Url.Action("Index", "RolesManage", new {})" style="color: white;">
-                        Roles List
-                    </a>
-                </span>
-            </ul>
-        </div>
+            </span>
+            <span id="dialogs-RemoveDelete" class="dnnActions" style="display: initial;">
+                <a type="button" class="confirm btn btn-warning" href="@Url.Action("RemoveDeletedUsers", "UserManage", new {})" style="color: white;">
+                    Remove Delete Users
+                </a>
+            </span>
+            <span class="dnnActions" style="display: initial;">
+                <a type="button" class="btn btn-info" href="@Url.Action("Index", "RolesManage", new {})" style="color: white;">
+                    Roles List
+                </a>
+            </span>
+        </ul>
     </div>
 
-    <div class="col-md-12" style="margin-bottom: 2px;">
-        <div class="col-md-3">
+    <div style="margin-bottom: 2px;">
+        <div class="col-md-2">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a class="dropDown btn dropdown-toggle color-black" data-toggle="dropdown" href="#" style=" display: inline-flex;">
@@ -95,12 +91,12 @@
         <div class="col-md-5">
             <div class="input-group">
                 <span class="input-group-btn">
-                    <button class="btn btn-primary box-shadow" type="submit">Search!</button>
+                    <button class="btn btn-primary box-shadow" type="submit" style="margin-left: 20px;">Search!</button>
                 </span>
                 @Html.TextBoxFor(m => m.Search, new { @class = "form-control", @type = "text", @style = " height: 40px;box-shadow: 0 0 3px 0 #888888" })
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a class="dropDown btn dropdown-toggle" data-toggle="dropdown" href="#" style=" display: inline-flex;">
@@ -229,10 +225,6 @@
                             <a data-hint="Edit" class="btn btn-warning btn-sm edit hint--top hint--warning" href="@Url.Action("Edit", "UserManage", new {ctl = "Edit", itemId = item.UserId})"
                                data-toggle="tooltip" data-placement="top" title="Edit">
                                 <span class="glyphicon glyphicon-edit color-white" aria-hidden="true"></span>
-                            </a>
-                            <a data-hint="Reset Password" class="btn btn-default btn-sm edit hint--top hint--" href="@Url.Action("ChangePassword", "UserManage", new {ctl = "Edit", itemId = item.UserId})"
-                               data-toggle="tooltip" data-placement="top" title="Reset Password">
-                                <span class="glyphicon glyphicon-refresh color-black" aria-hidden="true"></span>
                             </a>
                             <a data-hint="User Roles" class="btn btn-info btn-sm edit hint--top hint--" href="@Url.Action("UserRoles", "UserManage", new {itemId = item.UserId})"
                                data-toggle="tooltip" data-placement="top" title="User Roles">
