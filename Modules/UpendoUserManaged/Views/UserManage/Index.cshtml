@@ -30,9 +30,6 @@
             <a type="button" class="dnnPrimaryAction" href="@Url.Action("Create", "UserManage", new {ctl = "Edit"})">
                 Create User
             </a>
-            @* <a type="button" class="dnnPrimaryAction" href="@Url.Action("CreateUserTest", "UserManage", new {ctl = "Edit"})">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> CreateUserTest
-                </a> *@
             <span id="dialogs-DeleteUnauthorized" class="dnnActions" style="display: initial;">
                 <a type="button" class="confirm btn btn-warning" href="@Url.Action("DeleteUnauthorizedUsers", "UserManage", new {})" style="color: white;">
                     Delete Unauthorized Users
@@ -50,8 +47,7 @@
             </span>
         </ul>
     </div>
-
-    <div style="margin-bottom: 2px;">
+    <div class="col-md-12" style="margin-bottom: 2px;">
         <div class="col-md-2">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
@@ -91,81 +87,87 @@
         <div class="col-md-5">
             <div class="input-group">
                 <span class="input-group-btn">
-                    <button class="btn btn-primary box-shadow" type="submit" style="margin-left: 20px;">Search!</button>
+                    <button class="btn btn-primary box-shadow" type="submit" style="margin-left: 80px;">Search!</button>
                 </span>
                 @Html.TextBoxFor(m => m.Search, new { @class = "form-control", @type = "text", @style = " height: 40px;box-shadow: 0 0 3px 0 #888888" })
             </div>
         </div>
         <div class="col-md-5">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a class="dropDown btn dropdown-toggle" data-toggle="dropdown" href="#" style=" display: inline-flex;">
-                        <span class="color-black">@ViewBag.Filter</span>
-                        <span class="caret" style=" display: inline-flex;"></span>
+            <div class="col-md-5">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropDown btn dropdown-toggle" data-toggle="dropdown" href="#" style=" display: inline-flex;">
+                            <span class="color-black">@ViewBag.Filter</span>
+                            <span class="caret" style=" display: inline-flex;"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "All", orderBy=@Model.OrderBy , order=@Model.Order})">
+                                    <span aria-hidden="true">All</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "Authorized", orderBy=@Model.OrderBy , order=@Model.Order})">
+                                    <span aria-hidden="true">Authorized</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "Unauthorized", orderBy=@Model.OrderBy , order=@Model.Order})">
+                                    <span aria-hidden="true">Unauthorized</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "Deleted", orderBy=@Model.OrderBy , order=@Model.Order})">
+                                    <span aria-hidden="true">Deleted</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "SuperUsers", orderBy=@Model.OrderBy , order=@Model.Order})">
+                                    <span aria-hidden="true">SuperUsers</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropDown btn dropdown-toggle" data-toggle="dropdown" href="#" style=" display: inline-flex;">
+                            <span class="color-black">SorBy</span>
+                            <span class="caret" style=" display: inline-flex;"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy="Username" , order=@Model.Order})">
+                                    <span aria-hidden="true">Username</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy="DisplayName",order=@Model.Order})">
+                                    <span aria-hidden="true">DisplayName</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy="Email" ,order=@Model.Order})">
+                                    <span aria-hidden="true">Email</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <div class="nav navbar-nav">
+                    <a data-hint="Asc" class="btn btn-link box-shadow btn-lg hint--top hint--" href="@Url.Action("Index", "UserManage", new {take = @Model.Take, skip=@Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy , order="asc"})"
+                       data-toggle="tooltip" data-placement="top" title="Asc">
+                        <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "All", orderBy=@Model.OrderBy , order=@Model.Order})">
-                                <span aria-hidden="true">All</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "Authorized", orderBy=@Model.OrderBy , order=@Model.Order})">
-                                <span aria-hidden="true">Authorized</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "Unauthorized", orderBy=@Model.OrderBy , order=@Model.Order})">
-                                <span aria-hidden="true">Unauthorized</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "Deleted", orderBy=@Model.OrderBy , order=@Model.Order})">
-                                <span aria-hidden="true">Deleted</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "SuperUsers", orderBy=@Model.OrderBy , order=@Model.Order})">
-                                <span aria-hidden="true">SuperUsers</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a class="dropDown btn dropdown-toggle" data-toggle="dropdown" href="#" style=" display: inline-flex;">
-                        <span class="color-black">SorBy</span>
-                        <span class="caret" style=" display: inline-flex;"></span>
+                    <a data-hint="Desc" class="btn btn-link box-shadow btn-lg hint--top hint--" href="@Url.Action("Index", "UserManage", new {take = @Model.Take, skip=@Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy, order="desc"})"
+                       data-toggle="tooltip" data-placement="top" title="Desc">
+                        <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy="Username" , order=@Model.Order})">
-                                <span aria-hidden="true">Username</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy="DisplayName",order=@Model.Order})">
-                                <span aria-hidden="true">DisplayName</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy="Email" ,order=@Model.Order})">
-                                <span aria-hidden="true">Email</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <div class="nav navbar-nav navbar-right" style="margin-left: 20px;">
-                <a data-hint="Asc" class="btn btn-link box-shadow btn-lg hint--top hint--" href="@Url.Action("Index", "UserManage", new {take = @Model.Take, skip=@Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy , order="asc"})"
-                   data-toggle="tooltip" data-placement="top" title="Asc">
-                    <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-                </a>
-                <a data-hint="Desc" class="btn btn-link box-shadow btn-lg hint--top hint--" href="@Url.Action("Index", "UserManage", new {take = @Model.Take, skip=@Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy, order="desc"})"
-                   data-toggle="tooltip" data-placement="top" title="Desc">
-                    <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-                </a>
+                </div>
             </div>
         </div>
     </div>
