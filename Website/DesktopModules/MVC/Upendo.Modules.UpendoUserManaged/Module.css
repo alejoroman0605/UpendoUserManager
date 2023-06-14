@@ -47,7 +47,7 @@
 }
 
     .input-group input[type=text]:focus {
-        width: 100%;
+        width: 250px;
     }
 
 .formItem {
@@ -143,7 +143,7 @@
 }
 
 .text-align-right {
-    text-align: right;
+    text-align: right !important;
 }
 
 .text-align-justify {
@@ -151,7 +151,7 @@
 }
 
 .float-right {
-    float: right
+    float: right !important;
 }
 
 .ml5 {
@@ -182,6 +182,10 @@
     padding-bottom: 10px !important;
 }
 
+.p1 {
+    padding: 1px 1 !important;
+}
+
 .accountSettings {
     margin-left: 10px !important;
 }
@@ -199,6 +203,14 @@
 .row::after {
     content: "";
     display: table;
+}
+
+.pl2 {
+    padding-left: 2px !important;
+}
+
+.pr2 {
+    padding-right: 2px !important;
 }
 
 [class*="col-"] {
@@ -267,7 +279,7 @@
 .dropDown {
     display: flex;
     height: 40px;
-    background: #e4e4e424;
+    background: #e4e4e4d4;
     color: black;
     padding: 20px !important;
     font-size: 16px !important;

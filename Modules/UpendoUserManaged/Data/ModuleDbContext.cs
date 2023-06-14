@@ -26,6 +26,6 @@ namespace Upendo.Modules.UpendoUserManaged.Data
         public DbSet<Portals> Portals { get; set; }
         public DbSet<UserRoles> UserRoles { get; set; }
         public DbSet<AspnetMembership> AspnetMemberships { get; set; }
-        public DbSet<AspnetUsers> AspnetUsers { get; set; }
+        //public DbSet<AspnetUsers> AspnetUsers { get; set; }
     }
 }

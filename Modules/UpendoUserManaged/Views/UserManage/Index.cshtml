@@ -95,41 +95,6 @@
             </div>
             <div class="col-md-7">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a class="btn btn-link box-shadow" href="@Url.Action("Index", "UserManage", new {take = @Model.Take, skip=@Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy , order="asc"})"
-                           data-toggle="tooltip" data-placement="top" title="Asc">
-                            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="btn btn-link box-shadow" href="@Url.Action("Index", "UserManage", new {take = @Model.Take, skip=@Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy, order="desc"})"
-                           data-toggle="tooltip" data-placement="top" title="Desc">
-                            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-                        </a>
-                    </li>
-                    <li class="dropdown" style="margin: 0 10px !important;">
-                        <a class="dropDown btn dropdown-toggle" data-toggle="dropdown" href="#" style=" display: inline-flex;">
-                            <span class="color-black">SorBy</span>
-                            <span class="caret" style=" display: inline-flex;"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy="Username" , order=@Model.Order})">
-                                    <span aria-hidden="true">Username</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy="DisplayName",order=@Model.Order})">
-                                    <span aria-hidden="true">DisplayName</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy="Email" ,order=@Model.Order})">
-                                    <span aria-hidden="true">Email</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                     <li class="dropdown" style="margin: 0 10px !important;">
                         <a class="dropDown btn dropdown-toggle" data-toggle="dropdown" href="#" style=" display: inline-flex;">
                             <span class="color-black">@ViewBag.Filter</span>
@@ -163,6 +128,42 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="dropdown" style="margin: 0 10px !important;">
+                        <a class="dropDown btn dropdown-toggle" data-toggle="dropdown" href="#" style=" display: inline-flex;">
+                            <span class="color-black">SorBy</span>
+                            <span class="caret" style=" display: inline-flex;"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy="Username" , order=@Model.Order})">
+                                    <span aria-hidden="true">Username</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy="DisplayName",order=@Model.Order})">
+                                    <span aria-hidden="true">DisplayName</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy="Email" ,order=@Model.Order})">
+                                    <span aria-hidden="true">Email</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="btn btn-link box-shadow" href="@Url.Action("Index", "UserManage", new {take = @Model.Take, skip=@Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy , order="asc"})"
+                           data-toggle="tooltip" data-placement="top" title="Asc">
+                            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-link box-shadow" href="@Url.Action("Index", "UserManage", new {take = @Model.Take, skip=@Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy, order="desc"})"
+                           data-toggle="tooltip" data-placement="top" title="Desc">
+                            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </nav>
