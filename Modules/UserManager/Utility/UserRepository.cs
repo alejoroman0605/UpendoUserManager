@@ -161,7 +161,6 @@ namespace Upendo.Modules.UserManager.Utility
         public static UserViewModel GetUser(int portalId, int id)
         {
             var context = new ModuleDbContext();
-            //var u = context.Users.FirstOrDefault(x => x.UserId == id);
             var userInfo = UserController.GetUserById(portalId, id);
 
             var user = new UserViewModel
