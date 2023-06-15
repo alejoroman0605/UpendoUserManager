@@ -1,12 +1,12 @@
-@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<DataTableResponse<Upendo.Modules.UpendoUserManaged.ViewModels.RolesViewModel>>
+@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<DataTableResponse<Upendo.Modules.UserManager.ViewModels.RolesViewModel>>
 
 @using System.Text.RegularExpressions
 @using DotNetNuke.Web.Mvc.Helpers
-@using Upendo.Modules.UpendoUserManaged.ViewModels;
+@using Upendo.Modules.UserManager.ViewModels;
 
 @{
     string srcLogo = DotNetNuke.Entities.Tabs.TabController.CurrentPage.Title +
-    "/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Images/Upendo-logo-trans.png";
+    "/DesktopModules/MVC/Upendo.Modules.UserManager/Images/Upendo-logo-trans.png";
     string name = ViewBag.User.DisplayName;
     int userId = ViewBag.User.UserId;
     var skipMinus = (@Model.Skip - @Model.Take) <= 0 ? 0 : (@Model.Skip - @Model.Take);

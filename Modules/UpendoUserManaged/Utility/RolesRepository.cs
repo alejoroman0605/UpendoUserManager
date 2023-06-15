@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Upendo.Modules.UpendoUserManaged.Models.DnnModel;
-using Upendo.Modules.UpendoUserManaged.ViewModels;
+using Upendo.Modules.UserManager.Models.DnnModel;
+using Upendo.Modules.UserManager.ViewModels;
 using DotNetNuke.Security.Roles;
 
-namespace Upendo.Modules.UpendoUserManaged.Utility
+namespace Upendo.Modules.UserManager.Utility
 {
     public class RolesRepository
     {

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Upendo.Modules.UpendoUserManaged.Models.DnnModel;
-using Upendo.Modules.UpendoUserManaged.Data;
+using Upendo.Modules.UserManager.Models.DnnModel;
+using Upendo.Modules.UserManager.Data;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Security.Roles;
-using Upendo.Modules.UpendoUserManaged.ViewModels;
+using Upendo.Modules.UserManager.ViewModels;
 using System;
 
-namespace Upendo.Modules.UpendoUserManaged.Utility
+namespace Upendo.Modules.UserManager.Utility
 {
     public class Functions
     {

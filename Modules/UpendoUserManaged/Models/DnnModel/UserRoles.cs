@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Upendo.Modules.UpendoUserManaged.Models.DnnModel
+namespace Upendo.Modules.UserManager.Models.DnnModel
 {
     public partial class UserRoles
     {

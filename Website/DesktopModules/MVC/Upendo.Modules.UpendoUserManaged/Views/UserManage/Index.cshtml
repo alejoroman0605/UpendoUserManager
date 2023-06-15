@@ -1,11 +1,11 @@
-@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<DataTableResponse<Upendo.Modules.UpendoUserManaged.Models.DnnModel.Users>>
+@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<DataTableResponse<Upendo.Modules.UserManager.Models.DnnModel.Users>>
 
 @using System.Text.RegularExpressions
 @using DotNetNuke.Web.Mvc.Helpers
-@using Upendo.Modules.UpendoUserManaged.ViewModels;
+@using Upendo.Modules.UserManager.ViewModels;
 
 @{
-    string srcLogo = DotNetNuke.Entities.Tabs.TabController.CurrentPage.Title + "/DesktopModules/MVC/Upendo.Modules.UpendoUserManaged/Images/Upendo-logo-trans.png";
+    string srcLogo = DotNetNuke.Entities.Tabs.TabController.CurrentPage.Title + "/DesktopModules/MVC/Upendo.Modules.UserManager/Images/Upendo-logo-trans.png";
     var skipMinus = (@Model.Skip - @Model.Take) <= 0 ? 0 : (@Model.Skip - @Model.Take);
     var skipPlus = @Model.Skip + @Model.Take;
     var skipPaginate = @Model.Skip + 1;

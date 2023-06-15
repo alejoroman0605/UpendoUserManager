@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Upendo.Modules.UpendoUserManaged.ViewModels
+namespace Upendo.Modules.UserManager.ViewModels
 {
     public class RolesViewModel
     {

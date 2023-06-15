@@ -1,8 +1,8 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ModulePath>Upendo.Modules.UpendoUserManaged</ModulePath>
-    <DNNFileName>UpendoUserManaged</DNNFileName>
-    <PackageName>Upendo.UpendoUserManaged</PackageName>
+    <ModulePath>Upendo.Modules.UserManager</ModulePath>
+    <DNNFileName>UserManager</DNNFileName>
+    <PackageName>Upendo.UserManager</PackageName>
     <Extension>zip</Extension>
     <BuildScriptsPath>$(MSBuildProjectDirectory)\..\..\Build</BuildScriptsPath>
     <WebsitePath>$(MSBuildProjectDirectory)\..\..\Website</WebsitePath>

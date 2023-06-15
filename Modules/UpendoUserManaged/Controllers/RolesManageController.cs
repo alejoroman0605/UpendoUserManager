@@ -7,11 +7,11 @@ using DotNetNuke.Web.Mvc.Framework.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Upendo.Modules.UpendoUserManaged.Models.DnnModel;
-using Upendo.Modules.UpendoUserManaged.Utility;
-using Upendo.Modules.UpendoUserManaged.ViewModels;
+using Upendo.Modules.UserManager.Models.DnnModel;
+using Upendo.Modules.UserManager.Utility;
+using Upendo.Modules.UserManager.ViewModels;
 
-namespace Upendo.Modules.UpendoUserManaged.Controllers
+namespace Upendo.Modules.UserManager.Controllers
 {
     [DnnHandleError]
     public class RolesManageController : DnnController

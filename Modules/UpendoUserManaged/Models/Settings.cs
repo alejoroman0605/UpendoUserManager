@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Upendo.Modules.UpendoUserManaged.Models
+namespace Upendo.Modules.UserManager.Models
 {
     public class Settings
     {

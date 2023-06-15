@@ -1,7 +1,7 @@
 
 using System;
 
-namespace Upendo.Modules.UpendoUserManaged.Models
+namespace Upendo.Modules.UserManager.Models
 {
     public interface IExampleInfo
     {

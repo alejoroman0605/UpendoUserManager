@@ -5,7 +5,7 @@ using DotNetNuke.Web.Mvc.Framework.ActionFilters;
 using DotNetNuke.Web.Mvc.Framework.Controllers;
 using System.Web.Mvc;
 
-namespace Upendo.Modules.UpendoUserManaged.Controllers
+namespace Upendo.Modules.UserManager.Controllers
 {
     [DnnModuleAuthorize(AccessLevel = SecurityAccessLevel.Edit)]
     [DnnHandleError]

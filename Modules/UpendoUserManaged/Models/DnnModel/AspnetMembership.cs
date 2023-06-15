@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Upendo.Modules.UpendoUserManaged.Models.DnnModel
+namespace Upendo.Modules.UserManager.Models.DnnModel
 {
     public partial class AspnetMembership
     {

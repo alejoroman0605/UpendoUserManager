@@ -5,11 +5,15 @@
       "DotNetNuke.Core/9.3.2": {
         "type": "package",
         "compile": {
-          "lib/net45/DotNetNuke.dll": {},
+          "lib/net45/DotNetNuke.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Microsoft.ApplicationBlocks.Data.dll": {}
         },
         "runtime": {
-          "lib/net45/DotNetNuke.dll": {},
+          "lib/net45/DotNetNuke.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Microsoft.ApplicationBlocks.Data.dll": {}
         }
       },
@@ -19,11 +23,15 @@
           "DotNetNuke.Core": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Instrumentation.dll": {},
+          "lib/net45/DotNetNuke.Instrumentation.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/DotNetNuke.Log4Net.dll": {}
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Instrumentation.dll": {},
+          "lib/net45/DotNetNuke.Instrumentation.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/DotNetNuke.Log4Net.dll": {}
         }
       },
@@ -33,12 +41,20 @@
           "DotNetNuke.Core": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.dll": {},
-          "lib/net45/DotNetNuke.WebUtility.dll": {}
+          "lib/net45/DotNetNuke.Web.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/DotNetNuke.WebUtility.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.dll": {},
-          "lib/net45/DotNetNuke.WebUtility.dll": {}
+          "lib/net45/DotNetNuke.Web.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/DotNetNuke.WebUtility.dll": {
+            "related": ".pdb"
+          }
         }
       },
       "DotNetNuke.Web.Client/9.3.2": {
@@ -47,10 +63,14 @@
           "DotNetNuke.Core": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.Client.dll": {}
+          "lib/net45/DotNetNuke.Web.Client.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.Client.dll": {}
+          "lib/net45/DotNetNuke.Web.Client.dll": {
+            "related": ".pdb"
+          }
         }
       },
       "DotNetNuke.Web.Deprecated/9.3.2": {
@@ -59,11 +79,15 @@
           "DotNetNuke.Web": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.Deprecated.dll": {},
+          "lib/net45/DotNetNuke.Web.Deprecated.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Telerik.Web.UI.dll": {}
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.Deprecated.dll": {},
+          "lib/net45/DotNetNuke.Web.Deprecated.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Telerik.Web.UI.dll": {}
         }
       },
@@ -79,10 +103,14 @@
           "Microsoft.Web.Infrastructure": "1.0.0"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.Mvc.dll": {}
+          "lib/net45/DotNetNuke.Web.Mvc.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.Mvc.dll": {}
+          "lib/net45/DotNetNuke.Web.Mvc.dll": {
+            "related": ".pdb"
+          }
         }
       },
       "DotNetNuke.WebApi/9.3.2": {
@@ -100,12 +128,20 @@
           "System.ComponentModel.DataAnnotations"
         ],
         "compile": {
-          "lib/net45/EntityFramework.SqlServer.dll": {},
-          "lib/net45/EntityFramework.dll": {}
+          "lib/net45/EntityFramework.SqlServer.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/EntityFramework.dll": {
+            "related": ".SqlServer.xml;.xml"
+          }
         },
         "runtime": {
-          "lib/net45/EntityFramework.SqlServer.dll": {},
-          "lib/net45/EntityFramework.dll": {}
+          "lib/net45/EntityFramework.SqlServer.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/EntityFramework.dll": {
+            "related": ".SqlServer.xml;.xml"
+          }
         },
         "build": {
           "buildTransitive/EntityFramework.props": {},
@@ -119,19 +155,27 @@
           "Microsoft.AspNet.WebPages": "[3.1.2, 3.2.0)"
         },
         "compile": {
-          "lib/net45/System.Web.Mvc.dll": {}
+          "lib/net45/System.Web.Mvc.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Mvc.dll": {}
+          "lib/net45/System.Web.Mvc.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.Razor/3.1.2": {
         "type": "package",
         "compile": {
-          "lib/net45/System.Web.Razor.dll": {}
+          "lib/net45/System.Web.Razor.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Razor.dll": {}
+          "lib/net45/System.Web.Razor.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.3": {
@@ -143,10 +187,14 @@
           "System.Net.Http"
         ],
         "compile": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
+          "lib/net45/System.Net.Http.Formatting.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
+          "lib/net45/System.Net.Http.Formatting.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.WebApi.Core/5.2.3": {
@@ -155,10 +203,14 @@
           "Microsoft.AspNet.WebApi.Client": "5.2.3"
         },
         "compile": {
-          "lib/net45/System.Web.Http.dll": {}
+          "lib/net45/System.Web.Http.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Http.dll": {}
+          "lib/net45/System.Web.Http.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.WebPages/3.1.2": {
@@ -168,16 +220,32 @@
           "Microsoft.Web.Infrastructure": "1.0.0"
         },
         "compile": {
-          "lib/net45/System.Web.Helpers.dll": {},
-          "lib/net45/System.Web.WebPages.Deployment.dll": {},
-          "lib/net45/System.Web.WebPages.Razor.dll": {},
-          "lib/net45/System.Web.WebPages.dll": {}
+          "lib/net45/System.Web.Helpers.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Deployment.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Razor.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.dll": {
+            "related": ".Deployment.xml;.Razor.xml;.xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Helpers.dll": {},
-          "lib/net45/System.Web.WebPages.Deployment.dll": {},
-          "lib/net45/System.Web.WebPages.Razor.dll": {},
-          "lib/net45/System.Web.WebPages.dll": {}
+          "lib/net45/System.Web.Helpers.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Deployment.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Razor.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.dll": {
+            "related": ".Deployment.xml;.Razor.xml;.xml"
+          }
         }
       },
       "Microsoft.Web.Infrastructure/1.0.0": {
@@ -192,10 +260,14 @@
       "Newtonsoft.Json/10.0.3": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       }
     },
@@ -203,11 +275,15 @@
       "DotNetNuke.Core/9.3.2": {
         "type": "package",
         "compile": {
-          "lib/net45/DotNetNuke.dll": {},
+          "lib/net45/DotNetNuke.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Microsoft.ApplicationBlocks.Data.dll": {}
         },
         "runtime": {
-          "lib/net45/DotNetNuke.dll": {},
+          "lib/net45/DotNetNuke.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Microsoft.ApplicationBlocks.Data.dll": {}
         }
       },
@@ -217,11 +293,15 @@
           "DotNetNuke.Core": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Instrumentation.dll": {},
+          "lib/net45/DotNetNuke.Instrumentation.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/DotNetNuke.Log4Net.dll": {}
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Instrumentation.dll": {},
+          "lib/net45/DotNetNuke.Instrumentation.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/DotNetNuke.Log4Net.dll": {}
         }
       },
@@ -231,12 +311,20 @@
           "DotNetNuke.Core": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.dll": {},
-          "lib/net45/DotNetNuke.WebUtility.dll": {}
+          "lib/net45/DotNetNuke.Web.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/DotNetNuke.WebUtility.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.dll": {},
-          "lib/net45/DotNetNuke.WebUtility.dll": {}
+          "lib/net45/DotNetNuke.Web.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/DotNetNuke.WebUtility.dll": {
+            "related": ".pdb"
+          }
         }
       },
       "DotNetNuke.Web.Client/9.3.2": {
@@ -245,10 +333,14 @@
           "DotNetNuke.Core": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.Client.dll": {}
+          "lib/net45/DotNetNuke.Web.Client.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.Client.dll": {}
+          "lib/net45/DotNetNuke.Web.Client.dll": {
+            "related": ".pdb"
+          }
         }
       },
       "DotNetNuke.Web.Deprecated/9.3.2": {
@@ -257,11 +349,15 @@
           "DotNetNuke.Web": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.Deprecated.dll": {},
+          "lib/net45/DotNetNuke.Web.Deprecated.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Telerik.Web.UI.dll": {}
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.Deprecated.dll": {},
+          "lib/net45/DotNetNuke.Web.Deprecated.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Telerik.Web.UI.dll": {}
         }
       },
@@ -277,10 +373,14 @@
           "Microsoft.Web.Infrastructure": "1.0.0"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.Mvc.dll": {}
+          "lib/net45/DotNetNuke.Web.Mvc.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.Mvc.dll": {}
+          "lib/net45/DotNetNuke.Web.Mvc.dll": {
+            "related": ".pdb"
+          }
         }
       },
       "DotNetNuke.WebApi/9.3.2": {
@@ -298,12 +398,20 @@
           "System.ComponentModel.DataAnnotations"
         ],
         "compile": {
-          "lib/net45/EntityFramework.SqlServer.dll": {},
-          "lib/net45/EntityFramework.dll": {}
+          "lib/net45/EntityFramework.SqlServer.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/EntityFramework.dll": {
+            "related": ".SqlServer.xml;.xml"
+          }
         },
         "runtime": {
-          "lib/net45/EntityFramework.SqlServer.dll": {},
-          "lib/net45/EntityFramework.dll": {}
+          "lib/net45/EntityFramework.SqlServer.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/EntityFramework.dll": {
+            "related": ".SqlServer.xml;.xml"
+          }
         },
         "build": {
           "buildTransitive/EntityFramework.props": {},
@@ -317,19 +425,27 @@
           "Microsoft.AspNet.WebPages": "[3.1.2, 3.2.0)"
         },
         "compile": {
-          "lib/net45/System.Web.Mvc.dll": {}
+          "lib/net45/System.Web.Mvc.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Mvc.dll": {}
+          "lib/net45/System.Web.Mvc.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.Razor/3.1.2": {
         "type": "package",
         "compile": {
-          "lib/net45/System.Web.Razor.dll": {}
+          "lib/net45/System.Web.Razor.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Razor.dll": {}
+          "lib/net45/System.Web.Razor.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.3": {
@@ -341,10 +457,14 @@
           "System.Net.Http"
         ],
         "compile": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
+          "lib/net45/System.Net.Http.Formatting.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
+          "lib/net45/System.Net.Http.Formatting.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.WebApi.Core/5.2.3": {
@@ -353,10 +473,14 @@
           "Microsoft.AspNet.WebApi.Client": "5.2.3"
         },
         "compile": {
-          "lib/net45/System.Web.Http.dll": {}
+          "lib/net45/System.Web.Http.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Http.dll": {}
+          "lib/net45/System.Web.Http.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.WebPages/3.1.2": {
@@ -366,16 +490,32 @@
           "Microsoft.Web.Infrastructure": "1.0.0"
         },
         "compile": {
-          "lib/net45/System.Web.Helpers.dll": {},
-          "lib/net45/System.Web.WebPages.Deployment.dll": {},
-          "lib/net45/System.Web.WebPages.Razor.dll": {},
-          "lib/net45/System.Web.WebPages.dll": {}
+          "lib/net45/System.Web.Helpers.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Deployment.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Razor.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.dll": {
+            "related": ".Deployment.xml;.Razor.xml;.xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Helpers.dll": {},
-          "lib/net45/System.Web.WebPages.Deployment.dll": {},
-          "lib/net45/System.Web.WebPages.Razor.dll": {},
-          "lib/net45/System.Web.WebPages.dll": {}
+          "lib/net45/System.Web.Helpers.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Deployment.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Razor.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.dll": {
+            "related": ".Deployment.xml;.Razor.xml;.xml"
+          }
         }
       },
       "Microsoft.Web.Infrastructure/1.0.0": {
@@ -390,10 +530,14 @@
       "Newtonsoft.Json/10.0.3": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       }
     },
@@ -401,11 +545,15 @@
       "DotNetNuke.Core/9.3.2": {
         "type": "package",
         "compile": {
-          "lib/net45/DotNetNuke.dll": {},
+          "lib/net45/DotNetNuke.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Microsoft.ApplicationBlocks.Data.dll": {}
         },
         "runtime": {
-          "lib/net45/DotNetNuke.dll": {},
+          "lib/net45/DotNetNuke.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Microsoft.ApplicationBlocks.Data.dll": {}
         }
       },
@@ -415,11 +563,15 @@
           "DotNetNuke.Core": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Instrumentation.dll": {},
+          "lib/net45/DotNetNuke.Instrumentation.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/DotNetNuke.Log4Net.dll": {}
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Instrumentation.dll": {},
+          "lib/net45/DotNetNuke.Instrumentation.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/DotNetNuke.Log4Net.dll": {}
         }
       },
@@ -429,12 +581,20 @@
           "DotNetNuke.Core": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.dll": {},
-          "lib/net45/DotNetNuke.WebUtility.dll": {}
+          "lib/net45/DotNetNuke.Web.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/DotNetNuke.WebUtility.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.dll": {},
-          "lib/net45/DotNetNuke.WebUtility.dll": {}
+          "lib/net45/DotNetNuke.Web.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/DotNetNuke.WebUtility.dll": {
+            "related": ".pdb"
+          }
         }
       },
       "DotNetNuke.Web.Client/9.3.2": {
@@ -443,10 +603,14 @@
           "DotNetNuke.Core": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.Client.dll": {}
+          "lib/net45/DotNetNuke.Web.Client.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.Client.dll": {}
+          "lib/net45/DotNetNuke.Web.Client.dll": {
+            "related": ".pdb"
+          }
         }
       },
       "DotNetNuke.Web.Deprecated/9.3.2": {
@@ -455,11 +619,15 @@
           "DotNetNuke.Web": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.Deprecated.dll": {},
+          "lib/net45/DotNetNuke.Web.Deprecated.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Telerik.Web.UI.dll": {}
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.Deprecated.dll": {},
+          "lib/net45/DotNetNuke.Web.Deprecated.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Telerik.Web.UI.dll": {}
         }
       },
@@ -475,10 +643,14 @@
           "Microsoft.Web.Infrastructure": "1.0.0"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.Mvc.dll": {}
+          "lib/net45/DotNetNuke.Web.Mvc.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.Mvc.dll": {}
+          "lib/net45/DotNetNuke.Web.Mvc.dll": {
+            "related": ".pdb"
+          }
         }
       },
       "DotNetNuke.WebApi/9.3.2": {
@@ -496,12 +668,20 @@
           "System.ComponentModel.DataAnnotations"
         ],
         "compile": {
-          "lib/net45/EntityFramework.SqlServer.dll": {},
-          "lib/net45/EntityFramework.dll": {}
+          "lib/net45/EntityFramework.SqlServer.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/EntityFramework.dll": {
+            "related": ".SqlServer.xml;.xml"
+          }
         },
         "runtime": {
-          "lib/net45/EntityFramework.SqlServer.dll": {},
-          "lib/net45/EntityFramework.dll": {}
+          "lib/net45/EntityFramework.SqlServer.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/EntityFramework.dll": {
+            "related": ".SqlServer.xml;.xml"
+          }
         },
         "build": {
           "buildTransitive/EntityFramework.props": {},
@@ -515,19 +695,27 @@
           "Microsoft.AspNet.WebPages": "[3.1.2, 3.2.0)"
         },
         "compile": {
-          "lib/net45/System.Web.Mvc.dll": {}
+          "lib/net45/System.Web.Mvc.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Mvc.dll": {}
+          "lib/net45/System.Web.Mvc.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.Razor/3.1.2": {
         "type": "package",
         "compile": {
-          "lib/net45/System.Web.Razor.dll": {}
+          "lib/net45/System.Web.Razor.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Razor.dll": {}
+          "lib/net45/System.Web.Razor.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.3": {
@@ -539,10 +727,14 @@
           "System.Net.Http"
         ],
         "compile": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
+          "lib/net45/System.Net.Http.Formatting.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
+          "lib/net45/System.Net.Http.Formatting.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.WebApi.Core/5.2.3": {
@@ -551,10 +743,14 @@
           "Microsoft.AspNet.WebApi.Client": "5.2.3"
         },
         "compile": {
-          "lib/net45/System.Web.Http.dll": {}
+          "lib/net45/System.Web.Http.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Http.dll": {}
+          "lib/net45/System.Web.Http.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.WebPages/3.1.2": {
@@ -564,16 +760,32 @@
           "Microsoft.Web.Infrastructure": "1.0.0"
         },
         "compile": {
-          "lib/net45/System.Web.Helpers.dll": {},
-          "lib/net45/System.Web.WebPages.Deployment.dll": {},
-          "lib/net45/System.Web.WebPages.Razor.dll": {},
-          "lib/net45/System.Web.WebPages.dll": {}
+          "lib/net45/System.Web.Helpers.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Deployment.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Razor.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.dll": {
+            "related": ".Deployment.xml;.Razor.xml;.xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Helpers.dll": {},
-          "lib/net45/System.Web.WebPages.Deployment.dll": {},
-          "lib/net45/System.Web.WebPages.Razor.dll": {},
-          "lib/net45/System.Web.WebPages.dll": {}
+          "lib/net45/System.Web.Helpers.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Deployment.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Razor.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.dll": {
+            "related": ".Deployment.xml;.Razor.xml;.xml"
+          }
         }
       },
       "Microsoft.Web.Infrastructure/1.0.0": {
@@ -588,10 +800,14 @@
       "Newtonsoft.Json/10.0.3": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       }
     },
@@ -599,11 +815,15 @@
       "DotNetNuke.Core/9.3.2": {
         "type": "package",
         "compile": {
-          "lib/net45/DotNetNuke.dll": {},
+          "lib/net45/DotNetNuke.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Microsoft.ApplicationBlocks.Data.dll": {}
         },
         "runtime": {
-          "lib/net45/DotNetNuke.dll": {},
+          "lib/net45/DotNetNuke.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Microsoft.ApplicationBlocks.Data.dll": {}
         }
       },
@@ -613,11 +833,15 @@
           "DotNetNuke.Core": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Instrumentation.dll": {},
+          "lib/net45/DotNetNuke.Instrumentation.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/DotNetNuke.Log4Net.dll": {}
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Instrumentation.dll": {},
+          "lib/net45/DotNetNuke.Instrumentation.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/DotNetNuke.Log4Net.dll": {}
         }
       },
@@ -627,12 +851,20 @@
           "DotNetNuke.Core": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.dll": {},
-          "lib/net45/DotNetNuke.WebUtility.dll": {}
+          "lib/net45/DotNetNuke.Web.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/DotNetNuke.WebUtility.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.dll": {},
-          "lib/net45/DotNetNuke.WebUtility.dll": {}
+          "lib/net45/DotNetNuke.Web.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/DotNetNuke.WebUtility.dll": {
+            "related": ".pdb"
+          }
         }
       },
       "DotNetNuke.Web.Client/9.3.2": {
@@ -641,10 +873,14 @@
           "DotNetNuke.Core": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.Client.dll": {}
+          "lib/net45/DotNetNuke.Web.Client.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.Client.dll": {}
+          "lib/net45/DotNetNuke.Web.Client.dll": {
+            "related": ".pdb"
+          }
         }
       },
       "DotNetNuke.Web.Deprecated/9.3.2": {
@@ -653,11 +889,15 @@
           "DotNetNuke.Web": "9.3.2"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.Deprecated.dll": {},
+          "lib/net45/DotNetNuke.Web.Deprecated.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Telerik.Web.UI.dll": {}
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.Deprecated.dll": {},
+          "lib/net45/DotNetNuke.Web.Deprecated.dll": {
+            "related": ".pdb"
+          },
           "lib/net45/Telerik.Web.UI.dll": {}
         }
       },
@@ -673,10 +913,14 @@
           "Microsoft.Web.Infrastructure": "1.0.0"
         },
         "compile": {
-          "lib/net45/DotNetNuke.Web.Mvc.dll": {}
+          "lib/net45/DotNetNuke.Web.Mvc.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/net45/DotNetNuke.Web.Mvc.dll": {}
+          "lib/net45/DotNetNuke.Web.Mvc.dll": {
+            "related": ".pdb"
+          }
         }
       },
       "DotNetNuke.WebApi/9.3.2": {
@@ -694,12 +938,20 @@
           "System.ComponentModel.DataAnnotations"
         ],
         "compile": {
-          "lib/net45/EntityFramework.SqlServer.dll": {},
-          "lib/net45/EntityFramework.dll": {}
+          "lib/net45/EntityFramework.SqlServer.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/EntityFramework.dll": {
+            "related": ".SqlServer.xml;.xml"
+          }
         },
         "runtime": {
-          "lib/net45/EntityFramework.SqlServer.dll": {},
-          "lib/net45/EntityFramework.dll": {}
+          "lib/net45/EntityFramework.SqlServer.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/EntityFramework.dll": {
+            "related": ".SqlServer.xml;.xml"
+          }
         },
         "build": {
           "buildTransitive/EntityFramework.props": {},
@@ -713,19 +965,27 @@
           "Microsoft.AspNet.WebPages": "[3.1.2, 3.2.0)"
         },
         "compile": {
-          "lib/net45/System.Web.Mvc.dll": {}
+          "lib/net45/System.Web.Mvc.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Mvc.dll": {}
+          "lib/net45/System.Web.Mvc.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.Razor/3.1.2": {
         "type": "package",
         "compile": {
-          "lib/net45/System.Web.Razor.dll": {}
+          "lib/net45/System.Web.Razor.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Razor.dll": {}
+          "lib/net45/System.Web.Razor.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.3": {
@@ -737,10 +997,14 @@
           "System.Net.Http"
         ],
         "compile": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
+          "lib/net45/System.Net.Http.Formatting.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Net.Http.Formatting.dll": {}
+          "lib/net45/System.Net.Http.Formatting.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.WebApi.Core/5.2.3": {
@@ -749,10 +1013,14 @@
           "Microsoft.AspNet.WebApi.Client": "5.2.3"
         },
         "compile": {
-          "lib/net45/System.Web.Http.dll": {}
+          "lib/net45/System.Web.Http.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Http.dll": {}
+          "lib/net45/System.Web.Http.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNet.WebPages/3.1.2": {
@@ -762,16 +1030,32 @@
           "Microsoft.Web.Infrastructure": "1.0.0"
         },
         "compile": {
-          "lib/net45/System.Web.Helpers.dll": {},
-          "lib/net45/System.Web.WebPages.Deployment.dll": {},
-          "lib/net45/System.Web.WebPages.Razor.dll": {},
-          "lib/net45/System.Web.WebPages.dll": {}
+          "lib/net45/System.Web.Helpers.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Deployment.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Razor.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.dll": {
+            "related": ".Deployment.xml;.Razor.xml;.xml"
+          }
         },
         "runtime": {
-          "lib/net45/System.Web.Helpers.dll": {},
-          "lib/net45/System.Web.WebPages.Deployment.dll": {},
-          "lib/net45/System.Web.WebPages.Razor.dll": {},
-          "lib/net45/System.Web.WebPages.dll": {}
+          "lib/net45/System.Web.Helpers.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Deployment.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.Razor.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/System.Web.WebPages.dll": {
+            "related": ".Deployment.xml;.Razor.xml;.xml"
+          }
         }
       },
       "Microsoft.Web.Infrastructure/1.0.0": {
@@ -786,10 +1070,14 @@
       "Newtonsoft.Json/10.0.3": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       }
     }
@@ -1088,20 +1376,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\alejandro\\.nuget\\packages\\": {}
+    "D:\\Users\\ntsprintdev005\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Trabajo\\NTSPRINT\\Extension Generator Upendo DNN\\UpendoUserManaged\\Modules\\UpendoUserManaged\\Upendo.Modules.UpendoUserManaged.csproj",
+      "projectUniqueName": "D:\\Work\\UpendoUserManager\\Modules\\UpendoUserManaged\\Upendo.Modules.UserManager.csproj",
       "projectName": "Upendo.Modules.UpendoUserManaged",
-      "projectPath": "D:\\Trabajo\\NTSPRINT\\Extension Generator Upendo DNN\\UpendoUserManaged\\Modules\\UpendoUserManaged\\Upendo.Modules.UpendoUserManaged.csproj",
-      "packagesPath": "C:\\Users\\alejandro\\.nuget\\packages\\",
-      "outputPath": "D:\\Trabajo\\NTSPRINT\\Extension Generator Upendo DNN\\UpendoUserManaged\\Modules\\UpendoUserManaged\\obj\\",
+      "projectPath": "D:\\Work\\UpendoUserManager\\Modules\\UpendoUserManaged\\Upendo.Modules.UserManager.csproj",
+      "packagesPath": "D:\\Users\\ntsprintdev005\\.nuget\\packages\\",
+      "outputPath": "D:\\Work\\UpendoUserManager\\Modules\\UpendoUserManaged\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\alejandro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "D:\\Users\\ntsprintdev005\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1109,7 +1402,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "D:\\Trabajo\\Local Nugets": {},
+        "D:\\Work\\Local Nuget Package": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

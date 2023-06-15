@@ -7,11 +7,12 @@ using DotNetNuke.Web.Mvc.Framework.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Upendo.Modules.UpendoUserManaged.Models.DnnModel;
-using Upendo.Modules.UpendoUserManaged.Utility;
-using Upendo.Modules.UpendoUserManaged.ViewModels;
+using Upendo.Modules.UserManager.Models.DnnModel;
+using Upendo.Modules.UserManager.Utility;
+using Upendo.Modules.UserManager.Utility;
+using Upendo.Modules.UserManager.ViewModels;
 
-namespace Upendo.Modules.UpendoUserManaged.Controllers
+namespace Upendo.Modules.UserManager.Controllers
 {
     [DnnHandleError]
     public class UserManageController : DnnController
@@ -19,11 +20,11 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         [ModuleAction(ControlKey = "Edit", TitleKey = "AddItem")]
         public ActionResult Index(double? take, int? skip, string filter, int? goToPage, string search, string orderBy, string order)
         {
-            double takeValue = take == null ? default : take.Value;
-            int skipValue = take == null ? default : skip.Value;
+            var takeValue = take ?? default;
+            var skipValue = take == null ? default : skip.Value;
             var portalId = ModuleContext.PortalId;
             ViewBag.Filter = filter;
-            var result = UsuarioRepository.GetUsers(takeValue, skipValue, filter, goToPage, portalId, search, orderBy, order);
+            var result = UserRepository.GetUsers(takeValue, skipValue, filter, goToPage, portalId, search, orderBy, order);
             return View(result);
         }
 
@@ -35,7 +36,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         public ActionResult CreateUserTest()
         {
             var portalId = ModuleContext.PortalId;
-            for (int i = 1001; i < 2000; i++)
+            for (var i = 1; i < 3000; i++)
             {
                 var item = new UserViewModel()
                 {
@@ -48,7 +49,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
                     Approved = true,
                     Password = "Admin123*"
                 };
-                UsuarioRepository.CreateUser(item, portalId);
+                UserRepository.CreateUser(item, portalId);
             }
             return RedirectToAction("Index");
         }
@@ -58,14 +59,14 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         {
             //var portalId = PortalController.Instance.GetCurrentPortalSettings().PortalId;
             var portalId = ModuleContext.PortalId;
-            UsuarioRepository.CreateUser(item, portalId);
+            UserRepository.CreateUser(item, portalId);
             return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int itemId)
         {
             var portalId = ModuleContext.PortalId;
-            var item = UsuarioRepository.GetUser(portalId, itemId);
+            var item = UserRepository.GetUser(portalId, itemId);
             return View(item);
         }
 
@@ -74,26 +75,26 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         {
             //int editedFor = User.UserID;
             var portalId = ModuleContext.PortalId;
-            UsuarioRepository.EditUser(portalId, item);
+            UserRepository.EditUser(portalId, item);
             return RedirectToDefaultRoute();
         }
         public ActionResult Details(int itemId)
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
             var portalId = ModuleContext.PortalId;
-            var item = UsuarioRepository.GetUser(portalId, itemId);
+            var item = UserRepository.GetUser(portalId, itemId);
             return View(item);
         }
         public ActionResult Delete(int itemId)
         {
-            UsuarioRepository.DeleteUser(itemId);   
+            UserRepository.DeleteUser(itemId);   
             return RedirectToDefaultRoute();
         }
         public ActionResult ChangePassword(int itemId)
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
             var portalId = ModuleContext.PortalId;
-            var item = UsuarioRepository.GetUser(portalId, itemId);
+            var item = UserRepository.GetUser(portalId, itemId);
             return View(item);
         }
 
@@ -102,7 +103,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         {
             if (user.Password.Equals(user.ConfirmPassword))
             {
-                UsuarioRepository.ChangePassword(user.UserId, user.Password);
+                UserRepository.ChangePassword(user.UserId, user.Password);
             }
             return RedirectToDefaultRoute();
         }
@@ -139,8 +140,8 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
                     RoleController.Instance.UpdateUserRole(portalId, itemId, roleIdValue, RoleStatus.Approved, false, true);
                 }
             }
-            ViewBag.User = UsuarioRepository.GetUser(portalId, itemId);
-            var result = UsuarioRepository.GetRolesByUser(takeValue, skipValue, goToPage, portalId, search, itemId);
+            ViewBag.User = UserRepository.GetUser(portalId, itemId);
+            var result = UserRepository.GetRolesByUser(takeValue, skipValue, goToPage, portalId, search, itemId);
             return View(result);
         }
     }

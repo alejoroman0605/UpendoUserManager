@@ -6,9 +6,9 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Web;
 using System.Xml;
-using Upendo.Modules.UpendoUserManaged.Models.DnnModel;
+using Upendo.Modules.UserManager.Models.DnnModel;
 
-namespace Upendo.Modules.UpendoUserManaged.Data
+namespace Upendo.Modules.UserManager.Data
 {
     public class ModuleDbContext : DbContext
     {

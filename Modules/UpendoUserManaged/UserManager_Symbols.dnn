@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <dotnetnuke type="Package" version="6.0">
   <packages>
-    <package name="Upendo.Modules.UpendoUserManaged_Symbols" type="Library" version="01.00.00">
-      <friendlyName>UpendoUserManaged Module Symbols</friendlyName>
+    <package name="Upendo.Modules.UserManager_Symbols" type="Library" version="01.00.00">
+      <friendlyName>UserManager Module Symbols</friendlyName>
       <description><![CDATA[Managed Users]]></description>
       <owner>
         <name>Upendo</name>
@@ -14,7 +14,7 @@
       <releaseNotes src="ReleaseNotes.txt" />
       <azureCompatible>True</azureCompatible>
       <dependencies>
-        <dependency type="managedPackage" version="1.0.0">Upendo.Modules.UpendoUserManaged</dependency>
+        <dependency type="managedPackage" version="1.0.0">Upendo.Modules.UserManager</dependency>
       </dependencies>
       <components>
         <component type="ResourceFile">

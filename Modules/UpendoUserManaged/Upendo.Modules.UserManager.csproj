@@ -113,7 +113,7 @@
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\RolesRepository.cs" />
-    <Compile Include="Utility\UsuarioRepository.cs" />
+    <Compile Include="Utility\UserRepository.cs" />
     <Compile Include="Utility\Functions.cs" />
     <Compile Include="ViewModels\Pagination.cs" />
     <Compile Include="ViewModels\RolesViewModel.cs" />
@@ -149,13 +149,13 @@
     <Content Include="Resources\lib\jquery\dist\jquery.js" />
     <Content Include="Resources\lib\jquery\dist\jquery.min.js" />
     <Content Include="Resources\lib\jquery\LICENSE.txt" />
-    <Content Include="UpendoUserManaged.dnn">
+    <Content Include="UserManager.dnn">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Module.build">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="UpendoUserManaged_Symbols.dnn">
+    <Content Include="UserManager_Symbols.dnn">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>

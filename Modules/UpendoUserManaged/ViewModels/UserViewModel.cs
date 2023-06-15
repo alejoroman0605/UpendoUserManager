@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Upendo.Modules.UpendoUserManaged.Models.DnnModel;
+using Upendo.Modules.UserManager.Models.DnnModel;
 
-namespace Upendo.Modules.UpendoUserManaged.ViewModels
+namespace Upendo.Modules.UserManager.ViewModels
 {
     public class UserViewModel
     {
