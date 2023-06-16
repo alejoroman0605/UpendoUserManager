@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Web;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Security.Roles;
 using Upendo.Modules.UserManager.Data;
@@ -27,57 +30,72 @@ namespace Upendo.Modules.UserManager.Utility
         /// <param name="orderBy"></param>
         /// <param name="order"></param>
         /// <returns></returns>
-        public static DataTableResponse<Users> GetUsers(double take, int skip, string filter, int? goToPage, int portalId,
-            string search, string orderBy, string order)
+        public static DataTableResponse<Users> GetUsers(Pagination pagination)
         {
-            take = take == 0 ? 10 : take;
-            var goToPageValue = goToPage ?? default;
+            pagination.Take = pagination.Take == 0 ? 10 : pagination.Take;
 
-            if (goToPage != null && goToPage != 0)
+            if (pagination.GoToPage != null && pagination.GoToPage != 0)
             {
-                skip = (int)take * (goToPageValue - 1);
+                pagination.Skip = (int)((int)pagination.Take * (pagination.GoToPage - 1));
             }
-            if (goToPage == 1)
+            if (pagination.GoToPage == 1)
             {
-                skip = 0;
+                pagination.Skip = 0;
             }
 
             var context = new ModuleDbContext();
-            switch (filter)
+            switch (pagination.Filter)
             {
                 case "All":
-                {
-                    var users = context.Users.ToList();
-                    var usersTotal = users.Count();
-                    return Functions.ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
-                }
+                    {
+                        var users = context.Users.ToList();
+                        var usersTotal = users.Count();
+                        return Functions.ListOfUsers(users, usersTotal, pagination);
+                    }
                 case "Deleted":
-                {
-                    var deletedUsers = UserController.GetDeletedUsers(portalId).ToArray();
-                    var users = (from UserInfo u in deletedUsers select Functions.MakeUser(u)).ToList();
-                    var usersTotal = users.Count();
-                    return Functions.ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
-                }
+                    {
+                        var deletedUsers = UserController.GetDeletedUsers(pagination.PortalId).ToArray();
+                        var users = (from UserInfo u in deletedUsers select Functions.MakeUser(u)).ToList();
+                        var usersTotal = users.Count();
+                        return Functions.ListOfUsers(users, usersTotal, pagination);
+                    }
                 case "Unauthorized":
-                {
-                    var unauthorizedUsers = UserController.GetUnAuthorizedUsers(portalId).ToArray();
-                    var users = (from UserInfo u in unauthorizedUsers select Functions.MakeUser(u)).ToList();
-                    var usersTotal = users.Count();
-                    return Functions.ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
-                }
+                    {
+                        var unauthorizedUsers = UserController.GetUnAuthorizedUsers(pagination.PortalId).ToArray();
+                        var users = (from UserInfo u in unauthorizedUsers select Functions.MakeUser(u)).ToList();
+                        var usersTotal = users.Count();
+                        return Functions.ListOfUsers(users, usersTotal, pagination);
+                    }
                 case "SuperUsers":
-                {
-                    var users = context.Users.Where(u => u.IsSuperUser == true).ToList();
-                    var usersTotal = users.Count();
-                    return Functions.ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
-                }
+                    {
+                        var result = new List<UserViewModel>();
+                        var users = new List<Users>();
+                        var usersTotal = 0;
+                        string apiUrl = pagination.ServerUrl + "/API/PersonaBar/Users/GetUsers?searchText=&filter=3&pageIndex=0&pageSize=10&sortColumn=&sortAscending=false&resetIndex=true";
+                        
+                        WebRequest request = WebRequest.Create(apiUrl);
+                        request.Method = "GET";
+                        request.Headers.Add(HttpRequestHeader.Cookie, Functions.DNNCookie());
+                        
+                        using (WebResponse response = request.GetResponse())
+                        using (Stream stream = response.GetResponseStream())
+                        using (StreamReader reader = new StreamReader(stream))
+                        {
+                            string jsonResponse = reader.ReadToEnd();
+                            var deserializeObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ResultJsonViewModel>(jsonResponse);
+                            result = deserializeObject.Results;
+                            users = (from UserViewModel u in result select Functions.MakeUserFromViewModel(u)).ToList();
+                            usersTotal = deserializeObject.TotalResults;
+                        }
+                        return Functions.ListOfUsers(users, usersTotal, pagination);
+                    }
                 default:
-                {
-                    var getUsers = UserController.GetUsers(portalId).ToArray();
-                    var users = (from UserInfo u in getUsers select Functions.MakeUser(u)).ToList();
-                    var usersTotal = users.Count();
-                    return Functions.ListOfUsers(users, usersTotal, take, skip, goToPageValue, search, orderBy, order);
-                }
+                    {
+                        var getUsers = UserController.GetUsers(pagination.PortalId).ToArray();
+                        var users = (from UserInfo u in getUsers select Functions.MakeUser(u)).ToList();
+                        var usersTotal = users.Count();
+                        return Functions.ListOfUsers(users, usersTotal, pagination);
+                    }
             }
         }
 
