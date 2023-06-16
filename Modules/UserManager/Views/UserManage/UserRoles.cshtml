@@ -9,11 +9,11 @@
     "/DesktopModules/MVC/Upendo.Modules.UserManager/Images/Upendo-logo-trans.png";
     string name = ViewBag.User.DisplayName;
     int userId = ViewBag.User.UserId;
-    var skipMinus = (@Model.Skip - @Model.Take) <= 0 ? 0 : (@Model.Skip - @Model.Take);
-    var skipPlus = @Model.Skip + @Model.Take;
-    var skipPaginate = @Model.Skip + 1;
-    var skipTo = @Model.Skip + @Model.Take;
-    var pageView = @Model.GoToPage > 1 ? @Model.GoToPage : (skipTo / @Model.Take) == 0 ? 1 : (skipTo / @Model.Take);
+    var pageIndexMinus = (@Model.PageIndex - @Model.Take) <= 0 ? 0 : (@Model.PageIndex - @Model.Take);
+    var pageIndexPlus = @Model.PageIndex + @Model.Take;
+    var pageIndexPaginate = @Model.PageIndex + 1;
+    var pageIndexTo = @Model.PageIndex + @Model.Take;
+    var pageView = @Model.GoToPage > 1 ? @Model.GoToPage : (pageIndexTo / @Model.Take) == 0 ? 1 : (pageIndexTo / @Model.Take);
 
 }
 <div id="Items-@Dnn.ModuleContext.ModuleId" style="margin: 2%!important;">
@@ -34,27 +34,27 @@
                     <span class="caret"></span>
                 </a>        <ul class="dropdown-menu">
                     <li>
-                        <a class="confirm page-link" href="@Url.Action("UserRoles", "UserManage", new { take = 5, skip = @Model.Skip, search=@Model.Search, itemId=@userId})">
+                        <a class="confirm page-link" href="@Url.Action("UserRoles", "UserManage", new { take = 5, pageIndex = @Model.PageIndex, search=@Model.Search, itemId=@userId})">
                             <span aria-hidden="true">5</span>
                         </a>
                     </li>
                     <li>
-                        <a class="confirm page-link" href="@Url.Action("UserRoles", "UserManage", new { take = 10, skip = @Model.Skip, search=@Model.Search, itemId=@userId})">
+                        <a class="confirm page-link" href="@Url.Action("UserRoles", "UserManage", new { take = 10, pageIndex = @Model.PageIndex, search=@Model.Search, itemId=@userId})">
                             <span aria-hidden="true">10</span>
                         </a>
                     </li>
                     <li>
-                        <a class="confirm page-link" href="@Url.Action("UserRoles", "UserManage", new { take = 50, skip = @Model.Skip, search=@Model.Search, itemId=@userId})">
+                        <a class="confirm page-link" href="@Url.Action("UserRoles", "UserManage", new { take = 50, pageIndex = @Model.PageIndex, search=@Model.Search, itemId=@userId})">
                             <span aria-hidden="true">50</span>
                         </a>
                     </li>
                     <li>
-                        <a class="confirm page-link" href="@Url.Action("UserRoles", "UserManage", new { take = 100, skip = @Model.Skip, search=@Model.Search, itemId=@userId})">
+                        <a class="confirm page-link" href="@Url.Action("UserRoles", "UserManage", new { take = 100, pageIndex = @Model.PageIndex, search=@Model.Search, itemId=@userId})">
                             <span aria-hidden="true">100</span>
                         </a>
                     </li>
                     <li>
-                        <a class="confirm page-link" href="@Url.Action("UserRoles", "UserManage", new { take = @Model.RecordsTotal, skip = @Model.Skip, search=@Model.Search, itemId=@userId})">
+                        <a class="confirm page-link" href="@Url.Action("UserRoles", "UserManage", new { take = @Model.RecordsTotal, pageIndex = @Model.PageIndex, search=@Model.Search, itemId=@userId})">
                             <span aria-hidden="true">All</span>
                         </a>
                     </li>
@@ -109,14 +109,14 @@
                         <td style="text-align:center">
                             @if (@item.HasRole == true)
                             {
-                                <a data-hint="Delete" class="btn btn-danger btn-sm edit hint--top hint--" href="@Url.Action("UserRoles", "UserManage", new {take = @Model.Take, skip=@Model.Skip, search=@Model.Search, itemId=@userId, roleId = item.RoleId, userId = @userId, actionView="Remove"})"
+                                <a data-hint="Delete" class="btn btn-danger btn-sm edit hint--top hint--" href="@Url.Action("UserRoles", "UserManage", new {take = @Model.Take, pageIndex=@Model.PageIndex, search=@Model.Search, itemId=@userId, roleId = item.RoleId, userId = @userId, actionView="Remove"})"
                                    data-toggle="tooltip" data-placement="top" title="Delete">
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 </a>
                             }
                             else
                             {
-                                <a data-hint="Add Role" class="btn btn-primary btn-sm edit hint--top hint--" href="@Url.Action("UserRoles", "UserManage", new {take = @Model.Take, skip=@Model.Skip, search=@Model.Search, itemId=@userId, roleId = item.RoleId, userId = @userId, actionView="Add" })"
+                                <a data-hint="Add Role" class="btn btn-primary btn-sm edit hint--top hint--" href="@Url.Action("UserRoles", "UserManage", new {take = @Model.Take, pageIndex=@Model.PageIndex, search=@Model.Search, itemId=@userId, roleId = item.RoleId, userId = @userId, actionView="Add" })"
                                    data-toggle="tooltip" data-placement="top" title="Add Role">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 </a>
@@ -136,12 +136,12 @@
             @Html.TextBoxFor(m => m.GoToPage, new { @class = "form-control", @type = "text", @style = "width: 82px; height: 40px;box-shadow: 0 0 3px 0 #888888" })
         </div>
         <div class="right">
-            <span> Showing @skipPaginate to @skipTo of @Model.RecordsTotal entries</span>
-            <a data-hint="Previus" class="btn btn-default btn-sm hint--top hint--" href="@Url.Action("UserRoles", "UserManage", new {take = @Model.Take, skip=@skipMinus, search=@Model.Search, itemId=@userId})"
+            <span> Showing @pageIndexPaginate to @pageIndexTo of @Model.RecordsTotal entries</span>
+            <a data-hint="Previus" class="btn btn-default btn-sm hint--top hint--" href="@Url.Action("UserRoles", "UserManage", new {take = @Model.Take, pageIndex=@pageIndexMinus, search=@Model.Search, itemId=@userId})"
                data-toggle="tooltip" data-placement="top" title="Previus">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             </a>
-            <a data-hint="Next" class="btn btn-default btn-sm ml5 hint--top hint--" href="@Url.Action("UserRoles", "UserManage", new {take = @Model.Take, skip=@skipPlus, search=@Model.Search, itemId=@userId})"
+            <a data-hint="Next" class="btn btn-default btn-sm ml5 hint--top hint--" href="@Url.Action("UserRoles", "UserManage", new {take = @Model.Take, pageIndex=@pageIndexPlus, search=@Model.Search, itemId=@userId})"
                data-toggle="tooltip" data-placement="top" title="Next">
                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             </a>

@@ -17,13 +17,13 @@ namespace Upendo.Modules.UserManager.Controllers
     public class RolesManageController : DnnController
     {
         [ModuleAction(ControlKey = "Edit", TitleKey = "AddItem")]
-        public ActionResult Index(double? take, int? skip, string filter, int? goToPage, string search, string orderBy, string order)
+        public ActionResult Index(double? take, int? pageIndex, string filter, int? goToPage, string search, string orderBy, string order)
         {
             double takeValue = take == null ? default : take.Value;
-            int skipValue = take == null ? default : skip.Value;
+            int pageIndexValue = take == null ? default : pageIndex.Value;
             var portalId = ModuleContext.PortalId;
             ViewBag.Filter = filter;
-            var result = RolesRepository.GetRoles(takeValue, skipValue, filter, goToPage, portalId, search, orderBy, order);
+            var result = RolesRepository.GetRoles(takeValue, pageIndexValue, filter, goToPage, portalId, search, orderBy, order);
             return View(result);
         }
 

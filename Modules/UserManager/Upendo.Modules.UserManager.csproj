@@ -100,7 +100,6 @@
     <Compile Include="Controllers\RolesManageController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
-    <Compile Include="Data\ModuleDbContext.cs" />
     <Compile Include="Models\DnnModel\AspnetApplications.cs" />
     <Compile Include="Models\DnnModel\AspnetMembership.cs" />
     <Compile Include="Models\DnnModel\AspnetUsers.cs" />
@@ -168,7 +167,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config">
       <SubType>Designer</SubType>

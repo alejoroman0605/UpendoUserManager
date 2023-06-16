@@ -5,7 +5,7 @@ namespace Upendo.Modules.UserManager.ViewModels
     public struct Pagination
     {
         public double Take { get; set; }
-        public int Skip { get; set; }
+        public int PageIndex { get; set; }
         public string Filter { get; set; }
         public int? GoToPage { get; set; }
         public int PortalId { get; set; }
@@ -17,7 +17,7 @@ namespace Upendo.Modules.UserManager.ViewModels
     public struct DataTableResponse<T>
     {
         public double Take { get; set; }
-        public int Skip { get; set; }
+        public int PageIndex { get; set; }
         public int Page { get; set; }
         public int GoToPage { get; set; }
         public double PagesTotal { get; set; }

@@ -6,13 +6,11 @@
 
 @{
     string srcLogo = DotNetNuke.Entities.Tabs.TabController.CurrentPage.Title + "/DesktopModules/MVC/Upendo.Modules.UserManager/Images/Upendo-logo-trans.png";
-    var skipMinus = (@Model.Skip - @Model.Take) <= 0 ? 0 : (@Model.Skip - @Model.Take);
-    var skipPlus = @Model.Skip + @Model.Take;
-    var skipPaginate = @Model.Skip + 1;
-    var skipTo = @Model.Skip + @Model.Take;
-    var pageView = @Model.GoToPage > 1 ? @Model.GoToPage : (skipTo / @Model.Take) == 0 ? 1 : (skipTo / @Model.Take);
-    var titleView = @ViewBag.Filter == "Filters" ? "" : @ViewBag.Filter;
-    @ViewBag.Filter = string.IsNullOrEmpty(@ViewBag.Filter) ? "Filters" : @ViewBag.Filter;
+    var pageIndexMinus = (@Model.PageIndex - @Model.Take) <= 0 ? 0 : (@Model.PageIndex - @Model.Take);
+    var pageIndexPlus = @Model.PageIndex + @Model.Take;
+    var pageIndexPaginate = @Model.PageIndex + 1;
+    var pageIndexTo = @Model.PageIndex + @Model.Take;
+    var pageView = @Model.GoToPage > 1 ? @Model.GoToPage : (pageIndexTo / @Model.Take) == 0 ? 1 : (pageIndexTo / @Model.Take);
 }
 <div id="Items-@Dnn.ModuleContext.ModuleId" style="margin: 2%!important;">
     <div class="col-md-12">
@@ -57,27 +55,27 @@
                             <span class="caret"></span>
                         </a>        <ul class="dropdown-menu">
                             <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = 5, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search})">
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = 5, pageIndex = @Model.PageIndex, filter = @ViewBag.Filter, search=@Model.Search})">
                                     <span aria-hidden="true">5</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = 10, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search})">
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = 10, pageIndex = @Model.PageIndex, filter = @ViewBag.Filter, search=@Model.Search})">
                                     <span aria-hidden="true">10</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = 50, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search})">
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = 50, pageIndex = @Model.PageIndex, filter = @ViewBag.Filter, search=@Model.Search})">
                                     <span aria-hidden="true">50</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = 100, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search})">
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = 100, pageIndex = @Model.PageIndex, filter = @ViewBag.Filter, search=@Model.Search})">
                                     <span aria-hidden="true">100</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.RecordsTotal, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search})">
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.RecordsTotal, pageIndex = @Model.PageIndex, filter = @ViewBag.Filter, search=@Model.Search})">
                                     <span aria-hidden="true">All</span>
                                 </a>
                             </li>
@@ -102,27 +100,27 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "All", orderBy=@Model.OrderBy , order=@Model.Order})">
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, pageIndex = @Model.PageIndex, search=@Model.Search, filter = "8", orderBy=@Model.OrderBy , order=@Model.Order})">
                                     <span aria-hidden="true">All</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "Authorized", orderBy=@Model.OrderBy , order=@Model.Order})">
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, pageIndex = @Model.PageIndex, search=@Model.Search, filter = "0", orderBy=@Model.OrderBy , order=@Model.Order})">
                                     <span aria-hidden="true">Authorized</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "Unauthorized", orderBy=@Model.OrderBy , order=@Model.Order})">
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, pageIndex = @Model.PageIndex, search=@Model.Search, filter = "1", orderBy=@Model.OrderBy , order=@Model.Order})">
                                     <span aria-hidden="true">Unauthorized</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "Deleted", orderBy=@Model.OrderBy , order=@Model.Order})">
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, pageIndex = @Model.PageIndex, search=@Model.Search, filter = "2", orderBy=@Model.OrderBy , order=@Model.Order})">
                                     <span aria-hidden="true">Deleted</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, search=@Model.Search, filter = "SuperUsers", orderBy=@Model.OrderBy , order=@Model.Order})">
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, pageIndex = @Model.PageIndex, search=@Model.Search, filter = "3", orderBy=@Model.OrderBy , order=@Model.Order})">
                                     <span aria-hidden="true">SuperUsers</span>
                                 </a>
                             </li>
@@ -135,30 +133,30 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy="Username" , order=@Model.Order})">
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, pageIndex = @Model.PageIndex, filter = @ViewBag.Filter, search=@Model.Search, orderBy="Username" , order=@Model.Order})">
                                     <span aria-hidden="true">Username</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy="DisplayName",order=@Model.Order})">
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, pageIndex = @Model.PageIndex, filter = @ViewBag.Filter, search=@Model.Search, orderBy="DisplayName",order=@Model.Order})">
                                     <span aria-hidden="true">DisplayName</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, skip = @Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy="Email" ,order=@Model.Order})">
+                                <a class="confirm page-link" href="@Url.Action("Index", "UserManage", new { take = @Model.Take, pageIndex = @Model.PageIndex, filter = @ViewBag.Filter, search=@Model.Search, orderBy="Email" ,order=@Model.Order})">
                                     <span aria-hidden="true">Email</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a class="btn btn-link box-shadow" href="@Url.Action("Index", "UserManage", new {take = @Model.Take, skip=@Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy , order="asc"})"
+                        <a class="btn btn-link box-shadow" href="@Url.Action("Index", "UserManage", new {take = @Model.Take, pageIndex=@Model.PageIndex, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy , order="asc"})"
                            data-toggle="tooltip" data-placement="top" title="Asc">
                             <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
                         </a>
                     </li>
                     <li>
-                        <a class="btn btn-link box-shadow" href="@Url.Action("Index", "UserManage", new {take = @Model.Take, skip=@Model.Skip, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy, order="desc"})"
+                        <a class="btn btn-link box-shadow" href="@Url.Action("Index", "UserManage", new {take = @Model.Take, pageIndex=@Model.PageIndex, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy, order="desc"})"
                            data-toggle="tooltip" data-placement="top" title="Desc">
                             <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
                         </a>
@@ -249,12 +247,12 @@
             @Html.TextBoxFor(m => m.GoToPage, new { @class = "form-control", @type = "text", @style = "width: 82px; height: 40px;box-shadow: 0 0 3px 0 #888888" })
         </div>
         <div class="right">
-            <span> Showing @skipPaginate to @skipTo of @Model.RecordsTotal entries</span>
-            <a data-hint="Previus" class="btn btn-default btn-sm " href="@Url.Action("Index", "UserManage", new {take = @Model.Take, skip=@skipMinus, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy , order=@Model.Order})"
+            <span> Showing @pageIndexPaginate to @pageIndexTo of @Model.RecordsTotal entries</span>
+            <a data-hint="Previus" class="btn btn-default btn-sm " href="@Url.Action("Index", "UserManage", new {take = @Model.Take, pageIndex=@pageIndexMinus, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy , order=@Model.Order})"
                data-toggle="tooltip" data-placement="top" title="Previus">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             </a>
-            <a data-hint="Next" class="btn btn-default btn-sm ml5 " href="@Url.Action("Index", "UserManage", new {take = @Model.Take, skip=@skipPlus, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy , order=@Model.Order})"
+            <a data-hint="Next" class="btn btn-default btn-sm ml5 " href="@Url.Action("Index", "UserManage", new {take = @Model.Take, pageIndex=@pageIndexPlus, filter = @ViewBag.Filter, search=@Model.Search, orderBy=@Model.OrderBy , order=@Model.Order})"
                data-toggle="tooltip" data-placement="top" title="Next">
                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             </a>

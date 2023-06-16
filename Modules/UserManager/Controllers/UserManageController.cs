@@ -18,18 +18,39 @@ namespace Upendo.Modules.UserManager.Controllers
     public class UserManageController : DnnController
     {
         [ModuleAction(ControlKey = "Edit", TitleKey = "AddItem")]
-        public ActionResult Index(double? take, int? skip, string filter, int? goToPage, string search, string orderBy, string order)
+        public ActionResult Index(double? take, int? pageIndex, string filter, int? goToPage, string search, string orderBy, string order)
         {
             var takeValue = take ?? default;
-            var skipValue = take == null ? default : skip.Value;
+            var pageIndexValue = take == null ? default : pageIndex.Value;
             var portalId = ModuleContext.PortalId;
             var portalSettings = ModuleContext.PortalSettings;
             string serverUrl = $"{Request.Url.Scheme}://{portalSettings.PortalAlias.HTTPAlias}";
-            ViewBag.Filter = filter;
-            var pagination= new Pagination()
+            switch (filter)
+            {
+                case "8":
+                    ViewBag.Filter = "All";
+                    break;
+                case "0":
+                    ViewBag.Filter = "Authorized";
+                    break;
+                case "1":
+                    ViewBag.Filter = "Unauthorized";
+                    break;
+                case "2":
+                    ViewBag.Filter = "Deleted";
+                    break;
+                case "3":
+                    ViewBag.Filter = "SuperUsers";
+                    break;
+                default:
+                    filter = "0";
+                    ViewBag.Filter = "Authorized";
+                    break;
+            }
+            var pagination = new Pagination()
             {
                 Take = takeValue,
-                Skip = skipValue,
+                PageIndex = pageIndexValue,
                 Filter = filter,
                 GoToPage = goToPage,
                 PortalId = portalId,
@@ -101,7 +122,8 @@ namespace Upendo.Modules.UserManager.Controllers
         }
         public ActionResult Delete(int itemId)
         {
-            UserRepository.DeleteUser(itemId);   
+            var portalId = ModuleContext.PortalId;
+            UserRepository.DeleteUser(portalId,itemId);
             return RedirectToDefaultRoute();
         }
         public ActionResult ChangePassword(int itemId)
@@ -115,9 +137,11 @@ namespace Upendo.Modules.UserManager.Controllers
         [HttpPost]
         public ActionResult ChangePassword(UserViewModel user)
         {
+            var portalId = ModuleContext.PortalId;
+
             if (user.Password.Equals(user.ConfirmPassword))
             {
-                UserRepository.ChangePassword(user.UserId, user.Password);
+                UserRepository.ChangePassword(portalId,user.UserId, user.Password);
             }
             return RedirectToDefaultRoute();
         }
@@ -134,10 +158,10 @@ namespace Upendo.Modules.UserManager.Controllers
             return RedirectToDefaultRoute();
         }
 
-        public ActionResult UserRoles(double? take, int? skip, int? goToPage, string search, int itemId, int? roleId, string actionView)
+        public ActionResult UserRoles(double? take, int? pageIndex, int? goToPage, string search, int itemId, int? roleId, string actionView)
         {
             double takeValue = take == null ? default : take.Value;
-            int skipValue = take == null ? default : skip.Value;
+            int pageIndexValue = take == null ? default : pageIndex.Value;
             int roleIdValue = roleId == null ? default : roleId.Value;
 
             var portalId = ModuleContext.PortalId;
@@ -155,7 +179,7 @@ namespace Upendo.Modules.UserManager.Controllers
                 }
             }
             ViewBag.User = UserRepository.GetUser(portalId, itemId);
-            var result = UserRepository.GetRolesByUser(takeValue, skipValue, goToPage, portalId, search, itemId);
+            var result = UserRepository.GetRolesByUser(takeValue, pageIndexValue, goToPage, portalId, search, itemId);
             return View(result);
         }
     }

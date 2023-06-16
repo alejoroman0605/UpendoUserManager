@@ -8,18 +8,18 @@ namespace Upendo.Modules.UserManager.Utility
 {
     public class RolesRepository
     {
-        public static DataTableResponse<RolesViewModel> GetRoles(double take, int skip, string filter, int? goToPage, int portalId, string search, string orderBy, string order)
+        public static DataTableResponse<RolesViewModel> GetRoles(double take, int pageIndex, string filter, int? goToPage, int portalId, string search, string orderBy, string order)
         {
             take = take == 0 ? 10 : take;
             int goToPageValue = goToPage == null ? default : goToPage.Value;
 
             if (goToPage != null && goToPage != 0)
             {
-                skip = (int)take * (goToPageValue - 1);
+                pageIndex = (int)take * (goToPageValue - 1);
             }
             if (goToPage == 1)
             {
-                skip = 0;
+                pageIndex = 0;
             }
             var getRoles = RoleController.Instance.GetRoles(portalId);
             var roles = new List<RolesViewModel>();
@@ -41,7 +41,7 @@ namespace Upendo.Modules.UserManager.Utility
                 roles.Add(r);
             }
             var rolesTotal = roles.Count();
-            return Functions.ListOfRoles(roles, rolesTotal, take, skip, goToPageValue, search, orderBy, order);
+            return Functions.ListOfRoles(roles, rolesTotal, take, pageIndex, goToPageValue, search, orderBy, order);
         }
 
         public static RolesViewModel GetRole(int portalId, int id)

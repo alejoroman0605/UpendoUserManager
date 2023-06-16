@@ -4,10 +4,8 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using DotNetNuke.Entities.Users;
 using DotNetNuke.Security.Roles;
-using Upendo.Modules.UserManager.Data;
 using Upendo.Modules.UserManager.Models.DnnModel;
 using Upendo.Modules.UserManager.ViewModels;
 
@@ -21,95 +19,53 @@ namespace Upendo.Modules.UserManager.Utility
         /// <summary>
         /// Get all users by param
         /// </summary>
-        /// <param name="take"></param>
-        /// <param name="skip"></param>
-        /// <param name="filter"></param>
-        /// <param name="goToPage"></param>
-        /// <param name="portalId"></param>
-        /// <param name="search"></param>
-        /// <param name="orderBy"></param>
-        /// <param name="order"></param>
+        /// <param name="pagination"></param>
         /// <returns></returns>
         public static DataTableResponse<Users> GetUsers(Pagination pagination)
         {
             pagination.Take = pagination.Take == 0 ? 10 : pagination.Take;
-
-            if (pagination.GoToPage != null && pagination.GoToPage != 0)
+           var goToPage = pagination.GoToPage ?? default;
+            if (goToPage != 0)
             {
-                pagination.Skip = (int)((int)pagination.Take * (pagination.GoToPage - 1));
+                pagination.PageIndex = goToPage - 1;
             }
             if (pagination.GoToPage == 1)
             {
-                pagination.Skip = 0;
+                pagination.PageIndex = 0;
             }
-
-            var context = new ModuleDbContext();
-            switch (pagination.Filter)
+            var result = new List<UserViewModel>();
+            var users = new List<Users>();
+            var usersTotal = 0.0;
+            var url = $"/API/PersonaBar/Users/GetUsers?searchText={pagination.Search}&filter={pagination.Filter}&pageIndex={pagination.PageIndex}&pageSize={pagination.Take}&sortColumn={pagination.OrderBy}&sortAscending={ (pagination.Order != "desc") }&resetIndex=true";
+            string apiUrl = pagination.ServerUrl + url;
+            WebRequest request = WebRequest.Create(apiUrl);
+            request.Method = "GET";
+            request.Headers.Add(HttpRequestHeader.Cookie, Functions.DNNCookie());
+            using (WebResponse response = request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
             {
-                case "All":
-                    {
-                        var users = context.Users.ToList();
-                        var usersTotal = users.Count();
-                        return Functions.ListOfUsers(users, usersTotal, pagination);
-                    }
-                case "Deleted":
-                    {
-                        var deletedUsers = UserController.GetDeletedUsers(pagination.PortalId).ToArray();
-                        var users = (from UserInfo u in deletedUsers select Functions.MakeUser(u)).ToList();
-                        var usersTotal = users.Count();
-                        return Functions.ListOfUsers(users, usersTotal, pagination);
-                    }
-                case "Unauthorized":
-                    {
-                        var unauthorizedUsers = UserController.GetUnAuthorizedUsers(pagination.PortalId).ToArray();
-                        var users = (from UserInfo u in unauthorizedUsers select Functions.MakeUser(u)).ToList();
-                        var usersTotal = users.Count();
-                        return Functions.ListOfUsers(users, usersTotal, pagination);
-                    }
-                case "SuperUsers":
-                    {
-                        var result = new List<UserViewModel>();
-                        var users = new List<Users>();
-                        var usersTotal = 0;
-                        string apiUrl = pagination.ServerUrl + "/API/PersonaBar/Users/GetUsers?searchText=&filter=3&pageIndex=0&pageSize=10&sortColumn=&sortAscending=false&resetIndex=true";
-                        
-                        WebRequest request = WebRequest.Create(apiUrl);
-                        request.Method = "GET";
-                        request.Headers.Add(HttpRequestHeader.Cookie, Functions.DNNCookie());
-                        
-                        using (WebResponse response = request.GetResponse())
-                        using (Stream stream = response.GetResponseStream())
-                        using (StreamReader reader = new StreamReader(stream))
-                        {
-                            string jsonResponse = reader.ReadToEnd();
-                            var deserializeObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ResultJsonViewModel>(jsonResponse);
-                            result = deserializeObject.Results;
-                            users = (from UserViewModel u in result select Functions.MakeUserFromViewModel(u)).ToList();
-                            usersTotal = deserializeObject.TotalResults;
-                        }
-                        return Functions.ListOfUsers(users, usersTotal, pagination);
-                    }
-                default:
-                    {
-                        var getUsers = UserController.GetUsers(pagination.PortalId).ToArray();
-                        var users = (from UserInfo u in getUsers select Functions.MakeUser(u)).ToList();
-                        var usersTotal = users.Count();
-                        return Functions.ListOfUsers(users, usersTotal, pagination);
-                    }
+                string jsonResponse = reader.ReadToEnd();
+                var deserializeObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ResultJsonViewModel>(jsonResponse);
+                result = deserializeObject.Results;
+                users = (from UserViewModel u in result select Functions.MakeUserFromViewModel(u)).ToList();
+                usersTotal = deserializeObject.TotalResults;
             }
+            var pagesTotal = usersTotal / pagination.Take;
+            return new DataTableResponse<Users>() { Take = pagination.Take, PageIndex = pagination.PageIndex, PagesTotal = pagesTotal, RecordsTotal = usersTotal, GoToPage = goToPage, Search = pagination.Search, OrderBy = pagination.OrderBy, Order = pagination.Order, Data = users };
         }
 
         /// <summary>
         /// Returns the roles of the user
         /// </summary>
         /// <param name="take"></param>
-        /// <param name="skip"></param>
+        /// <param name="pageIndex"></param>
         /// <param name="goToPage"></param>
         /// <param name="portalId"></param>
         /// <param name="search"></param>
         /// <param name="itemId"></param>
         /// <returns></returns>
-        public static DataTableResponse<RolesViewModel> GetRolesByUser(double take, int skip, int? goToPage, int
+        public static DataTableResponse<RolesViewModel> GetRolesByUser(double take, int pageIndex, int? goToPage, int
             portalId, string search, int itemId)
         {
             var roles = RoleController.Instance.GetRoles(portalId);
@@ -142,11 +98,11 @@ namespace Upendo.Modules.UserManager.Utility
 
             if (goToPage != null && goToPage != 0)
             {
-                skip = (int)take * (goToPageValue - 1);
+                pageIndex = (int)take * (goToPageValue - 1);
             }
             if (goToPage == 1)
             {
-                skip = 0;
+                pageIndex = 0;
             }
             if (!string.IsNullOrEmpty(search) && search != " ")
             {
@@ -155,11 +111,11 @@ namespace Upendo.Modules.UserManager.Utility
             }
             var total = rolesTotal / take;
             var pagesTotal = Math.Ceiling(Math.Max(total, 2)) == 0 ? 1 : Math.Ceiling(Math.Max(total, 2));
-            result = result.Skip(skip).Take((int)take).ToList();
+            result = result.Skip(pageIndex).Take((int)take).ToList();
             return new DataTableResponse<RolesViewModel>()
             {
                 Take = take,
-                Skip = skip,
+                PageIndex = pageIndex,
                 PagesTotal =
                 pagesTotal,
                 RecordsTotal = rolesTotal,
@@ -178,7 +134,6 @@ namespace Upendo.Modules.UserManager.Utility
         /// <returns></returns>
         public static UserViewModel GetUser(int portalId, int id)
         {
-            var context = new ModuleDbContext();
             var userInfo = UserController.GetUserById(portalId, id);
 
             var user = new UserViewModel
@@ -251,7 +206,7 @@ namespace Upendo.Modules.UserManager.Utility
             userInfo.Membership.LockedOut = user.LockedOut;
             if (!string.IsNullOrEmpty(user.Password) && user.Password != " ")
             {
-                ChangePassword(user.UserId, user.Password);
+                ChangePassword(portalId,user.UserId, user.Password);
             }
             if (user.NewUserRol != null)
             {
@@ -264,12 +219,11 @@ namespace Upendo.Modules.UserManager.Utility
         /// Delete User
         /// </summary>
         /// <param name="itemId"></param>
-        public static void DeleteUser(int itemId)
+        /// <param name="portalId"></param>
+        public static void DeleteUser(int portalId,int itemId)
         {
 
-            var context = new ModuleDbContext();
-            var userFind = context.Set<Users>().Find(itemId);
-            var user = UserController.GetUserByName(0, userFind.Username);
+            var user = UserController.GetUserById(portalId, itemId);
             if (user != null)
             {
                 UserController.DeleteUser(ref user, true, true);
@@ -278,18 +232,11 @@ namespace Upendo.Modules.UserManager.Utility
                 DotNetNuke.Security.Membership.MembershipProvider.Instance();
                 membershipProvider.DeleteUser(user);
             }
-            userFind.IsDeleted = true;
-            context.Entry(userFind).State = EntityState.Modified;
-            context.SaveChanges();
         }
 
-        public static void ChangePassword(int itemId, string newPassword)
+        public static void ChangePassword(int portalId,int itemId, string newPassword)
         {
-
-            var context = new ModuleDbContext();
-            var userFind = context.Set<Users>().Find(itemId);
-            if (userFind == null) return;
-            var user = UserController.GetUserByName(0, userFind.Username);
+            var user = UserController.GetUserById(portalId,itemId);
             if (user != null)
             {
                 UserController.ResetAndChangePassword(user, newPassword);
