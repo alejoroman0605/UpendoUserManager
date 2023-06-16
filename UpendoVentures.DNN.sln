@@ -30,7 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Skins", "Skins", "{EAE79EDB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Viewsets", "Viewsets", "{C5228275-B3D3-4550-A755-98F70CDCEA69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Upendo.Modules.UserManager", "Modules\UpendoUserManaged\Upendo.Modules.UserManager.csproj", "{F1C44008-72AC-40AE-AC92-2A3648C0BB14}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Upendo.Modules.UserManager", "Modules\UserManager\Upendo.Modules.UserManager.csproj", "{F1C44008-72AC-40AE-AC92-2A3648C0BB14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
