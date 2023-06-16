@@ -33,5 +33,11 @@ namespace Upendo.Modules.UserManager.ViewModels
         public int PortalID { get; set; }
         public string[] UserRoles { get; set; }
         public string NewUserRol { get; set; }
+        public bool Authorized { get; set; }
+        public string Avatar { get; set; }
+        public DateTime? createdOnDate { get; set; }
+        public bool HasAgreedToTerms { get; set; }
+        public bool IsAdmin { get; set; }
+        public bool RequestsRemoval { get; set; }
     }
 }

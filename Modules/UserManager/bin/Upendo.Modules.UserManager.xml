@@ -22,7 +22,7 @@
             User Repository
             </summary>
         </member>
-        <member name="M:Upendo.Modules.UserManager.Utility.UserRepository.GetUsers(System.Double,System.Int32,System.String,System.Nullable{System.Int32},System.Int32,System.String,System.String,System.String)">
+        <member name="M:Upendo.Modules.UserManager.Utility.UserRepository.GetUsers(Upendo.Modules.UserManager.ViewModels.Pagination)">
             <summary>
             Get all users by param
             </summary>

@@ -23,8 +23,22 @@ namespace Upendo.Modules.UserManager.Controllers
             var takeValue = take ?? default;
             var skipValue = take == null ? default : skip.Value;
             var portalId = ModuleContext.PortalId;
+            var portalSettings = ModuleContext.PortalSettings;
+            string serverUrl = $"{Request.Url.Scheme}://{portalSettings.PortalAlias.HTTPAlias}";
             ViewBag.Filter = filter;
-            var result = UserRepository.GetUsers(takeValue, skipValue, filter, goToPage, portalId, search, orderBy, order);
+            var pagination= new Pagination()
+            {
+                Take = takeValue,
+                Skip = skipValue,
+                Filter = filter,
+                GoToPage = goToPage,
+                PortalId = portalId,
+                Search = search,
+                OrderBy = orderBy,
+                Order = order,
+                ServerUrl = serverUrl,
+            };
+            var result = UserRepository.GetUsers(pagination);
             return View(result);
         }
 
