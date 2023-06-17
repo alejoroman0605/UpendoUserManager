@@ -11,7 +11,7 @@
     int userId = ViewBag.User.UserId;
     var pageIndexMinus = (@Model.PageIndex - @Model.Take) <= 0 ? 0 : (@Model.PageIndex - @Model.Take);
     var pageIndexPlus = @Model.PageIndex + @Model.Take;
-    var pageIndexPaginate = @Model.PageIndex + 1;
+    var showing = @Model.PageIndex + 1;
     var pageIndexTo = @Model.PageIndex + @Model.Take;
     var pageView = @Model.GoToPage > 1 ? @Model.GoToPage : (pageIndexTo / @Model.Take) == 0 ? 1 : (pageIndexTo / @Model.Take);
 
@@ -136,7 +136,7 @@
             @Html.TextBoxFor(m => m.GoToPage, new { @class = "form-control", @type = "text", @style = "width: 82px; height: 40px;box-shadow: 0 0 3px 0 #888888" })
         </div>
         <div class="right">
-            <span> Showing @pageIndexPaginate to @pageIndexTo of @Model.RecordsTotal entries</span>
+            <span> Showing @showing to @pageIndexTo of @Model.RecordsTotal entries</span>
             <a data-hint="Previus" class="btn btn-default btn-sm hint--top hint--" href="@Url.Action("UserRoles", "UserManage", new {take = @Model.Take, pageIndex=@pageIndexMinus, search=@Model.Search, itemId=@userId})"
                data-toggle="tooltip" data-placement="top" title="Previus">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>

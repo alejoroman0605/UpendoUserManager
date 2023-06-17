@@ -24,10 +24,10 @@ namespace Upendo.Modules.UserManager.Utility
         public static DataTableResponse<Users> GetUsers(Pagination pagination)
         {
             pagination.Take = pagination.Take == 0 ? 10 : pagination.Take;
-           var goToPage = pagination.GoToPage ?? default;
+            int goToPage = pagination.GoToPage ?? default;
             if (goToPage != 0)
             {
-                pagination.PageIndex = goToPage - 1;
+                pagination.PageIndex = goToPage;
             }
             if (pagination.GoToPage == 1)
             {
@@ -51,7 +51,7 @@ namespace Upendo.Modules.UserManager.Utility
                 users = (from UserViewModel u in result select Functions.MakeUserFromViewModel(u)).ToList();
                 usersTotal = deserializeObject.TotalResults;
             }
-            var pagesTotal = usersTotal / pagination.Take;
+            var pagesTotal = Math.Ceiling(usersTotal / pagination.Take);
             return new DataTableResponse<Users>() { Take = pagination.Take, PageIndex = pagination.PageIndex, PagesTotal = pagesTotal, RecordsTotal = usersTotal, GoToPage = goToPage, Search = pagination.Search, OrderBy = pagination.OrderBy, Order = pagination.Order, Data = users };
         }
 
@@ -109,15 +109,13 @@ namespace Upendo.Modules.UserManager.Utility
                 result = result.Where(e => e.RoleName.Contains(search)).ToList();
                 rolesTotal = rolesViewModel.Count();
             }
-            var total = rolesTotal / take;
-            var pagesTotal = Math.Ceiling(Math.Max(total, 2)) == 0 ? 1 : Math.Ceiling(Math.Max(total, 2));
+            var pagesTotal = Math.Ceiling(rolesTotal / take);
             result = result.Skip(pageIndex).Take((int)take).ToList();
             return new DataTableResponse<RolesViewModel>()
             {
                 Take = take,
                 PageIndex = pageIndex,
-                PagesTotal =
-                pagesTotal,
+                PagesTotal = pagesTotal,
                 RecordsTotal = rolesTotal,
                 GoToPage = goToPageValue,
                 Search = search,
@@ -206,7 +204,7 @@ namespace Upendo.Modules.UserManager.Utility
             userInfo.Membership.LockedOut = user.LockedOut;
             if (!string.IsNullOrEmpty(user.Password) && user.Password != " ")
             {
-                ChangePassword(portalId,user.UserId, user.Password);
+                ChangePassword(portalId, user.UserId, user.Password);
             }
             if (user.NewUserRol != null)
             {
@@ -220,7 +218,7 @@ namespace Upendo.Modules.UserManager.Utility
         /// </summary>
         /// <param name="itemId"></param>
         /// <param name="portalId"></param>
-        public static void DeleteUser(int portalId,int itemId)
+        public static void DeleteUser(int portalId, int itemId)
         {
 
             var user = UserController.GetUserById(portalId, itemId);
@@ -234,9 +232,9 @@ namespace Upendo.Modules.UserManager.Utility
             }
         }
 
-        public static void ChangePassword(int portalId,int itemId, string newPassword)
+        public static void ChangePassword(int portalId, int itemId, string newPassword)
         {
-            var user = UserController.GetUserById(portalId,itemId);
+            var user = UserController.GetUserById(portalId, itemId);
             if (user != null)
             {
                 UserController.ResetAndChangePassword(user, newPassword);

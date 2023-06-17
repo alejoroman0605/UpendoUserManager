@@ -49,7 +49,7 @@ namespace Upendo.Modules.UserManager.Utility
             }
             roles = roles.Skip(pageIndex).Take((int)take).ToList();
             double total = rolesTotal / take;
-            var pagesTotal = Math.Ceiling(Math.Max(total, 2)) == 0 ? 1 : Math.Ceiling(Math.Max(total, 2));
+            var pagesTotal = Math.Ceiling(total);
             if (!string.IsNullOrEmpty(orderBy))
             {
                 switch (orderBy)
