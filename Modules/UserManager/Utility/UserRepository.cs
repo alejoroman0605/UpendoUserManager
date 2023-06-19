@@ -38,6 +38,7 @@ namespace Upendo.Modules.UserManager.Utility
             var usersTotal = 0.0;
             var url = $"/API/PersonaBar/Users/GetUsers?searchText={pagination.Search}&filter={pagination.Filter}&pageIndex={pagination.PageIndex}&pageSize={pagination.Take}&sortColumn={pagination.OrderBy}&sortAscending={ (pagination.Order != "desc") }&resetIndex=true";
             string apiUrl = pagination.ServerUrl + url;
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
             WebRequest request = WebRequest.Create(apiUrl);
             request.Method = "GET";
             request.Headers.Add(HttpRequestHeader.Cookie, Functions.DNNCookie());
