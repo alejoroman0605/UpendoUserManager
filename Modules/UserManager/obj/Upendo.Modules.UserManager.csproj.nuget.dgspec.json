@@ -1,21 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Trabajo\\NTSPRINT\\DNN Modules\\Modules\\UserManager\\Upendo.Modules.UserManager.csproj": {}
+    "D:\\Work\\UpendoUserManager\\Modules\\UserManager\\Upendo.Modules.UserManager.csproj": {}
   },
   "projects": {
-    "D:\\Trabajo\\NTSPRINT\\DNN Modules\\Modules\\UserManager\\Upendo.Modules.UserManager.csproj": {
+    "D:\\Work\\UpendoUserManager\\Modules\\UserManager\\Upendo.Modules.UserManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Trabajo\\NTSPRINT\\DNN Modules\\Modules\\UserManager\\Upendo.Modules.UserManager.csproj",
+        "projectUniqueName": "D:\\Work\\UpendoUserManager\\Modules\\UserManager\\Upendo.Modules.UserManager.csproj",
         "projectName": "Upendo.Modules.UserManager",
-        "projectPath": "D:\\Trabajo\\NTSPRINT\\DNN Modules\\Modules\\UserManager\\Upendo.Modules.UserManager.csproj",
-        "packagesPath": "C:\\Users\\alejandro\\.nuget\\packages\\",
-        "outputPath": "D:\\Trabajo\\NTSPRINT\\DNN Modules\\Modules\\UserManager\\obj\\",
+        "projectPath": "D:\\Work\\UpendoUserManager\\Modules\\UserManager\\Upendo.Modules.UserManager.csproj",
+        "packagesPath": "D:\\Users\\ntsprintdev005\\.nuget\\packages\\",
+        "outputPath": "D:\\Work\\UpendoUserManager\\Modules\\UserManager\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\alejandro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "D:\\Work\\UpendoUserManager\\Modules\\UserManager\\NuGet.Config",
+          "D:\\Users\\ntsprintdev005\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -23,8 +28,9 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "D:\\Trabajo\\Local Nugets": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "D:\\Work\\Local Nuget Package": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://dotnet.myget.org/F/dotnet-core/api/v3/index.json": {}
         },
         "frameworks": {
           "net472": {
