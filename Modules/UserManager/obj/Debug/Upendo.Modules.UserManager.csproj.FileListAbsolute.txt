@@ -111,4 +111,3 @@ D:\Trabajo\NTSPRINT\DNN Modules\Modules\UserManager\obj\Debug\Upendo.Modules.Use
 D:\Trabajo\NTSPRINT\DNN Modules\Modules\UserManager\obj\Debug\Upendo.Modules.UserManager.csproj.CopyComplete
 D:\Trabajo\NTSPRINT\DNN Modules\Modules\UserManager\obj\Debug\Upendo.Modules.UserManager.dll
 D:\Trabajo\NTSPRINT\DNN Modules\Modules\UserManager\obj\Debug\Upendo.Modules.UserManager.pdb
-D:\Trabajo\NTSPRINT\DNN Modules\Modules\UserManager\obj\Debug\Upendo.Modules.UserManager.csproj.AssemblyReference.cache

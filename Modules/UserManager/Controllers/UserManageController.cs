@@ -91,8 +91,20 @@ namespace Upendo.Modules.UserManager.Controllers
         [HttpPost]
         public ActionResult Create(UserViewModel item)
         {
-            //var portalId = PortalController.Instance.GetCurrentPortalSettings().PortalId;
             var portalId = ModuleContext.PortalId;
+            var user = UserController.GetUserByName(portalId, item.Username);
+
+            if (user != null)
+            {
+                ModelState.AddModelError(string.Empty, "The username is already in use.");
+                ModelState.Remove("UserId");
+                return View(item);
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(item);
+            }           
+            //var portalId = PortalController.Instance.GetCurrentPortalSettings().PortalId;
             UserRepository.CreateUser(item, portalId);
             return RedirectToAction("Index");
         }
