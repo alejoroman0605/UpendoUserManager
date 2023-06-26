@@ -110,7 +110,7 @@
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\RolesRepository.cs" />
-    <Compile Include="Utility\UsuarioRepository.cs" />
+    <Compile Include="Utility\UserRepository.cs" />
     <Compile Include="Utility\Functions.cs" />
     <Compile Include="ViewModels\Pagination.cs" />
     <Compile Include="ViewModels\RolesViewModel.cs" />

@@ -1,14 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Upendo.Modules.UpendoUserManaged.ViewModels
 {
+    public struct Pagination
+    {
+        public double Take { get; set; }
+        public int PageIndex { get; set; }
+        public string Filter { get; set; }
+        public int? GoToPage { get; set; }
+        public int PortalId { get; set; }
+        public string Search { get; set; }
+        public string OrderBy;
+        public string Order;
+        public string ServerUrl;
+    }
     public struct DataTableResponse<T>
     {
         public double Take { get; set; }
-        public int Skip { get; set; }
+        public int PageIndex { get; set; }
         public int Page { get; set; }
         public int GoToPage { get; set; }
         public double PagesTotal { get; set; }

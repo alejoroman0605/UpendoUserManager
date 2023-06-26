@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Trabajo\\NTSPRINT\\Extension Generator Upendo DNN\\UpendoUserManaged\\Modules\\UpendoUserManaged\\Upendo.Modules.UpendoUserManaged.csproj": {}
+    "D:\\Trabajo\\NTSPRINT\\DNN Modules\\Modules\\UpendoUserManaged\\Upendo.Modules.UpendoUserManaged.csproj": {}
   },
   "projects": {
-    "D:\\Trabajo\\NTSPRINT\\Extension Generator Upendo DNN\\UpendoUserManaged\\Modules\\UpendoUserManaged\\Upendo.Modules.UpendoUserManaged.csproj": {
+    "D:\\Trabajo\\NTSPRINT\\DNN Modules\\Modules\\UpendoUserManaged\\Upendo.Modules.UpendoUserManaged.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Trabajo\\NTSPRINT\\Extension Generator Upendo DNN\\UpendoUserManaged\\Modules\\UpendoUserManaged\\Upendo.Modules.UpendoUserManaged.csproj",
+        "projectUniqueName": "D:\\Trabajo\\NTSPRINT\\DNN Modules\\Modules\\UpendoUserManaged\\Upendo.Modules.UpendoUserManaged.csproj",
         "projectName": "Upendo.Modules.UpendoUserManaged",
-        "projectPath": "D:\\Trabajo\\NTSPRINT\\Extension Generator Upendo DNN\\UpendoUserManaged\\Modules\\UpendoUserManaged\\Upendo.Modules.UpendoUserManaged.csproj",
+        "projectPath": "D:\\Trabajo\\NTSPRINT\\DNN Modules\\Modules\\UpendoUserManaged\\Upendo.Modules.UpendoUserManaged.csproj",
         "packagesPath": "C:\\Users\\alejandro\\.nuget\\packages\\",
-        "outputPath": "D:\\Trabajo\\NTSPRINT\\Extension Generator Upendo DNN\\UpendoUserManaged\\Modules\\UpendoUserManaged\\obj\\",
+        "outputPath": "D:\\Trabajo\\NTSPRINT\\DNN Modules\\Modules\\UpendoUserManaged\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "configFilePaths": [

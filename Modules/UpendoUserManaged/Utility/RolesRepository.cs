@@ -3,6 +3,7 @@ using System.Linq;
 using Upendo.Modules.UpendoUserManaged.Models.DnnModel;
 using Upendo.Modules.UpendoUserManaged.ViewModels;
 using DotNetNuke.Security.Roles;
+using Upendo.Modules.UpendoUserManaged.Utility;
 
 namespace Upendo.Modules.UpendoUserManaged.Utility
 {

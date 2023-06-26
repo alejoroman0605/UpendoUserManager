@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pLhClydk9mDi29EUxFZx6LBKEYekUAnDoD/OxZyMrt6j4NA35BlqlGmREqdC+DN9pTRbTRUOkXi8T3xrkJHPTw==",
+  "dgSpecHash": "+cN2LUOoPKPEEw9zEIVwU8KCqdudkR34cB0oC6Haw5Jk2gL0CjpQeIxqhmGTEEGbifL8w67PmpyBTlwb8nPlSA==",
   "success": true,
-  "projectFilePath": "D:\\Trabajo\\NTSPRINT\\Extension Generator Upendo DNN\\UpendoUserManaged\\Modules\\UpendoUserManaged\\Upendo.Modules.UpendoUserManaged.csproj",
+  "projectFilePath": "D:\\Trabajo\\NTSPRINT\\DNN Modules\\Modules\\UpendoUserManaged\\Upendo.Modules.UpendoUserManaged.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\alejandro\\.nuget\\packages\\dotnetnuke.core\\9.3.2\\dotnetnuke.core.9.3.2.nupkg.sha512",
     "C:\\Users\\alejandro\\.nuget\\packages\\dotnetnuke.instrumentation\\9.3.2\\dotnetnuke.instrumentation.9.3.2.nupkg.sha512",

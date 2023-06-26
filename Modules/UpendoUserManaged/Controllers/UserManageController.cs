@@ -17,13 +17,48 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
     public class UserManageController : DnnController
     {
         [ModuleAction(ControlKey = "Edit", TitleKey = "AddItem")]
-        public ActionResult Index(double? take, int? skip, string filter, int? goToPage, string search, string orderBy, string order)
+        public ActionResult Index(double? take, int? pageIndex, string filter, int? goToPage, string search, string orderBy, string order)
         {
-            double takeValue = take == null ? default : take.Value;
-            int skipValue = take == null ? default : skip.Value;
+            var takeValue = take ?? default;
+            var pageIndexValue = take == null ? default : pageIndex.Value;
             var portalId = ModuleContext.PortalId;
-            ViewBag.Filter = filter;
-            var result = UsuarioRepository.GetUsers(takeValue, skipValue, filter, goToPage, portalId, search, orderBy, order);
+            var portalSettings = ModuleContext.PortalSettings;
+            string serverUrl = $"{Request.Url.Scheme}://{portalSettings.PortalAlias.HTTPAlias}";
+            switch (filter)
+            {
+                case "8":
+                    ViewBag.Filter = "All";
+                    break;
+                case "0":
+                    ViewBag.Filter = "Authorized";
+                    break;
+                case "1":
+                    ViewBag.Filter = "Unauthorized";
+                    break;
+                case "2":
+                    ViewBag.Filter = "Deleted";
+                    break;
+                case "3":
+                    ViewBag.Filter = "SuperUsers";
+                    break;
+                default:
+                    filter = "0";
+                    ViewBag.Filter = "Authorized";
+                    break;
+            }
+            var pagination = new Pagination()
+            {
+                Take = takeValue,
+                PageIndex = pageIndexValue,
+                Filter = filter,
+                GoToPage = goToPage,
+                PortalId = portalId,
+                Search = search,
+                OrderBy = orderBy,
+                Order = order,
+                ServerUrl = serverUrl,
+            };
+            var result = UserRepository.GetUsers(pagination);
             return View(result);
         }
 
@@ -35,7 +70,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         public ActionResult CreateUserTest()
         {
             var portalId = ModuleContext.PortalId;
-            for (int i = 1001; i < 2000; i++)
+            for (var i = 1; i < 3000; i++)
             {
                 var item = new UserViewModel()
                 {
@@ -48,7 +83,7 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
                     Approved = true,
                     Password = "Admin123*"
                 };
-                UsuarioRepository.CreateUser(item, portalId);
+                UserRepository.CreateUser(item, portalId);
             }
             return RedirectToAction("Index");
         }
@@ -58,14 +93,14 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         {
             //var portalId = PortalController.Instance.GetCurrentPortalSettings().PortalId;
             var portalId = ModuleContext.PortalId;
-            UsuarioRepository.CreateUser(item, portalId);
+            UserRepository.CreateUser(item, portalId);
             return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int itemId)
         {
             var portalId = ModuleContext.PortalId;
-            var item = UsuarioRepository.GetUser(portalId, itemId);
+            var item = UserRepository.GetUser(portalId, itemId);
             return View(item);
         }
 
@@ -74,35 +109,38 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
         {
             //int editedFor = User.UserID;
             var portalId = ModuleContext.PortalId;
-            UsuarioRepository.EditUser(portalId, item);
+            UserRepository.EditUser(portalId, item);
             return RedirectToDefaultRoute();
         }
         public ActionResult Details(int itemId)
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
             var portalId = ModuleContext.PortalId;
-            var item = UsuarioRepository.GetUser(portalId, itemId);
+            var item = UserRepository.GetUser(portalId, itemId);
             return View(item);
         }
         public ActionResult Delete(int itemId)
         {
-            UsuarioRepository.DeleteUser(itemId);
+            var portalId = ModuleContext.PortalId;
+            UserRepository.DeleteUser(portalId, itemId);
             return RedirectToDefaultRoute();
         }
         public ActionResult ChangePassword(int itemId)
         {
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
             var portalId = ModuleContext.PortalId;
-            var item = UsuarioRepository.GetUser(portalId, itemId);
+            var item = UserRepository.GetUser(portalId, itemId);
             return View(item);
         }
 
         [HttpPost]
         public ActionResult ChangePassword(UserViewModel user)
         {
+            var portalId = ModuleContext.PortalId;
+
             if (user.Password.Equals(user.ConfirmPassword))
             {
-                UsuarioRepository.ChangePassword(user.UserId, user.Password);
+                UserRepository.ChangePassword(portalId, user.UserId, user.Password);
             }
             return RedirectToDefaultRoute();
         }
@@ -119,10 +157,10 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
             return RedirectToDefaultRoute();
         }
 
-        public ActionResult UserRoles(double? take, int? skip, int? goToPage, string search, int itemId, int? roleId, string actionView)
+        public ActionResult UserRoles(double? take, int? pageIndex, int? goToPage, string search, int itemId, int? roleId, string actionView)
         {
             double takeValue = take == null ? default : take.Value;
-            int skipValue = take == null ? default : skip.Value;
+            int pageIndexValue = take == null ? default : pageIndex.Value;
             int roleIdValue = roleId == null ? default : roleId.Value;
 
             var portalId = ModuleContext.PortalId;
@@ -139,8 +177,8 @@ namespace Upendo.Modules.UpendoUserManaged.Controllers
                     RoleController.Instance.UpdateUserRole(portalId, itemId, roleIdValue, RoleStatus.Approved, false, true);
                 }
             }
-            ViewBag.User = UsuarioRepository.GetUser(portalId, itemId);
-            var result = UsuarioRepository.GetRolesByUser(takeValue, skipValue, goToPage, portalId, search, itemId);
+            ViewBag.User = UserRepository.GetUser(portalId, itemId);
+            var result = UserRepository.GetRolesByUser(takeValue, pageIndexValue, goToPage, portalId, search, itemId);
             return View(result);
         }
     }
