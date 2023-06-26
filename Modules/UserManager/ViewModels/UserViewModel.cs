@@ -9,12 +9,16 @@ namespace Upendo.Modules.UserManager.ViewModels
     {
         [Key]
         public int UserId { get; set; }
+        [Required]
         public string Username { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
         public bool IsSuperUser { get; set; }
         public bool Approved { get; set; }
         public int? AffiliateId { get; set; }
+        [Required]
         public string Email { get; set; }
         public string DisplayName { get; set; }
         public string Password { get; set; }
@@ -35,7 +39,6 @@ namespace Upendo.Modules.UserManager.ViewModels
         public string NewUserRol { get; set; }
         public bool Authorized { get; set; }
         public string Avatar { get; set; }
-        public DateTime? createdOnDate { get; set; }
         public bool HasAgreedToTerms { get; set; }
         public bool IsAdmin { get; set; }
         public bool RequestsRemoval { get; set; }

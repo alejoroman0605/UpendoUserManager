@@ -17,7 +17,6 @@ namespace Upendo.Modules.UserManager.Controllers
     [DnnHandleError]
     public class UserManageController : DnnController
     {
-        [ModuleAction(ControlKey = "Edit", TitleKey = "AddItem")]
         public ActionResult Index(double? take, int? pageIndex, string filter, int? goToPage, string search, string orderBy, string order)
         {
             var takeValue = take ?? default;
