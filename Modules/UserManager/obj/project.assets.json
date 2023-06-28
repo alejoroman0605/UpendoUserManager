@@ -1093,11 +1093,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Trabajo\\NTSPRINT\\DNN Modules\\Modules\\UserManager\\Upendo.Modules.UserManager.csproj",
+      "projectUniqueName": "D:\\Trabajo\\NTSPRINT\\DNN Modules\\UpendoVentures.DNN\\Modules\\UserManager\\Upendo.Modules.UserManager.csproj",
       "projectName": "Upendo.Modules.UserManager",
-      "projectPath": "D:\\Trabajo\\NTSPRINT\\DNN Modules\\Modules\\UserManager\\Upendo.Modules.UserManager.csproj",
+      "projectPath": "D:\\Trabajo\\NTSPRINT\\DNN Modules\\UpendoVentures.DNN\\Modules\\UserManager\\Upendo.Modules.UserManager.csproj",
       "packagesPath": "C:\\Users\\alejandro\\.nuget\\packages\\",
-      "outputPath": "D:\\Trabajo\\NTSPRINT\\DNN Modules\\Modules\\UserManager\\obj\\",
+      "outputPath": "D:\\Trabajo\\NTSPRINT\\DNN Modules\\UpendoVentures.DNN\\Modules\\UserManager\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [

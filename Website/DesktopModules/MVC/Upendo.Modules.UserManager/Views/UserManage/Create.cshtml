@@ -16,9 +16,12 @@
         </div>
     </div>
     <hr />
-    <div class="alert alert-danger">
-        @Html.ValidationSummary(false, "", new { @class = "" })
-    </div>
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationSummary(false, "", new { @class = "" })
+        </div>
+    }
     <fieldset class="ml30">
         <div class="formItem col-6">
             <div><label>First Name</label></div>
@@ -42,13 +45,25 @@
         </div>
         <div class="formItem col-6">
             <div><label>Password</label></div>
-            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @id = "password", @type = "password" })
-            @Html.ValidationMessageFor(m => m.Password)
+            @Html.TextBoxFor(m => m.Password, new
+            {
+                @class = "form-control",
+                @id = "password",
+                @type = "password",
+            onkeyup = "handlePasswordValidation();"
+            })
+            <span id="passwordValidationMessage"></span>
         </div>
         <div class="formItem col-6">
             <div><label>Confirm Password</label></div>
-            <input type="password" name="confirm_password" id="confirm_password" onkeyup='validatePassword();' />
-            <span id="message"></span>
+            @Html.TextBoxFor(m => m.ConfirmPassword, new
+            {
+                @id = "confirm_password",
+                @type = "password",
+                onkeyup =
+            "validatePassword();"
+            })
+            <span id='message'></span>
         </div>
         <div class="formItem col-12">
             <div class="dnnFormItem col-3">
@@ -68,7 +83,7 @@
     </fieldset>
     <div class="buttomForm mt20">
         <div class="center">
-            <button type="submit" class="primary" id="saveButton">Save</button>
+            <button type="submit" class="disabled" id="saveButton" disabled>Save</button>
             <a type="button" class="cancel-buttom" style="color: white;" href="@Url.Action("Index", "UserManage")">
                 Cancel
             </a>
@@ -76,6 +91,40 @@
     </div>
 </div>
 <script type="text/javascript">
+    function validatePassStrength(pass, minLength, minNumberOfSpecialChars, validationExpression) {
+        var passwordElement = document.getElementById('password');
+        var passwordValidationMessage = document.getElementById('passwordValidationMessage');
+        if (pass.length < minLength) {
+            passwordElement.style.color = "red";
+            passwordValidationMessage.style.color = "red";
+            return "weak";
+        }
+        var specialChars = pass.match(/[!@@#$%^&*(),.?":{}|<>+\-]/g);
+        if (specialChars === null || specialChars.length < minNumberOfSpecialChars) {
+            passwordElement.style.color = "#f6d500";
+            passwordValidationMessage.style.color = "#f6d500";
+            return "fair";
+        }
+        if (validationExpression !== "" && !new RegExp(validationExpression).test(pass)) {
+            passwordElement.style.color = "#f6d500";
+            passwordValidationMessage.style.color = "#f6d500";
+            return "fair";
+        }
+        passwordElement.style.color = "green";
+        passwordValidationMessage.style.color = "green";
+        return "strong";
+    }
+    function handlePasswordValidation() {
+        var password = document.getElementById('password').value;
+        var minLength = 7;
+        var minNumberOfSpecialChars = 0;
+        var validationExpression = "";
+        var result = validatePassStrength(password, minLength, minNumberOfSpecialChars, validationExpression);
+        var messageElement = document.getElementById('passwordValidationMessage');
+        if (messageElement) {
+            messageElement.innerHTML = result;
+        }
+    }
     function validatePassword() {
         var password = document.getElementById('password').value;
         var confirm_password = document.getElementById('confirm_password').value;
