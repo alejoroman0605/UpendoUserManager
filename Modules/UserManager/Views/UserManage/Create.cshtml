@@ -47,9 +47,9 @@
             <div><label>Password</label></div>
             @Html.TextBoxFor(m => m.Password, new
             {
-            @class = "form-control",
-            @id = "password",
-            @type = "password",
+                @class = "form-control",
+                @id = "password",
+                @type = "password",
             onkeyup = "handlePasswordValidation();"
             })
             <span id="passwordValidationMessage"></span>
@@ -58,9 +58,9 @@
             <div><label>Confirm Password</label></div>
             @Html.TextBoxFor(m => m.ConfirmPassword, new
             {
-            @id = "confirm_password",
-            @type = "password",
-            onkeyup =
+                @id = "confirm_password",
+                @type = "password",
+                onkeyup =
             "validatePassword();"
             })
             <span id='message'></span>
@@ -91,22 +91,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    var passwordStrengthOptions = {};
-    $(document).ready(function () {
-        $.ajax({
-            url: window.location.origin + "/API/PersonaBar/Users/PasswordStrengthOptions",
-            method: "GET",
-            headers: { "RequestVerificationToken": "UtXVFTq9dqdkUeFX2k66eYZmRGugU0fQEXE0i-QPwhdxe7U8THMFiSqDmT6staoz4St9vlZBUynKM24n0" },
-            dataType: "json",
-            success: function (response) {
-                passwordStrengthOptions = response;
-            },
-            error: function (error) {
-                console.error("Error: " + error);
-            }
-        });
-    });
-
     function validatePassStrength(pass, minLength, minNumberOfSpecialChars, validationExpression) {
         var passwordElement = document.getElementById('password');
         var passwordValidationMessage = document.getElementById('passwordValidationMessage');
@@ -132,7 +116,10 @@
     }
     function handlePasswordValidation() {
         var password = document.getElementById('password').value;
-        var result = validatePassStrength(password, passwordStrengthOptions.minLength, passwordStrengthOptions.minNumberOfSpecialChars, passwordStrengthOptions.validationExpression);
+        var minLength = 7;
+        var minNumberOfSpecialChars = 0;
+        var validationExpression = "";
+        var result = validatePassStrength(password, minLength, minNumberOfSpecialChars, validationExpression);
         var messageElement = document.getElementById('passwordValidationMessage');
         if (messageElement) {
             messageElement.innerHTML = result;
