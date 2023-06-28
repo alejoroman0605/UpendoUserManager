@@ -77,14 +77,14 @@ namespace Upendo.Modules.UserManager.Controllers
 
             if (user != null)
             {
-                ModelState.AddModelError(string.Empty, "The username is already in use.");
+                ModelState.AddModelError(string.Empty, @"The username is already in use.");
                 ModelState.Remove("UserId");
                 return View(item);
             }
             var isValidUserName = UserController.Instance.IsValidUserName(item.Username);
             if (isValidUserName)
             {
-                ModelState.AddModelError(string.Empty, "The username is not valid");
+                ModelState.AddModelError(string.Empty, @"The username is not valid");
                 return View(item);
             }
             if (!ModelState.IsValid)
