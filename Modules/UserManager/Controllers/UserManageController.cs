@@ -68,27 +68,7 @@ namespace Upendo.Modules.UserManager.Controllers
             DotNetNuke.Framework.JavaScriptLibraries.JavaScript.RequestRegistration(CommonJs.DnnPlugins);
             return View();
         }
-        public ActionResult CreateUserTest()
-        {
-            var portalId = ModuleContext.PortalId;
-            for (var i = 1; i < 3000; i++)
-            {
-                var item = new UserViewModel()
-                {
-                    Username = "user" + i,
-                    LastName = "Last Name " + i,
-                    FirstName = "User" + i,
-                    Email = "user" + i + "@gmail.com",
-                    IsSuperUser = false,
-                    IsDeleted = false,
-                    Approved = true,
-                    Password = "Admin123*"
-                };
-                UserRepository.CreateUser(item, portalId);
-            }
-            return RedirectToAction("Index");
-        }
-
+        
         [HttpPost]
         public ActionResult Create(UserViewModel item)
         {
