@@ -50,7 +50,7 @@ In order to debug the code, you'll need to follow the steps below:
 - Debug Code
 - [Create a Pull Request](https://github.com/UpendoVentures/Upendo-Dnn-UserManager/wiki/Create-a-Pull-Request)
 
-# License
+## License
 
 MIT License
 
@@ -74,7 +74,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-# Support for this Project
+## Support for this Project
 
 This solution and the related materials are proudly created and provided by Upendo Ventures.
 
